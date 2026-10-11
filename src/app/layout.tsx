@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 
 import "./globals.css";
-
-const geist = Geist({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-geist",
-});
 
 export const metadata: Metadata = {
   title: "ERTKAZ GROUP — Strategy Today. Impact Tomorrow.",
@@ -18,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={geist.variable}>
+    <html lang="en" className={GeistSans.variable}>
       <body>
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
