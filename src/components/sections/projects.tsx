@@ -150,8 +150,6 @@ export function Projects() {
                   <span>{project.category}</span>
                 </div>
                 <h3 data-project-meta>{project.title}</h3>
-                <p data-project-meta>{project.description}</p>
-                <span className="project-meta__status" data-project-meta>{project.status}</span>
               </div>
             </article>
           ))}
