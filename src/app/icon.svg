@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>ERTKAZ GROUP</title>
+  <rect width="512" height="512" rx="92" fill="#0b3458"/>
+  <g fill="none" stroke-linecap="square" stroke-linejoin="round" stroke-width="30">
+    <path
+      d="M237 101 377 182v162L237 425 97 344V182Z"
+      stroke="#42a9d5"
+    />
+    <path d="m223 81 139 80 2 82" stroke="#f7f8f6"/>
+    <path d="m363 323-140 81-72-42" stroke="#f7f8f6"/>
+    <path d="M83 323V161l71-41" stroke="#f7f8f6"/>
+  </g>
+</svg>
