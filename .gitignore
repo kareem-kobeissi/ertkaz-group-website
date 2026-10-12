@@ -32,3 +32,6 @@ next-env.d.ts
 
 # private source PDFs
 /references/*.pdf
+
+# internal planning and QA documentation
+/docs/
