@@ -29,3 +29,6 @@ next-env.d.ts
 
 # local PDF review renders
 /.pdf-preview/
+
+# private source PDFs
+/references/*.pdf
