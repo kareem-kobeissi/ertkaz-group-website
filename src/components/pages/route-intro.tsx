@@ -79,10 +79,6 @@ export function RouteIntro({ locale, page }: { locale: Locale; page: ScaffoldPag
 
         <div className="route-intro__footer" data-route-reveal>
           <p>{copy.description}</p>
-          <p className="route-intro__status">
-            <span aria-hidden="true" />
-            {copy.status}
-          </p>
           <ArrowDown aria-hidden="true" />
         </div>
       </Container>

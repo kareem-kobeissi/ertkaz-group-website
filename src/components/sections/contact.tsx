@@ -101,7 +101,7 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
               <span>{copy.titleLines[1]}</span>
             </h2>
 
-            <a className="contact-cta" href={companyContact.email.href} data-contact-cta data-cursor="cta">
+            <a className="contact-cta" href={companyContact.phone.href} data-contact-cta data-cursor="cta">
               <span>{copy.cta}</span>
               <ArrowUpRight aria-hidden="true" />
               <svg viewBox="0 0 160 160" aria-hidden="true" data-contact-ring>
@@ -111,30 +111,9 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
           </div>
 
           <div className="contact-directory" aria-label={copy.directoryLabel}>
-            <a className="contact-row contact-row--email" href={companyContact.email.href} data-contact-row data-cursor="link">
-              <span className="contact-row__label">{copy.email}</span>
-              <span dir="ltr">{companyContact.email.label}</span>
-              <ArrowUpRight aria-hidden="true" />
-            </a>
-
-            {companyContact.phones.map((phone, index) => (
-              <a className="contact-row" href={phone.href} key={phone.href} data-contact-row data-cursor="link">
-                <span className="contact-row__label">{copy.phone} 0{index + 1}</span>
-                <span dir="ltr">{phone.label}</span>
-                <ArrowUpRight aria-hidden="true" />
-              </a>
-            ))}
-
-            <a
-              className="contact-row"
-              href={companyContact.website.href}
-              target="_blank"
-              rel="noreferrer"
-              data-contact-row
-              data-cursor="link"
-            >
-              <span className="contact-row__label">{copy.website}</span>
-              <span dir="ltr">{companyContact.website.label}</span>
+            <a className="contact-row" href={companyContact.phone.href} data-contact-row data-cursor="link">
+              <span className="contact-row__label">{copy.phone}</span>
+              <span dir="ltr">{companyContact.phone.label}</span>
               <ArrowUpRight aria-hidden="true" />
             </a>
           </div>

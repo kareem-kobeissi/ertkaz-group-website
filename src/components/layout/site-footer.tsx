@@ -3,7 +3,7 @@ import { ArrowUp } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { siteCopy } from "@/content/site-copy";
 import { companyContact } from "@/data/company-contact";
-import { localizedPath, pages, type Locale } from "@/lib/i18n/config";
+import { localizedPath, navigationPages, type Locale } from "@/lib/i18n/config";
 
 type SiteFooterProps = {
   locale: Locale;
@@ -31,7 +31,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
         </div>
 
         <nav className="footer-navigation" aria-label={copy.footer.navigationLabel} data-footer-reveal>
-          {pages.map((page) => (
+          {navigationPages.map((page) => (
             <a href={localizedPath(locale, page)} key={page} data-cursor="link">
               {copy.navigation[page]}
             </a>
@@ -39,9 +39,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
         </nav>
 
         <div className="footer-contact" data-footer-reveal dir="ltr">
-          <a href={companyContact.email.href} data-cursor="link">{companyContact.email.label}</a>
-          <a href={companyContact.phones[0].href} data-cursor="link">{companyContact.phones[0].label}</a>
-          <a href={companyContact.phones[1].href} data-cursor="link">{companyContact.phones[1].label}</a>
+          <a href={companyContact.phone.href} data-cursor="link">{companyContact.phone.label}</a>
         </div>
 
         <div className="footer-bottom" data-footer-reveal>

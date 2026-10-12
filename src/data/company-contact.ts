@@ -1,16 +1,5 @@
 export const companyContact = {
-  email: {
-    label: "ceo@ertkazgroup.com",
-    href: "mailto:ceo@ertkazgroup.com",
-  },
-  phones: [
-    { label: "+961 70 943 860", href: "tel:+96170943860" },
-    { label: "+971 52 911 1578", href: "tel:+971529111578" },
-  ],
-  website: {
-    label: "www.ertkazgroup.com",
-    href: "https://www.ertkazgroup.com",
-  },
+  phone: { label: "+971 52 911 1578", href: "tel:+971529111578" },
 } as const;
 
 export const footerNavigation = [

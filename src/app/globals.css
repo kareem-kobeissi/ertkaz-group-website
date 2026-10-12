@@ -16,6 +16,12 @@
 
   --space-page: clamp(1.25rem, 4vw, 5rem);
   --space-section: clamp(5rem, 11vw, 10rem);
+  --type-desktop-hero: clamp(4.25rem, 5.5vw, 5.5rem);
+  --type-desktop-page: clamp(3.75rem, 4.75vw, 4.75rem);
+  --type-desktop-section: clamp(3rem, 4vw, 4rem);
+  --type-desktop-secondary: clamp(2rem, 2.75vw, 2.75rem);
+  --type-desktop-tertiary: clamp(1.75rem, 2.25vw, 2.25rem);
+  --type-desktop-body: clamp(1rem, 1.05vw, 1.1875rem);
   --radius-pill: 999px;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -1820,7 +1826,7 @@ button:focus-visible {
 .route-intro__footer {
   grid-column: 1 / 13;
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(14rem, 0.75fr) 3rem;
+  grid-template-columns: minmax(0, 1fr) 3rem;
   align-items: center;
   gap: clamp(2rem, 5vw, 6rem);
   margin-top: clamp(3rem, 7vh, 6rem);
@@ -1837,27 +1843,8 @@ button:focus-visible {
   letter-spacing: -0.02em;
 }
 
-.route-intro__status {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin: 0;
-  color: var(--brand-navy);
-  font-size: 0.62rem;
-  font-weight: 580;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.route-intro__status span {
-  width: 0.48rem;
-  height: 0.48rem;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: var(--brand-cyan);
-}
-
 .route-intro__footer > svg {
+  justify-self: end;
   width: 2.6rem;
   height: 2.6rem;
   border: 1px solid color-mix(in srgb, var(--brand-navy) 35%, transparent);
@@ -4133,6 +4120,277 @@ html[lang="ar"] .service-detail__art { left: 0; }
   html[lang="ar"] .service-detail__art {
     right: auto;
     left: -12%;
+  }
+}
+
+/* Shared refinement layer: desktop scale without changing established phone typography. */
+@media (min-width: 1200px) {
+  .hero-title,
+  .contact-title {
+    font-size: var(--type-desktop-hero);
+    line-height: 0.9;
+  }
+
+  .route-intro__title,
+  .service-detail__title {
+    font-size: var(--type-desktop-page);
+    line-height: 0.92;
+  }
+
+  .about-statement,
+  .services-title,
+  .projects-title,
+  .philosophy-statement,
+  .leadership-name,
+  .profile-highlights__title,
+  .markets-preview__title,
+  .profile-introduction__title,
+  .profile-values-page__title,
+  .profile-sectors__heading h2,
+  .profile-services-index__intro h2,
+  .markets-profile__title {
+    font-size: var(--type-desktop-section);
+    line-height: 0.94;
+  }
+
+  .profile-purpose__chapter h3,
+  .service-index-group__heading h3,
+  .markets-profile__row h3,
+  .service-detail__description p,
+  .project-meta h3,
+  .project:nth-child(n + 2) .project-meta h3 {
+    font-size: var(--type-desktop-secondary);
+    line-height: 1;
+  }
+
+  .service-index-row__copy h4,
+  .profile-sectors__row p,
+  .service-detail__pagination strong {
+    font-size: var(--type-desktop-tertiary);
+    line-height: 1.05;
+  }
+
+  .route-intro__footer > p:first-child,
+  .about-summary,
+  .projects-note,
+  .profile-introduction__copy p,
+  .profile-purpose__chapter li p,
+  .profile-sectors__heading > p,
+  .profile-services-index__intro > p,
+  .markets-profile__introduction,
+  .service-detail__summary,
+  .profile-highlights__footer > p,
+  .markets-preview__footer > p {
+    font-size: var(--type-desktop-body);
+  }
+
+  .service-detail__description {
+    grid-column: 3 / 12;
+  }
+
+  html[lang="ar"] .hero-title,
+  html[lang="ar"] .contact-title {
+    font-size: clamp(4rem, 5vw, 5rem);
+    line-height: 1.12;
+    letter-spacing: 0;
+  }
+
+  html[lang="ar"] .route-intro__title,
+  html[lang="ar"] .service-detail__title {
+    font-size: clamp(3.75rem, 4.5vw, 4.5rem);
+    line-height: 1.18;
+    letter-spacing: 0;
+  }
+
+  html[lang="ar"] :is(
+    .about-statement,
+    .services-title,
+    .philosophy-statement,
+    .leadership-name,
+    .profile-highlights__title,
+    .markets-preview__title,
+    .profile-introduction__title,
+    .profile-values-page__title,
+    .profile-sectors__heading h2,
+    .profile-services-index__intro h2,
+    .markets-profile__title
+  ) {
+    font-size: clamp(3rem, 3.75vw, 3.75rem);
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  html[lang="ar"] :is(
+    .profile-purpose__chapter h3,
+    .service-index-group__heading h3,
+    .markets-profile__row h3,
+    .service-detail__description p,
+    .service-index-row__copy h4,
+    .profile-sectors__row p,
+    .service-detail__pagination strong
+  ) {
+    letter-spacing: 0;
+    line-height: 1.3;
+  }
+}
+
+/* Mobile rhythm pass. Heading sizes intentionally remain unchanged. */
+@media (max-width: 600px) {
+  .route-intro__footer {
+    grid-template-columns: minmax(0, 1fr) 2.4rem;
+    gap: 1.5rem;
+    margin-top: 3.25rem;
+    padding-top: 1.2rem;
+  }
+
+  .route-intro__footer > p:first-child {
+    grid-column: 1 / 3;
+    line-height: 1.62;
+  }
+
+  .about-statement {
+    margin-block: 5.75rem 6.25rem;
+  }
+
+  .about-notes {
+    column-gap: 0.8rem;
+    row-gap: 1rem;
+  }
+
+  .about-notes p {
+    padding-top: 0.9rem;
+  }
+
+  .about-summary {
+    margin-top: 3.75rem;
+    line-height: 1.65;
+  }
+
+  .profile-introduction__title {
+    margin-block: 4.75rem 3.25rem;
+  }
+
+  .profile-introduction__copy p {
+    line-height: 1.7;
+  }
+
+  .profile-introduction__copy p + p {
+    margin-top: 1.75rem;
+  }
+
+  .profile-purpose__chapter + .profile-purpose__chapter {
+    margin-top: 7.5rem;
+  }
+
+  .profile-purpose__chapter h3 {
+    margin-block: 4.25rem 3.5rem;
+  }
+
+  .profile-purpose__chapter li {
+    gap: 0.9rem;
+    padding-block: 1.5rem;
+  }
+
+  .profile-purpose__chapter li p {
+    line-height: 1.65;
+  }
+
+  .profile-values-page__title,
+  .profile-sectors__heading h2 {
+    margin-block: 4.75rem 5rem;
+  }
+
+  .profile-values-page__list {
+    row-gap: 3rem;
+  }
+
+  .profile-sectors__heading > p {
+    margin-bottom: 5rem;
+    line-height: 1.65;
+  }
+
+  .profile-sectors__row {
+    padding-block: 1.4rem;
+  }
+
+  .profile-services-index__intro h2 {
+    margin-block: 4.25rem 3rem;
+  }
+
+  .profile-services-index__intro > p,
+  .service-index-group__heading p,
+  .service-index-row__copy > p,
+  .markets-profile__introduction,
+  .markets-profile__clarification,
+  .service-detail__summary {
+    line-height: 1.65;
+  }
+
+  .service-index-group__heading {
+    margin-bottom: 3.5rem;
+  }
+
+  .service-index-group__heading p {
+    margin-top: 1.25rem;
+  }
+
+  .service-index-row {
+    padding-block: 1.65rem;
+  }
+
+  .service-index-row__copy > p {
+    margin-top: 1.05rem;
+  }
+
+  .markets-profile__title {
+    margin-block: 5rem 3.5rem;
+  }
+
+  .service-detail__title {
+    margin-block: 6rem 3.25rem;
+  }
+
+  .service-detail__content-layout {
+    display: block;
+  }
+
+  .service-detail__description p + p {
+    margin-top: 3.5rem;
+  }
+
+  .contact-heading {
+    padding-block: 5.25rem 6.5rem;
+  }
+
+  .contact-cta {
+    margin-top: 4rem;
+  }
+
+  .contact-row,
+  .contact-row--email {
+    row-gap: 1rem;
+    padding-block: 1.6rem;
+  }
+
+  .footer-navigation,
+  .footer-contact {
+    gap: 1rem;
+  }
+
+  html[lang="ar"] :is(
+    .route-intro__footer > p:first-child,
+    .about-summary,
+    .profile-introduction__copy p,
+    .profile-purpose__chapter li p,
+    .profile-sectors__heading > p,
+    .profile-services-index__intro > p,
+    .service-index-group__heading p,
+    .service-index-row__copy > p,
+    .markets-profile__introduction,
+    .markets-profile__clarification,
+    .service-detail__summary
+  ) {
+    line-height: 1.8;
   }
 }
 

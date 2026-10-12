@@ -88,21 +88,9 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
 
       <section className="service-detail__content theme-dark" aria-label={service.title}>
         <Container className="service-detail__content-layout">
-          <div className="service-detail__source" data-service-detail-body>
-            <p>{copy.interface.sourceReference}</p>
-            <span dir="ltr">EN {service.sourcePages[0]} / AR {service.sourcePages[1]}</span>
-          </div>
-
           <div className="service-detail__description">
             {service.details.map((paragraph) => <p key={paragraph} data-service-detail-body>{paragraph}</p>)}
           </div>
-
-          {service.reviewNote ? (
-            <aside className="service-detail__review" data-service-detail-body>
-              <span>{copy.interface.reviewRequired}</span>
-              <p>{service.reviewNote}</p>
-            </aside>
-          ) : null}
         </Container>
       </section>
 

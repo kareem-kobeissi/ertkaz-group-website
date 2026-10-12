@@ -82,7 +82,6 @@ export function ProfileServicesPage({ locale }: { locale: Locale }) {
                       <div className="service-index-row__copy">
                         <h4>{service.title}</h4>
                         <p>{service.summary}</p>
-                        {service.reviewNote ? <span className="service-index-row__review">{copy.interface.reviewRequired}</span> : null}
                       </div>
                       <span className="service-index-row__arrow">
                         {locale === "ar" ? <ArrowUpLeft aria-hidden="true" /> : <ArrowUpRight aria-hidden="true" />}

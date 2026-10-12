@@ -6,6 +6,8 @@ export const pages = ["home", "about", "services", "projects", "markets", "conta
 
 export type SitePage = (typeof pages)[number];
 
+export const navigationPages = ["home", "about", "services", "markets", "contact"] as const satisfies readonly SitePage[];
+
 export const localeConfig: Record<Locale, { dir: "ltr" | "rtl"; label: string; alternateLabel: string }> = {
   en: { dir: "ltr", label: "English", alternateLabel: "العربية" },
   ar: { dir: "rtl", label: "العربية", alternateLabel: "EN" },

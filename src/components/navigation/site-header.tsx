@@ -11,7 +11,7 @@ import {
   alternateLocale,
   equivalentLocalePath,
   localizedPath,
-  pages,
+  navigationPages,
   type Locale,
 } from "@/lib/i18n/config";
 
@@ -161,7 +161,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         </div>
 
         <nav className="desktop-nav" aria-label={copy.header.desktopLabel}>
-          {pages.map((page) => {
+          {navigationPages.map((page) => {
             const href = localizedPath(locale, page);
             const active = pathname === href || (page !== "home" && pathname.startsWith(`${href}/`));
             const label = copy.navigation[page];
@@ -221,7 +221,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         <nav className="container-site mobile-menu__inner" aria-label={copy.header.mobileLabel}>
           <p className="mobile-menu__eyebrow">{copy.header.navigate}</p>
           <div className="mobile-menu__links">
-            {pages.map((page, index) => {
+            {navigationPages.map((page, index) => {
               const href = localizedPath(locale, page);
               return (
                 <div className="mobile-link-mask" key={page}>
