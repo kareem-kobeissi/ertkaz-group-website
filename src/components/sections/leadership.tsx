@@ -3,12 +3,15 @@
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
+import { siteCopy } from "@/content/site-copy";
 import { gsap, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
+import type { Locale } from "@/lib/i18n/config";
 
-export function Leadership() {
+export function Leadership({ locale }: { locale: Locale }) {
   const sectionRef = useRef<HTMLElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
+  const copy = siteCopy[locale].leadership;
 
   useGsapContext(
     () => {
@@ -79,26 +82,27 @@ export function Leadership() {
       return () => matchMedia.revert();
     },
     sectionRef,
+    [locale],
   );
 
   return (
     <section id="leadership" ref={sectionRef} className="leadership-section" aria-labelledby="leadership-title">
       <Container>
         <div className="section-meta" data-leadership-meta>
-          <span>05 / Leadership</span>
-          <span>Founder / CEO</span>
+          <span>{copy.meta[0]}</span>
+          <span>{copy.meta[1]}</span>
         </div>
 
         <div className="leadership-layout">
           <div className="leadership-copy">
-            <p className="leadership-role" data-leadership-role>Founder / Chief Executive Officer</p>
-            <h2 id="leadership-title" ref={nameRef} className="leadership-name">
-              Dr. Mohammed
+            <p className="leadership-role" data-leadership-role>{copy.role}</p>
+            <h2 id="leadership-title" ref={nameRef} className="leadership-name" dir="ltr">
+              {copy.nameLines[0]}
               <br />
-              <span>M. Sheaitani</span>
+              <span>{copy.nameLines[1]}</span>
             </h2>
             <p className="leadership-reserve" data-leadership-detail>
-              Leadership profile reserved for approved company information.
+              {copy.reserve}
             </p>
           </div>
 
@@ -106,11 +110,11 @@ export function Leadership() {
             className="leadership-portrait"
             data-leadership-portrait
             role="img"
-            aria-label="Reserved space for an authentic photograph of Dr. Mohammed M. Sheaitani"
+            aria-label={copy.portraitLabel}
           >
             <div className="leadership-portrait__topline" data-leadership-detail>
-              <span>Authentic portrait</span>
-              <span>Reserved</span>
+              <span>{copy.portrait[0]}</span>
+              <span>{copy.portrait[1]}</span>
             </div>
             <div className="leadership-portrait__art" data-leadership-portrait-art aria-hidden="true">
               <svg viewBox="0 0 600 760" role="presentation">
@@ -121,7 +125,7 @@ export function Leadership() {
               <span>MS</span>
             </div>
             <p className="leadership-portrait__caption" data-leadership-detail>
-              Designed to accommodate approved founder photography without changing the layout.
+              {copy.caption}
             </p>
           </div>
         </div>

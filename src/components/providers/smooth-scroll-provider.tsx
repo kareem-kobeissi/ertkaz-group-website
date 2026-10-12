@@ -1,12 +1,14 @@
 "use client";
 
 import Lenis from "lenis";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, type PropsWithChildren } from "react";
 
 import { gsap, ScrollTrigger } from "@/lib/animations/gsap";
 
 export function SmoothScrollProvider({ children }: PropsWithChildren) {
   const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -30,6 +32,17 @@ export function SmoothScrollProvider({ children }: PropsWithChildren) {
       lenisRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    document.body.classList.remove("menu-open");
+    const frame = window.requestAnimationFrame(() => {
+      lenisRef.current?.scrollTo(0, { immediate: true });
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      ScrollTrigger.refresh();
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname]);
 
   return children;
 }

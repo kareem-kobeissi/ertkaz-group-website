@@ -1,44 +1,23 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpLeft, ArrowUpRight } from "lucide-react";
 import { useLayoutEffect, useRef, useState } from "react";
 
 import { Container } from "@/components/layout/container";
+import { EditorialLink } from "@/components/ui/editorial-link";
+import { profileContent } from "@/content/profile-content";
+import { siteCopy } from "@/content/site-copy";
 import { gsap, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
+import { localizedPath, type Locale } from "@/lib/i18n/config";
 
-const services = [
-  {
-    title: "Business Consulting",
-    description: "Structured guidance for business challenges, priorities and growth decisions.",
-  },
-  {
-    title: "Strategy Advisory",
-    description: "Strategic perspective to clarify direction, choices and long-term priorities.",
-  },
-  {
-    title: "Management Consulting",
-    description: "Support for organizational effectiveness, operating models and management decisions.",
-  },
-  {
-    title: "Corporate Advisory",
-    description: "Advisory support for corporate planning, governance and critical decisions.",
-  },
-  {
-    title: "IT & Digital Transformation Consulting",
-    description: "Guidance for aligning technology change with business strategy and operations.",
-  },
-  {
-    title: "IT & Systems Advisory",
-    description: "Independent advice on technology environments, systems and organizational needs.",
-  },
-] as const;
-
-export function Services() {
+export function Services({ locale, showPageLink = false }: { locale: Locale; showPageLink?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const copy = siteCopy[locale].services;
+  const services = copy.items;
 
   useGsapContext(
     () => {
@@ -90,6 +69,7 @@ export function Services() {
       return () => matchMedia.revert();
     },
     sectionRef,
+    [locale],
   );
 
   useLayoutEffect(() => {
@@ -120,7 +100,7 @@ export function Services() {
         gsap.set(background, { scaleY: active ? 1 : 0 });
         gsap.set(title, { x: 0 });
         gsap.set(description, { y: 0, autoAlpha: active ? 1 : 0.68 });
-        gsap.set(iconArrow, { rotate: active ? 45 : 0, transformOrigin: "50% 50%" });
+        gsap.set(iconArrow, { rotate: active ? (locale === "ar" ? -45 : 45) : 0, transformOrigin: "50% 50%" });
         return;
       }
 
@@ -140,7 +120,7 @@ export function Services() {
         overwrite: true,
       });
       gsap.to(iconArrow, {
-        rotate: active ? 45 : 0,
+        rotate: active ? (locale === "ar" ? -45 : 45) : 0,
         duration: 0.58,
         ease: "expo.out",
         transformOrigin: "50% 50%",
@@ -167,18 +147,18 @@ export function Services() {
     }
 
     return () => gsap.killTweensOf([number, rotor, caption, ...animatedTargets]);
-  }, [activeIndex]);
+  }, [activeIndex, locale]);
 
   return (
     <section id="services" ref={sectionRef} className="services-section" aria-labelledby="services-title">
       <Container>
         <div className="section-meta" data-services-meta>
-          <span>02 / Our services</span>
-          <span>Six advisory disciplines</span>
+          <span>{copy.meta[0]}</span>
+          <span>{copy.meta[1]}</span>
         </div>
 
         <div className="services-heading">
-          <h2 id="services-title" ref={titleRef} className="services-title">Our services</h2>
+          <h2 id="services-title" ref={titleRef} className="services-title">{copy.title}</h2>
 
           <div ref={previewRef} className="services-preview" data-services-preview aria-hidden="true">
             <span className="services-preview__number" data-preview-number>0{activeIndex + 1}</span>
@@ -195,7 +175,7 @@ export function Services() {
         <div className="services-list">
           {services.map((service, index) => {
             const active = activeIndex === index;
-            const descriptionId = `service-description-${index + 1}`;
+            const descriptionId = `${locale}-service-description-${index + 1}`;
 
             return (
               <article className={`service-row${active ? " is-active" : ""}`} key={service.title} data-service-row>
@@ -213,12 +193,23 @@ export function Services() {
                   <span className="service-row__number">0{index + 1}</span>
                   <span className="service-row__title">{service.title}</span>
                   <span id={descriptionId} className="service-row__description">{service.description}</span>
-                  <span className="service-row__icon"><ArrowUpRight aria-hidden="true" /></span>
+                  <span className="service-row__icon">
+                    {locale === "ar" ? <ArrowUpLeft aria-hidden="true" /> : <ArrowUpRight aria-hidden="true" />}
+                  </span>
                 </button>
               </article>
             );
           })}
         </div>
+
+        {showPageLink ? (
+          <EditorialLink
+            locale={locale}
+            href={localizedPath(locale, "services")}
+            label={profileContent[locale].interface.exploreServices}
+            className="services-page-link"
+          />
+        ) : null}
       </Container>
     </section>
   );

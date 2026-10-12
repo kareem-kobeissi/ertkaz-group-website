@@ -3,12 +3,17 @@
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
+import { EditorialLink } from "@/components/ui/editorial-link";
+import { profileContent } from "@/content/profile-content";
+import { siteCopy } from "@/content/site-copy";
 import { gsap, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
+import { localizedPath, type Locale } from "@/lib/i18n/config";
 
-export function About() {
+export function About({ locale, showPageLink = false }: { locale: Locale; showPageLink?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const statementRef = useRef<HTMLHeadingElement>(null);
+  const copy = siteCopy[locale].about;
 
   useGsapContext(
     () => {
@@ -79,14 +84,15 @@ export function About() {
       return () => matchMedia.revert();
     },
     sectionRef,
+    [locale],
   );
 
   return (
     <section id="about" ref={sectionRef} className="about-section" aria-labelledby="about-title">
       <Container className="about-layout">
         <div className="section-meta section-meta--light" data-about-meta>
-          <span>01 / About us</span>
-          <span>Our perspective</span>
+          <span>{copy.meta[0]}</span>
+          <span>{copy.meta[1]}</span>
         </div>
 
         <div className="about-visual" data-about-visual aria-hidden="true">
@@ -99,23 +105,32 @@ export function About() {
         </div>
 
         <h2 id="about-title" ref={statementRef} className="about-statement">
-          <span className="about-statement__phrase">An innovative business</span>{" "}
-          <span className="about-statement__phrase about-statement__phrase--indent">solutions partner,</span>{" "}
-          <span className="about-statement__phrase">committed to excellence.</span>{" "}
-          <span className="about-statement__phrase about-statement__phrase--deep">We help organizations</span>{" "}
-          <span className="about-statement__phrase">achieve strategic goals and</span>{" "}
-          <span className="about-statement__phrase about-statement__phrase--accent">drive sustainable growth.</span>
+          {copy.statement.map((part) => (
+            <span
+              className={`about-statement__phrase${part.modifier ? ` about-statement__phrase--${part.modifier}` : ""}`}
+              key={part.text}
+            >
+              {part.text}
+            </span>
+          ))}
         </h2>
 
         <div className="about-notes" data-about-detail>
-          <p>Dynamic thinking</p>
-          <p>Purposeful partnership</p>
-          <p>Sustainable direction</p>
+          {copy.notes.map((note) => <p key={note}>{note}</p>)}
         </div>
 
         <p className="about-summary" data-about-detail>
-          We bring innovation and strategic focus together to support organizations as they navigate important decisions and pursue long-term growth.
+          {copy.summary}
         </p>
+
+        {showPageLink ? (
+          <EditorialLink
+            locale={locale}
+            href={localizedPath(locale, "about")}
+            label={profileContent[locale].interface.exploreAbout}
+            className="editorial-link--light about-page-link"
+          />
+        ) : null}
       </Container>
     </section>
   );

@@ -1,0 +1,148 @@
+"use client";
+
+import { useRef } from "react";
+
+import { Container } from "@/components/layout/container";
+import { profileContent } from "@/content/profile-content";
+import { gsap, SplitText } from "@/lib/animations/gsap";
+import { useGsapContext } from "@/lib/animations/use-gsap-context";
+import type { Locale } from "@/lib/i18n/config";
+
+export function ProfileAboutPage({ locale }: { locale: Locale }) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const copy = profileContent[locale].aboutPage;
+
+  useGsapContext(
+    () => {
+      const root = rootRef.current;
+      if (!root) return;
+      const matchMedia = gsap.matchMedia();
+
+      matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
+        const sections = gsap.utils.toArray<HTMLElement>("[data-profile-section]");
+        const splits: SplitText[] = [];
+        const timelines = sections.map((section) => {
+          const sectionSplits = Array.from(section.querySelectorAll<HTMLElement>("[data-profile-title]")).map((title) => {
+            const split = SplitText.create(title, { type: "lines", mask: "lines", linesClass: "profile-page__line" });
+            splits.push(split);
+            return split;
+          });
+          const lines = sectionSplits.flatMap((split) => split.lines);
+          const revealTargets = Array.from(section.querySelectorAll<HTMLElement>("[data-profile-reveal]"));
+          const timeline = gsap.timeline({
+            scrollTrigger: { trigger: section, start: "top 72%", once: true },
+            defaults: { ease: "expo.out" },
+          });
+          timeline
+            .from(lines, { yPercent: 112, duration: 1.2, stagger: 0.08 })
+            .from(revealTargets, { y: 24, autoAlpha: 0, duration: 0.85, stagger: 0.07 }, 0.18)
+            .set([...lines, ...revealTargets], { y: 0, yPercent: 0, autoAlpha: 1, clearProps: "transform" });
+          return timeline;
+        });
+
+        const sectorRows = gsap.from("[data-sector-row]", {
+          y: 34,
+          autoAlpha: 0,
+          duration: 0.9,
+          stagger: 0.055,
+          ease: "expo.out",
+          scrollTrigger: { trigger: ".profile-sectors__list", start: "top 78%", once: true },
+        });
+
+        return () => {
+          timelines.forEach((timeline) => timeline.kill());
+          sectorRows.kill();
+          splits.forEach((split) => split.revert());
+        };
+      });
+
+      matchMedia.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set("[data-profile-reveal], [data-sector-row]", { autoAlpha: 1, y: 0 });
+      });
+
+      return () => matchMedia.revert();
+    },
+    rootRef,
+    [locale],
+  );
+
+  return (
+    <div ref={rootRef} className="profile-about-page">
+      <section className="profile-introduction" data-profile-section aria-labelledby="profile-introduction-title">
+        <Container className="profile-introduction__layout">
+          <p className="profile-kicker" data-profile-reveal>{copy.introductionLabel}</p>
+          <h2 id="profile-introduction-title" className="profile-introduction__title" data-profile-title>
+            {copy.introductionTitle}
+          </h2>
+          <div className="profile-introduction__copy" data-profile-reveal>
+            {copy.introduction.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
+          <div className="profile-introduction__art" aria-hidden="true" data-profile-reveal>
+            <svg viewBox="0 0 440 440" role="presentation">
+              <path d="m220 22 172 99v198l-172 99-172-99V121Z" />
+              <path d="m220 100 104 60v120l-104 60-104-60V160Z" />
+              <path d="m220 180 35 20v40l-35 20-35-20v-40Z" />
+            </svg>
+          </div>
+        </Container>
+      </section>
+
+      <section className="profile-purpose theme-dark" data-profile-section aria-labelledby="profile-purpose-title">
+        <Container>
+          <h2 id="profile-purpose-title" className="sr-only">{copy.missionLabel} / {copy.visionLabel}</h2>
+          <div className="profile-purpose__columns">
+            <article className="profile-purpose__chapter">
+              <div className="profile-purpose__meta" data-profile-reveal><span>01</span><span>{copy.missionLabel}</span></div>
+              <h3 data-profile-title>{copy.missionTitle}</h3>
+              <ol data-profile-reveal>
+                {copy.mission.map((item, index) => <li key={item}><span>0{index + 1}</span><p>{item}</p></li>)}
+              </ol>
+            </article>
+            <article className="profile-purpose__chapter profile-purpose__chapter--offset">
+              <div className="profile-purpose__meta" data-profile-reveal><span>02</span><span>{copy.visionLabel}</span></div>
+              <h3 data-profile-title>{copy.visionTitle}</h3>
+              <ol data-profile-reveal>
+                {copy.vision.map((item, index) => <li key={item}><span>0{index + 1}</span><p>{item}</p></li>)}
+              </ol>
+            </article>
+          </div>
+        </Container>
+      </section>
+
+      <section className="profile-values-page" data-profile-section aria-labelledby="profile-values-title">
+        <Container>
+          <p className="profile-kicker" data-profile-reveal>{copy.valuesLabel}</p>
+          <h2 id="profile-values-title" className="profile-values-page__title" data-profile-title>{copy.valuesTitle}</h2>
+          <div className="profile-values-page__list">
+            {copy.values.map((value, index) => (
+              <div className="profile-values-page__item" key={value} data-profile-reveal>
+                <span>0{index + 1}</span>
+                <p>{value}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="profile-sectors" data-profile-section aria-labelledby="profile-sectors-title">
+        <Container>
+          <div className="profile-sectors__heading">
+            <div>
+              <p className="profile-kicker" data-profile-reveal>{copy.sectorsLabel}</p>
+              <h2 id="profile-sectors-title" data-profile-title>{copy.sectorsTitle}</h2>
+            </div>
+            <p data-profile-reveal>{copy.sectorsIntro}</p>
+          </div>
+          <div className="profile-sectors__list">
+            {copy.sectors.map((sector, index) => (
+              <div className="profile-sectors__row" key={sector} data-sector-row>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>{sector}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+    </div>
+  );
+}

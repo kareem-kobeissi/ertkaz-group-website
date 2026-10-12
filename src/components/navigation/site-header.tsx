@@ -1,25 +1,30 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
+import { siteCopy } from "@/content/site-copy";
 import { gsap } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
+import {
+  alternateLocale,
+  equivalentLocalePath,
+  localizedPath,
+  pages,
+  type Locale,
+} from "@/lib/i18n/config";
 
-const navigation = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
-] as const;
+const darkSectionSelector = ".about-section, .philosophy-section, .closing-chapter, .site-footer, .theme-dark";
 
-const darkSectionSelector = ".about-section, .philosophy-section, .closing-chapter";
-
-export function SiteHeader() {
+export function SiteHeader({ locale }: { locale: Locale }) {
   const headerRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const copy = siteCopy[locale];
+  const targetLocale = alternateLocale(locale);
+  const languageHref = equivalentLocalePath(pathname, targetLocale);
 
   useGsapContext(
     () => {
@@ -39,7 +44,12 @@ export function SiteHeader() {
       });
     },
     headerRef,
+    [locale],
   );
+
+  useEffect(() => {
+    window.localStorage.setItem("ertkaz-locale", locale);
+  }, [locale]);
 
   useEffect(() => {
     const header = headerRef.current;
@@ -75,7 +85,7 @@ export function SiteHeader() {
       header.classList.remove("is-light");
       document.body.classList.remove("on-dark-section");
     };
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     const panel = panelRef.current;
@@ -100,7 +110,7 @@ export function SiteHeader() {
           .fromTo(
             links,
             { yPercent: 115 },
-            { yPercent: 0, duration: 0.85, stagger: 0.065, ease: "power4.out" },
+            { yPercent: 0, duration: 0.85, stagger: 0.055, ease: "power4.out" },
             "-=0.35",
           );
       }
@@ -132,28 +142,14 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, []);
 
-  const handleMobileNavigation = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
-    event.preventDefault();
-    setMenuOpen(false);
-
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        const target = document.querySelector<HTMLElement>(href);
-        if (!target) return;
-        window.history.pushState(null, "", href);
-        target.scrollIntoView({ block: "start", behavior: "auto" });
-      });
-    });
-  };
-
   return (
-    <header ref={headerRef} className="site-header" aria-label="Primary navigation">
+    <header ref={headerRef} className="site-header" aria-label={copy.header.primaryLabel}>
       <div className="container-site site-header__inner">
         <div className="nav-reveal-mask">
           <a
-            href="#home"
+            href={localizedPath(locale, "home")}
             className="wordmark"
-            aria-label="ERTKAZ GROUP — Home"
+            aria-label={copy.header.homeLabel}
             data-nav-reveal
             data-cursor="link"
             onClick={() => setMenuOpen(false)}
@@ -164,14 +160,39 @@ export function SiteHeader() {
           </a>
         </div>
 
-        <nav className="desktop-nav" aria-label="Desktop navigation">
-          {navigation.map((item) => (
-            <div className="nav-reveal-mask" key={item.label}>
-              <a className="nav-link" href={item.href} data-nav-reveal data-cursor="link">
-                <span className="nav-link__label" data-label={item.label}>{item.label}</span>
-              </a>
-            </div>
-          ))}
+        <nav className="desktop-nav" aria-label={copy.header.desktopLabel}>
+          {pages.map((page) => {
+            const href = localizedPath(locale, page);
+            const active = pathname === href || (page !== "home" && pathname.startsWith(`${href}/`));
+            const label = copy.navigation[page];
+
+            return (
+              <div className="nav-reveal-mask" key={page}>
+                <a
+                  className="nav-link"
+                  href={href}
+                  aria-current={active ? "page" : undefined}
+                  data-nav-reveal
+                  data-cursor="link"
+                >
+                  <span className="nav-link__label" data-label={label}>{label}</span>
+                </a>
+              </div>
+            );
+          })}
+
+          <div className="nav-reveal-mask">
+            <a
+              href={languageHref}
+              className="language-switch"
+              hrefLang={targetLocale}
+              aria-label={copy.header.switchLanguage}
+              data-nav-reveal
+              data-cursor="link"
+            >
+              {locale === "en" ? "AR" : "EN"}
+            </a>
+          </div>
         </nav>
 
         <div className="nav-reveal-mask nav-menu-wrap">
@@ -180,12 +201,12 @@ export function SiteHeader() {
             className="nav-menu-button"
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
-            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+            aria-label={menuOpen ? copy.header.close : copy.header.open}
             data-nav-reveal
             data-cursor="link"
             onClick={() => setMenuOpen((open) => !open)}
           >
-            <span>{menuOpen ? "Close" : "Menu"}</span>
+            <span>{menuOpen ? copy.header.closeText : copy.header.menu}</span>
             {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </button>
         </div>
@@ -197,26 +218,45 @@ export function SiteHeader() {
         className="mobile-menu"
         aria-hidden={!menuOpen}
       >
-        <nav className="container-site mobile-menu__inner" aria-label="Mobile navigation">
-          <p className="mobile-menu__eyebrow">Navigate</p>
+        <nav className="container-site mobile-menu__inner" aria-label={copy.header.mobileLabel}>
+          <p className="mobile-menu__eyebrow">{copy.header.navigate}</p>
           <div className="mobile-menu__links">
-            {navigation.map((item, index) => (
-              <div className="mobile-link-mask" key={item.label}>
-                <a
-                  href={item.href}
-                  className="mobile-link"
-                  data-mobile-link
-                  data-cursor="link"
-                  tabIndex={menuOpen ? 0 : -1}
-                  onClick={(event) => handleMobileNavigation(event, item.href)}
-                >
-                  <span>{item.label}</span>
-                  <span className="mobile-link__index">0{index + 1}</span>
-                </a>
-              </div>
-            ))}
+            {pages.map((page, index) => {
+              const href = localizedPath(locale, page);
+              return (
+                <div className="mobile-link-mask" key={page}>
+                  <a
+                    href={href}
+                    className="mobile-link"
+                    aria-current={pathname === href || (page !== "home" && pathname.startsWith(`${href}/`)) ? "page" : undefined}
+                    data-mobile-link
+                    data-cursor="link"
+                    tabIndex={menuOpen ? 0 : -1}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <span>{copy.navigation[page]}</span>
+                    <span className="mobile-link__index">0{index + 1}</span>
+                  </a>
+                </div>
+              );
+            })}
           </div>
-          <p className="mobile-menu__footer">Business consulting · Strategic advisory</p>
+
+          <a
+            href={languageHref}
+            hrefLang={targetLocale}
+            className="mobile-language-switch"
+            aria-label={copy.header.switchLanguage}
+            data-mobile-link
+            data-cursor="link"
+            tabIndex={menuOpen ? 0 : -1}
+            onClick={() => setMenuOpen(false)}
+          >
+            <span>{locale === "en" ? "العربية" : "English"}</span>
+            <span>{locale === "en" ? "AR" : "EN"}</span>
+          </a>
+
+          <p className="mobile-menu__footer">{copy.header.footer}</p>
         </nav>
       </div>
     </header>

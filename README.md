@@ -1,6 +1,6 @@
 # ERTKAZ GROUP — Premium Landing Page
 
-An editorial, motion-led landing page for ERTKAZ GROUP's corporate consulting and advisory practice. The current implementation includes the project foundation, navigation, cinematic hero, custom cursor, About scroll story, and interactive Services showcase. Later page chapters remain intentionally out of scope.
+An editorial, motion-led bilingual website for ERTKAZ GROUP's corporate consulting and advisory practice. It includes English and Arabic routes, RTL support, a cinematic homepage, detailed company-profile chapters, thirteen service pages, regional markets, project placeholders, contact details, and static-export support.
 
 ## Stack
 
@@ -10,6 +10,7 @@ An editorial, motion-led landing page for ERTKAZ GROUP's corporate consulting an
 - Lenis smooth scrolling
 - Lucide React
 - Geist, a freely licensed Swiss-style sans-serif
+- Noto Sans Arabic Variable, locally bundled under the SIL Open Font License
 
 ## Getting started
 
@@ -32,15 +33,19 @@ npm run build
 
 ```text
 src/
-├── app/                  # App Router entry points and global styles
+├── app/                  # Localized App Router routes and global styles
 ├── components/
 │   ├── cursor/           # Fine-pointer custom cursor
 │   ├── layout/           # Shared structural components
 │   ├── navigation/       # Responsive global navigation
 │   ├── providers/        # Client-side runtime providers
-│   └── sections/         # Art-directed page sections
+│   ├── pages/            # Dedicated editorial page compositions
+│   ├── sections/         # Art-directed homepage sections
+│   └── ui/               # Shared interaction primitives
+├── content/              # Typed English and Arabic profile content
 └── lib/
-    └── animations/       # GSAP registration, presets, and scoped hooks
+    ├── animations/       # GSAP registration, presets, and scoped hooks
+    └── i18n/             # Locale, direction, and route helpers
 ```
 
 ## Design foundation
@@ -56,3 +61,7 @@ The supplied PDF remains reference material only. No third-party or Cuberto asse
 - `useGsapContext` scopes animations and automatically reverts them during cleanup.
 - Motion presets live separately so section-level animation modules can share timings and eases.
 - Reduced-motion users receive native scrolling and near-instant CSS motion.
+
+## Static deployment
+
+`npm run build` generates the deployable static website in `out/`. The project uses trailing-slash routes so localized pages and service details can be served reliably by conventional static hosting.

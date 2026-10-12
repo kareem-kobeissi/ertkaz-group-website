@@ -5,14 +5,16 @@ import { useRef } from "react";
 
 import { ErtkazMotif } from "@/components/brand/ertkaz-motif";
 import { Container } from "@/components/layout/container";
-import { SiteHeader } from "@/components/navigation/site-header";
+import { siteCopy } from "@/content/site-copy";
 import { gsap, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
+import { localizedPath, type Locale } from "@/lib/i18n/config";
 
-export function Hero() {
+export function Hero({ locale }: { locale: Locale }) {
   const stageRef = useRef<HTMLElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const copy = siteCopy[locale].hero;
 
   useGsapContext(
     () => {
@@ -86,9 +88,11 @@ export function Hero() {
           },
         });
 
+        const direction = locale === "ar" ? -1 : 1;
+
         exit
-          .to(split.lines[0], { xPercent: 2.5, duration: 0.72, ease: "none" }, 0.2)
-          .to(split.lines[1], { xPercent: -2.5, duration: 0.72, ease: "none" }, 0.2)
+          .to(split.lines[0], { xPercent: 2.5 * direction, duration: 0.72, ease: "none" }, 0.2)
+          .to(split.lines[1], { xPercent: -2.5 * direction, duration: 0.72, ease: "none" }, 0.2)
           .to(
             title,
             { yPercent: -14, scale: 0.975, transformOrigin: "50% 50%", duration: 0.72, ease: "none" },
@@ -115,21 +119,21 @@ export function Hero() {
       return () => matchMedia.revert();
     },
     stageRef,
+    [locale],
   );
 
   return (
     <section id="home" ref={stageRef} className="hero-stage" aria-labelledby="hero-title">
-      <SiteHeader />
       <div ref={heroRef} className="hero-frame">
         <Container className="hero-layout">
           <div className="hero-intro" data-hero-reveal data-hero-fade>
             <span className="hero-intro__index">01</span>
             <div>
-              <p className="hero-intro__eyebrow">ERTKAZ GROUP / ADVISORY</p>
+              <p className="hero-intro__eyebrow">{copy.eyebrow}</p>
               <p className="hero-intro__copy">
-                Business consulting
+                {copy.introLines[0]}
                 <br />
-                &amp; strategic advisory
+                {copy.introLines[1]}
               </p>
             </div>
           </div>
@@ -137,20 +141,20 @@ export function Hero() {
           <ErtkazMotif />
 
           <h1 id="hero-title" ref={titleRef} className="hero-title">
-            Strategy today.
+            {copy.titleLines[0]}
             <br />
-            <span className="hero-title__second">Impact tomorrow.</span>
+            <span className="hero-title__second">{copy.titleLines[1]}</span>
           </h1>
 
           <div className="hero-footer" data-hero-fade>
             <div className="hero-scroll" data-hero-reveal>
               <span className="hero-scroll__icon"><ArrowDown aria-hidden="true" /></span>
-              <span>Scroll to discover</span>
+              <span>{copy.scroll}</span>
             </div>
 
-            <a className="hero-cta" href="#contact" data-hero-reveal data-cursor="cta">
+            <a className="hero-cta" href={localizedPath(locale, "contact")} data-hero-reveal data-cursor="cta">
               <span className="hero-cta__fill" aria-hidden="true" />
-              <span className="hero-cta__label">Start a conversation</span>
+              <span className="hero-cta__label">{copy.cta}</span>
               <span className="hero-cta__icon"><ArrowUpRight aria-hidden="true" /></span>
             </a>
           </div>

@@ -3,12 +3,15 @@
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
+import { siteCopy } from "@/content/site-copy";
 import { gsap, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
+import type { Locale } from "@/lib/i18n/config";
 
-export function Philosophy() {
+export function Philosophy({ locale }: { locale: Locale }) {
   const sectionRef = useRef<HTMLElement>(null);
   const statementRef = useRef<HTMLHeadingElement>(null);
+  const copy = siteCopy[locale].philosophy;
 
   useGsapContext(
     () => {
@@ -82,14 +85,15 @@ export function Philosophy() {
       return () => matchMedia.revert();
     },
     sectionRef,
+    [locale],
   );
 
   return (
     <section id="philosophy" ref={sectionRef} className="philosophy-section" aria-labelledby="philosophy-title">
       <Container className="philosophy-layout">
         <div className="section-meta section-meta--light" data-philosophy-meta>
-          <span>04 / Our philosophy</span>
-          <span>How we create value</span>
+          <span>{copy.meta[0]}</span>
+          <span>{copy.meta[1]}</span>
         </div>
 
         <div className="philosophy-artwork" data-philosophy-artwork aria-hidden="true">
@@ -103,14 +107,14 @@ export function Philosophy() {
         </div>
 
         <p className="philosophy-kicker" data-philosophy-note>
-          ERTKAZ GROUP / OUR PHILOSOPHY
+          {copy.kicker}
         </p>
 
         <h2 id="philosophy-title" ref={statementRef} className="philosophy-statement">
-          <span>Our philosophy is rooted in providing</span>{" "}
-          <span className="philosophy-statement__accent">exceptional value to our customers</span>{" "}
-          <span>while fostering a supportive and</span>{" "}
-          <span className="philosophy-statement__indent">inclusive work environment.</span>
+          <span>{copy.statement[0]}</span>{" "}
+          <span className="philosophy-statement__accent">{copy.statement[1]}</span>{" "}
+          <span>{copy.statement[2]}</span>{" "}
+          <span className="philosophy-statement__indent">{copy.statement[3]}</span>
         </h2>
       </Container>
     </section>

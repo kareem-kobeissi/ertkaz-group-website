@@ -1,17 +1,22 @@
 "use client";
 
-import { ArrowUp, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
-import { companyContact, footerNavigation } from "@/data/company-contact";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { EditorialLink } from "@/components/ui/editorial-link";
+import { profileContent } from "@/content/profile-content";
+import { siteCopy } from "@/content/site-copy";
+import { companyContact } from "@/data/company-contact";
 import { gsap, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
+import { localizedPath, type Locale } from "@/lib/i18n/config";
 
-export function Contact() {
+export function Contact({ locale, showPageLink = false }: { locale: Locale; showPageLink?: boolean }) {
   const chapterRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const currentYear = new Date().getFullYear();
+  const copy = siteCopy[locale].contact;
 
   useGsapContext(
     () => {
@@ -77,6 +82,7 @@ export function Contact() {
       return () => matchMedia.revert();
     },
     chapterRef,
+    [locale],
   );
 
   return (
@@ -84,19 +90,19 @@ export function Contact() {
       <section id="contact" className="contact-section" aria-labelledby="contact-title">
         <Container>
           <div className="section-meta section-meta--light" data-contact-meta>
-            <span>06 / Contact</span>
-            <span>ERTKAZ GROUP</span>
+            <span>{copy.meta[0]}</span>
+            <span>{copy.meta[1]}</span>
           </div>
 
           <div className="contact-heading">
             <h2 id="contact-title" ref={titleRef} className="contact-title">
-              Start a
+              {copy.titleLines[0]}
               <br />
-              <span>conversation.</span>
+              <span>{copy.titleLines[1]}</span>
             </h2>
 
             <a className="contact-cta" href={companyContact.email.href} data-contact-cta data-cursor="cta">
-              <span>Let&apos;s talk</span>
+              <span>{copy.cta}</span>
               <ArrowUpRight aria-hidden="true" />
               <svg viewBox="0 0 160 160" aria-hidden="true" data-contact-ring>
                 <path d="M80 8 142 44v72l-62 36-62-36V44Z" />
@@ -104,17 +110,17 @@ export function Contact() {
             </a>
           </div>
 
-          <div className="contact-directory" aria-label="Contact methods">
+          <div className="contact-directory" aria-label={copy.directoryLabel}>
             <a className="contact-row contact-row--email" href={companyContact.email.href} data-contact-row data-cursor="link">
-              <span className="contact-row__label">Email</span>
-              <span>{companyContact.email.label}</span>
+              <span className="contact-row__label">{copy.email}</span>
+              <span dir="ltr">{companyContact.email.label}</span>
               <ArrowUpRight aria-hidden="true" />
             </a>
 
             {companyContact.phones.map((phone, index) => (
               <a className="contact-row" href={phone.href} key={phone.href} data-contact-row data-cursor="link">
-                <span className="contact-row__label">Phone 0{index + 1}</span>
-                <span>{phone.label}</span>
+                <span className="contact-row__label">{copy.phone} 0{index + 1}</span>
+                <span dir="ltr">{phone.label}</span>
                 <ArrowUpRight aria-hidden="true" />
               </a>
             ))}
@@ -127,46 +133,24 @@ export function Contact() {
               data-contact-row
               data-cursor="link"
             >
-              <span className="contact-row__label">Website</span>
-              <span>{companyContact.website.label}</span>
+              <span className="contact-row__label">{copy.website}</span>
+              <span dir="ltr">{companyContact.website.label}</span>
               <ArrowUpRight aria-hidden="true" />
             </a>
           </div>
+
+          {showPageLink ? (
+            <EditorialLink
+              locale={locale}
+              href={localizedPath(locale, "contact")}
+              label={profileContent[locale].interface.exploreContact}
+              className="editorial-link--light contact-page-link"
+            />
+          ) : null}
         </Container>
       </section>
 
-      <footer className="site-footer">
-        <Container className="site-footer__layout">
-          <div className="footer-brand" data-footer-reveal>
-            <a className="footer-wordmark" href="#home" aria-label="ERTKAZ GROUP — Back to home" data-cursor="link">
-              <span>ERTKAZ</span>
-              <span>GROUP</span>
-              <i aria-hidden="true" />
-            </a>
-            <p>Business consulting and strategic advisory.</p>
-          </div>
-
-          <nav className="footer-navigation" aria-label="Footer navigation" data-footer-reveal>
-            {footerNavigation.map((item) => (
-              <a href={item.href} key={item.href} data-cursor="link">{item.label}</a>
-            ))}
-          </nav>
-
-          <div className="footer-contact" data-footer-reveal>
-            <a href={companyContact.email.href} data-cursor="link">{companyContact.email.label}</a>
-            <a href={companyContact.phones[0].href} data-cursor="link">{companyContact.phones[0].label}</a>
-            <a href={companyContact.phones[1].href} data-cursor="link">{companyContact.phones[1].label}</a>
-          </div>
-
-          <div className="footer-bottom" data-footer-reveal>
-            <p>© {currentYear} ERTKAZ GROUP</p>
-            <a className="back-to-top" href="#home" data-cursor="link">
-              <span>Back to top</span>
-              <ArrowUp aria-hidden="true" />
-            </a>
-          </div>
-        </Container>
-      </footer>
+      <SiteFooter locale={locale} />
     </div>
   );
 }

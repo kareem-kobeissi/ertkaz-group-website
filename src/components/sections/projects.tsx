@@ -3,14 +3,19 @@
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
+import { EditorialLink } from "@/components/ui/editorial-link";
 import { ProjectArtwork } from "@/components/projects/project-artwork";
+import { profileContent } from "@/content/profile-content";
+import { siteCopy } from "@/content/site-copy";
 import { projects } from "@/data/projects";
 import { gsap, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
+import { localizedPath, type Locale } from "@/lib/i18n/config";
 
-export function Projects() {
+export function Projects({ locale, showPageLink = false }: { locale: Locale; showPageLink?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const copy = siteCopy[locale].projects;
 
   useGsapContext(
     () => {
@@ -108,24 +113,25 @@ export function Projects() {
       return () => matchMedia.revert();
     },
     sectionRef,
+    [locale],
   );
 
   return (
     <section id="projects" ref={sectionRef} className="projects-section" aria-labelledby="projects-title">
       <Container>
         <div className="section-meta" data-projects-meta>
-          <span>03 / Selected projects</span>
-          <span>Project framework preview</span>
+          <span>{copy.meta[0]}</span>
+          <span>{copy.meta[1]}</span>
         </div>
 
         <div className="projects-heading">
           <h2 id="projects-title" ref={titleRef} className="projects-title">
-            Selected
+            {copy.titleLines[0]}
             <br />
-            <span>Projects</span>
+            <span>{copy.titleLines[1]}</span>
           </h2>
           <p className="projects-note" data-projects-note>
-            This showcase is intentionally populated with placeholders until approved ERTKAZ GROUP project material is provided.
+            {copy.note}
           </p>
         </div>
 
@@ -134,8 +140,8 @@ export function Projects() {
             <article className={`project project--${project.visual}`} key={project.id} data-project>
               <figure className="project-visual" data-project-visual>
                 <div className="project-visual__topline">
-                  <span>Placeholder visual {project.id}</span>
-                  <span>Not a live case study</span>
+                  <span>{copy.visual} {project.id}</span>
+                  <span>{copy.disclaimer}</span>
                 </div>
                 <div className="project-artwork" data-project-artwork>
                   <ProjectArtwork variant={project.visual} />
@@ -147,13 +153,22 @@ export function Projects() {
               <div className="project-meta">
                 <div className="project-meta__index" data-project-meta>
                   <span>{project.id}</span>
-                  <span>{project.category}</span>
+                  <span>{locale === "en" ? project.category : copy.categoryPending}</span>
                 </div>
-                <h3 data-project-meta>{project.title}</h3>
+                <h3 data-project-meta>{locale === "en" ? project.title : `${copy.projectPlaceholder} ${project.id}`}</h3>
               </div>
             </article>
           ))}
         </div>
+
+        {showPageLink ? (
+          <EditorialLink
+            locale={locale}
+            href={localizedPath(locale, "projects")}
+            label={profileContent[locale].interface.exploreProjects}
+            className="projects-page-link"
+          />
+        ) : null}
       </Container>
     </section>
   );
