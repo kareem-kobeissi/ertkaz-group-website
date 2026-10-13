@@ -6,7 +6,7 @@ import { Container } from "@/components/layout/container";
 import { EditorialLink } from "@/components/ui/editorial-link";
 import { profileContent } from "@/content/profile-content";
 import { siteCopy } from "@/content/site-copy";
-import { gsap, SplitText } from "@/lib/animations/gsap";
+import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import { localizedPath, type Locale } from "@/lib/i18n/config";
 
@@ -30,14 +30,7 @@ export function About({ locale, showPageLink = false }: { locale: Locale; showPa
           mask: "lines",
         });
 
-        const masks = split.lines
-          .map((line) => line.parentElement)
-          .filter((mask): mask is HTMLElement => mask !== null);
-
-        gsap.set(masks, {
-          overflow: "visible",
-          clipPath: "inset(0 -0.12em 0 -0.12em)",
-        });
+        prepareSplitLineMasks(split.lines);
 
         const reveal = gsap.timeline({
           scrollTrigger: {

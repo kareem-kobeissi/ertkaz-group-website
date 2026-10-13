@@ -1,4 +1,4 @@
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, ArrowUpRight } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
 import { siteCopy } from "@/content/site-copy";
@@ -16,6 +16,21 @@ export function SiteFooter({ locale }: SiteFooterProps) {
   return (
     <footer className="site-footer">
       <Container className="site-footer__layout">
+        <div className="footer-invitation" data-footer-reveal>
+          <p>{copy.footer.invitation}</p>
+          <a href={companyContact.emails.general.href} data-cursor="cta">
+            <span>{copy.footer.invitationLink}</span>
+            <ArrowUpRight aria-hidden="true" />
+          </a>
+          <div className="footer-invitation__art" aria-hidden="true">
+            <svg viewBox="0 0 160 160" role="presentation">
+              <path d="M80 8 142 44v72l-62 36-62-36V44Z" />
+              <path d="m80 38 36 21v42l-36 21-36-21V59Z" />
+              <path d="m80 64 14 8v16l-14 8-14-8V72Z" />
+            </svg>
+          </div>
+        </div>
+
         <div className="footer-brand" data-footer-reveal>
           <a
             className="footer-wordmark"
@@ -30,16 +45,31 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           <p>{copy.footer.description}</p>
         </div>
 
-        <nav className="footer-navigation" aria-label={copy.footer.navigationLabel} data-footer-reveal>
-          {navigationPages.map((page) => (
-            <a href={localizedPath(locale, page)} key={page} data-cursor="link">
-              {copy.navigation[page]}
-            </a>
-          ))}
-        </nav>
+        <div className="footer-column" data-footer-reveal>
+          <p className="footer-column__label">{copy.footer.navigate}</p>
+          <nav className="footer-navigation" aria-label={copy.footer.navigationLabel}>
+            {navigationPages.map((page) => (
+              <a href={localizedPath(locale, page)} key={page} data-cursor="link">
+                {copy.navigation[page]}
+              </a>
+            ))}
+          </nav>
+        </div>
 
-        <div className="footer-contact" data-footer-reveal dir="ltr">
-          <a href={companyContact.phone.href} data-cursor="link">{companyContact.phone.label}</a>
+        <div className="footer-column" data-footer-reveal>
+          <p className="footer-column__label">{copy.footer.contact}</p>
+          <div className="footer-contact" dir="ltr">
+            <a href={companyContact.emails.general.href} data-cursor="link">{companyContact.emails.general.label}</a>
+            <a href={companyContact.emails.executive.href} data-cursor="link">{companyContact.emails.executive.label}</a>
+            <a href={companyContact.phones.primary.href} data-cursor="link">{companyContact.phones.primary.label}</a>
+            <a href={companyContact.phones.secondary.href} data-cursor="link">{companyContact.phones.secondary.label}</a>
+          </div>
+        </div>
+
+        <div className="footer-column footer-office" data-footer-reveal>
+          <p className="footer-column__label">{copy.footer.office}</p>
+          <address>{companyContact.office[locale]}</address>
+          <a href={companyContact.website.href} data-cursor="link" dir="ltr">{companyContact.website.label}</a>
         </div>
 
         <div className="footer-bottom" data-footer-reveal>

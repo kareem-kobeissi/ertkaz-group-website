@@ -48,11 +48,21 @@ type SiteCopy = {
     meta: [string, string];
     titleLines: [string, string];
     cta: string;
-    phone: string;
+    generalEmail: string;
+    executiveEmail: string;
+    primaryPhone: string;
+    secondaryPhone: string;
+    office: string;
+    website: string;
     directoryLabel: string;
   };
   footer: {
     description: string;
+    invitation: string;
+    invitationLink: string;
+    navigate: string;
+    contact: string;
+    office: string;
     copyright: string;
     backToTop: string;
     homeLabel: string;
@@ -135,12 +145,22 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     contact: {
       meta: ["05 / Contact", "ERTKAZ GROUP"],
       titleLines: ["Start a", "conversation."],
-      cta: "Call us",
-      phone: "Phone",
+      cta: "Email us",
+      generalEmail: "General enquiries",
+      executiveEmail: "Executive office",
+      primaryPhone: "Primary phone",
+      secondaryPhone: "Alternate phone",
+      office: "Dubai office",
+      website: "Website",
       directoryLabel: "Contact methods",
     },
     footer: {
       description: "Business consulting and strategic advisory.",
+      invitation: "Have a business question worth exploring?",
+      invitationLink: "Start a conversation",
+      navigate: "Navigate",
+      contact: "Contact",
+      office: "Office",
       copyright: "ERTKAZ GROUP",
       backToTop: "Back to top",
       homeLabel: "ERTKAZ GROUP — Back to home",
@@ -219,12 +239,22 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     contact: {
       meta: ["05 / تواصل معنا", "ERTKAZ GROUP"],
       titleLines: ["لنبدأ", "محادثة."],
-      cta: "اتصل بنا",
-      phone: "الهاتف",
+      cta: "راسلنا",
+      generalEmail: "الاستفسارات العامة",
+      executiveEmail: "المكتب التنفيذي",
+      primaryPhone: "الهاتف الرئيسي",
+      secondaryPhone: "الهاتف البديل",
+      office: "مكتب دبي",
+      website: "الموقع الإلكتروني",
       directoryLabel: "وسائل التواصل",
     },
     footer: {
       description: "استشارات الأعمال والاستشارات الاستراتيجية.",
+      invitation: "هل لديك مسألة أعمال تستحق النقاش؟",
+      invitationLink: "ابدأ محادثة",
+      navigate: "تصفّح",
+      contact: "تواصل",
+      office: "المكتب",
       copyright: "ERTKAZ GROUP",
       backToTop: "العودة إلى الأعلى",
       homeLabel: "ERTKAZ GROUP — العودة إلى الرئيسية",

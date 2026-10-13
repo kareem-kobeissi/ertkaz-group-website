@@ -9,7 +9,7 @@ import { EditorialLink } from "@/components/ui/editorial-link";
 import { profileContent } from "@/content/profile-content";
 import { siteCopy } from "@/content/site-copy";
 import { companyContact } from "@/data/company-contact";
-import { gsap, SplitText } from "@/lib/animations/gsap";
+import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import { localizedPath, type Locale } from "@/lib/i18n/config";
 
@@ -32,10 +32,7 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
           linesClass: "contact-title__line",
           mask: "lines",
         });
-        const masks = split.lines
-          .map((line) => line.parentElement)
-          .filter((mask): mask is HTMLElement => mask !== null);
-        gsap.set(masks, { overflow: "visible", clipPath: "inset(0 -0.12em 0 -0.12em)" });
+        prepareSplitLineMasks(split.lines);
 
         const reveal = gsap.timeline({
           scrollTrigger: { trigger: "#contact", start: "top 66%", once: true },
@@ -101,7 +98,7 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
               <span>{copy.titleLines[1]}</span>
             </h2>
 
-            <a className="contact-cta" href={companyContact.phone.href} data-contact-cta data-cursor="cta">
+            <a className="contact-cta" href={companyContact.emails.general.href} data-contact-cta data-cursor="cta">
               <span>{copy.cta}</span>
               <ArrowUpRight aria-hidden="true" />
               <svg viewBox="0 0 160 160" aria-hidden="true" data-contact-ring>
@@ -111,9 +108,34 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
           </div>
 
           <div className="contact-directory" aria-label={copy.directoryLabel}>
-            <a className="contact-row" href={companyContact.phone.href} data-contact-row data-cursor="link">
-              <span className="contact-row__label">{copy.phone}</span>
-              <span dir="ltr">{companyContact.phone.label}</span>
+            <a className="contact-row contact-row--email" href={companyContact.emails.general.href} data-contact-row data-cursor="link">
+              <span className="contact-row__label">{copy.generalEmail}</span>
+              <span dir="ltr">{companyContact.emails.general.label}</span>
+              <ArrowUpRight aria-hidden="true" />
+            </a>
+            <a className="contact-row" href={companyContact.emails.executive.href} data-contact-row data-cursor="link">
+              <span className="contact-row__label">{copy.executiveEmail}</span>
+              <span dir="ltr">{companyContact.emails.executive.label}</span>
+              <ArrowUpRight aria-hidden="true" />
+            </a>
+            <a className="contact-row" href={companyContact.phones.primary.href} data-contact-row data-cursor="link">
+              <span className="contact-row__label">{copy.primaryPhone}</span>
+              <span dir="ltr">{companyContact.phones.primary.label}</span>
+              <ArrowUpRight aria-hidden="true" />
+            </a>
+            <a className="contact-row" href={companyContact.phones.secondary.href} data-contact-row data-cursor="link">
+              <span className="contact-row__label">{copy.secondaryPhone}</span>
+              <span dir="ltr">{companyContact.phones.secondary.label}</span>
+              <ArrowUpRight aria-hidden="true" />
+            </a>
+            <div className="contact-row contact-row--static" data-contact-row>
+              <span className="contact-row__label">{copy.office}</span>
+              <span>{companyContact.office[locale]}</span>
+              <span className="contact-row__marker" aria-hidden="true">DXB</span>
+            </div>
+            <a className="contact-row" href={companyContact.website.href} data-contact-row data-cursor="link">
+              <span className="contact-row__label">{copy.website}</span>
+              <span dir="ltr">{companyContact.website.label}</span>
               <ArrowUpRight aria-hidden="true" />
             </a>
           </div>

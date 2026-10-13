@@ -5,7 +5,7 @@ import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
 import { siteCopy } from "@/content/site-copy";
-import { gsap, SplitText } from "@/lib/animations/gsap";
+import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import type { Locale, SitePage } from "@/lib/i18n/config";
 
@@ -29,6 +29,7 @@ export function RouteIntro({ locale, page }: { locale: Locale; page: ScaffoldPag
           linesClass: "route-intro__line",
           mask: "lines",
         });
+        prepareSplitLineMasks(split.lines);
         const reveal = gsap.timeline({ defaults: { ease: "expo.out" } });
 
         reveal

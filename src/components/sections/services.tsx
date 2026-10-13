@@ -7,7 +7,7 @@ import { Container } from "@/components/layout/container";
 import { EditorialLink } from "@/components/ui/editorial-link";
 import { profileContent } from "@/content/profile-content";
 import { siteCopy } from "@/content/site-copy";
-import { gsap, SplitText } from "@/lib/animations/gsap";
+import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import { localizedPath, type Locale } from "@/lib/i18n/config";
 
@@ -33,6 +33,7 @@ export function Services({ locale, showPageLink = false }: { locale: Locale; sho
           linesClass: "services-title__line",
           mask: "lines",
         });
+        prepareSplitLineMasks(split.lines);
 
         const rows = gsap.utils.toArray<HTMLElement>("[data-service-row]");
         const reveal = gsap.timeline({

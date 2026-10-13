@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { Container } from "@/components/layout/container";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { getServiceNeighbors, profileContent, type ServiceProfile } from "@/content/profile-content";
-import { gsap, SplitText } from "@/lib/animations/gsap";
+import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import { localizedPath, type Locale } from "@/lib/i18n/config";
 
@@ -26,6 +26,7 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
 
       matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
         const split = SplitText.create(title, { type: "lines", mask: "lines", linesClass: "service-detail__line" });
+        prepareSplitLineMasks(split.lines);
         const timeline = gsap.timeline({ defaults: { ease: "expo.out" } });
         timeline
           .from("[data-service-detail-meta]", { y: 18, autoAlpha: 0, duration: 0.8, stagger: 0.06, delay: 0.08 })

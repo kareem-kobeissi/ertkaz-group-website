@@ -4,7 +4,7 @@ import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
 import { profileContent } from "@/content/profile-content";
-import { gsap, SplitText } from "@/lib/animations/gsap";
+import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -24,6 +24,7 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
         const timelines = sections.map((section) => {
           const sectionSplits = Array.from(section.querySelectorAll<HTMLElement>("[data-profile-title]")).map((title) => {
             const split = SplitText.create(title, { type: "lines", mask: "lines", linesClass: "profile-page__line" });
+            prepareSplitLineMasks(split.lines);
             splits.push(split);
             return split;
           });
@@ -140,6 +141,26 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
                 <p>{sector}</p>
               </div>
             ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="profile-leadership" data-profile-section aria-labelledby="profile-leadership-title">
+        <Container className="profile-leadership__layout">
+          <div className="profile-leadership__meta" data-profile-reveal>
+            <span>05</span>
+            <span>{copy.leadershipLabel}</span>
+          </div>
+          <p className="profile-leadership__role" data-profile-reveal>{copy.leadershipRole}</p>
+          <h2 id="profile-leadership-title" className="profile-leadership__name" data-profile-title dir="ltr">
+            {copy.leadershipName}
+          </h2>
+          <div className="profile-leadership__art" aria-hidden="true" data-profile-reveal>
+            <svg viewBox="0 0 300 340" role="presentation">
+              <path d="m150 12 132 76v164l-132 76-132-76V88Z" />
+              <path d="m150 73 79 46v102l-79 46-79-46V119Z" />
+              <path d="m150 136 27 16v36l-27 16-27-16v-36Z" />
+            </svg>
           </div>
         </Container>
       </section>

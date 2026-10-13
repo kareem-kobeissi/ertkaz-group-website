@@ -43,6 +43,9 @@ type ProfileContent = {
     sectorsTitle: string;
     sectorsIntro: string;
     sectors: string[];
+    leadershipLabel: string;
+    leadershipName: string;
+    leadershipRole: string;
   };
   servicesPage: {
     indexLabel: string;
@@ -143,6 +146,9 @@ export const profileContent: Record<Locale, ProfileContent> = {
         "Industrial Contracting & Manufacturing",
         "Nonprofit",
       ],
+      leadershipLabel: "Leadership",
+      leadershipName: "Dr. Mohammed M. Sheaitani",
+      leadershipRole: "Founder / CEO",
     },
     servicesPage: {
       indexLabel: "Complete advisory index",
@@ -374,6 +380,9 @@ export const profileContent: Record<Locale, ProfileContent> = {
         "المقاولات الصناعية والتصنيع",
         "القطاع غير الربحي",
       ],
+      leadershipLabel: "القيادة",
+      leadershipName: "Dr. Mohammed M. Sheaitani",
+      leadershipRole: "المؤسس / الرئيس التنفيذي",
     },
     servicesPage: {
       indexLabel: "الدليل الاستشاري الكامل",

@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { ErtkazMotif } from "@/components/brand/ertkaz-motif";
 import { Container } from "@/components/layout/container";
 import { siteCopy } from "@/content/site-copy";
-import { gsap, SplitText } from "@/lib/animations/gsap";
+import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import { localizedPath, type Locale } from "@/lib/i18n/config";
 
@@ -32,15 +32,8 @@ export function Hero({ locale }: { locale: Locale }) {
           mask: "lines",
         });
 
-        const lineMasks = split.lines
-          .map((line) => line.parentElement)
-          .filter((mask): mask is HTMLElement => mask !== null);
+        prepareSplitLineMasks(split.lines);
         const revealTargets = gsap.utils.toArray<HTMLElement>("[data-hero-reveal]");
-
-        gsap.set(lineMasks, {
-          overflow: "visible",
-          clipPath: "inset(0 -0.16em 0 -0.16em)",
-        });
 
         gsap.set(hero, { autoAlpha: 1 });
 
