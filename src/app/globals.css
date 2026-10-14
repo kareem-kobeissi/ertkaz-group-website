@@ -4992,6 +4992,123 @@ html[lang="ar"] .profile-leadership__name {
   .hero-cta__label { max-width: 5.2rem; line-height: 1.05; }
 }
 
+/* Compact chapter rhythm: keep every section contiguous without empty viewport bands. */
+.route-intro__layout {
+  min-height: auto;
+  grid-template-rows: auto auto auto auto;
+  align-items: start;
+  padding-top: clamp(7rem, 10vh, 8rem);
+  padding-bottom: clamp(4rem, 6vw, 6rem);
+}
+
+.route-intro__art {
+  margin-block: clamp(1.25rem, 2vw, 2rem) 0;
+}
+
+.route-intro__title {
+  align-self: start;
+  margin-top: clamp(2rem, 3vw, 3rem);
+}
+
+.route-intro__footer {
+  margin-top: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.service-detail__hero {
+  min-height: auto;
+}
+
+.service-detail__hero-layout {
+  min-height: auto;
+  grid-template-rows: auto auto auto auto;
+}
+
+.service-detail__title {
+  align-self: start;
+  margin: clamp(3rem, 5vw, 5.5rem) 0 clamp(2.5rem, 4vw, 4rem);
+}
+
+.about-layout {
+  min-height: auto;
+  padding-block: clamp(5rem, 8vw, 8rem);
+}
+
+.services-section,
+.profile-introduction,
+.profile-purpose,
+.profile-values-page,
+.profile-sectors,
+.profile-services-index,
+.markets-profile,
+.service-detail__content,
+.profile-leadership {
+  padding-block: clamp(5rem, 8vw, 9rem);
+}
+
+.profile-highlights__layout,
+.markets-preview__layout,
+.contact-section {
+  min-height: auto;
+  padding-block: clamp(5rem, 8vw, 8rem) clamp(6rem, 9vw, 9rem);
+}
+
+.contact-heading {
+  padding-block: clamp(4.5rem, 7vw, 7rem) clamp(5rem, 8vw, 8rem);
+}
+
+.service-detail__pagination {
+  padding-block: clamp(4.5rem, 7vw, 8rem);
+}
+
+@media (max-width: 900px) {
+  .route-intro__layout {
+    min-height: auto;
+    padding-top: max(6rem, calc(env(safe-area-inset-top) + 5.4rem));
+    padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+  }
+
+  .route-intro__title {
+    margin-top: 2rem;
+  }
+
+  .route-intro__footer {
+    margin-top: 2.25rem;
+  }
+
+  .service-detail__hero,
+  .service-detail__hero-layout {
+    min-height: auto;
+  }
+
+  .service-detail__title {
+    margin-block: 2.5rem 2rem;
+  }
+
+  .about-layout,
+  .services-section,
+  .profile-highlights__layout,
+  .markets-preview__layout,
+  .profile-introduction,
+  .profile-purpose,
+  .profile-values-page,
+  .profile-sectors,
+  .profile-services-index,
+  .markets-profile,
+  .contact-section,
+  .service-detail__content,
+  .profile-leadership {
+    padding-block: 4.5rem 5.5rem;
+  }
+
+  .contact-heading {
+    padding-block: 4rem 5rem;
+  }
+
+  .service-detail__pagination {
+    padding-block: 4.5rem 5.5rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
