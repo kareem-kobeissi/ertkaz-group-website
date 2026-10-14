@@ -1,5 +1,6 @@
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 
+import { ErtkazLogo } from "@/components/brand/ertkaz-logo";
 import { Container } from "@/components/layout/container";
 import { siteCopy } from "@/content/site-copy";
 import { companyContact } from "@/data/company-contact";
@@ -38,9 +39,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
             aria-label={copy.footer.homeLabel}
             data-cursor="link"
           >
-            <span>ERTKAZ</span>
-            <span>GROUP</span>
-            <i aria-hidden="true" />
+            <ErtkazLogo className="footer-wordmark__image" />
           </a>
           <p>{copy.footer.description}</p>
         </div>

@@ -30,8 +30,8 @@ next-env.d.ts
 # local PDF review renders
 /.pdf-preview/
 
-# private source PDFs
-/references/*.pdf
+# private source documents and supplied master assets
+/references/
 
 # internal planning and QA documentation
 /docs/

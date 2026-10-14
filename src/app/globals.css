@@ -147,10 +147,6 @@ button:focus-visible {
   color: var(--brand-white);
 }
 
-.site-header.is-light .wordmark__group {
-  color: var(--brand-cyan);
-}
-
 .site-header__inner {
   position: relative;
   z-index: 2;
@@ -166,29 +162,26 @@ button:focus-visible {
 }
 
 .wordmark {
-  display: inline-flex;
-  align-items: baseline;
-  color: inherit;
-  font-size: clamp(0.84rem, 0.9vw, 0.98rem);
-  font-weight: 680;
-  line-height: 1;
-  letter-spacing: -0.035em;
+  display: block;
+  width: clamp(7.4rem, 9vw, 9.5rem);
   text-decoration: none;
   direction: ltr;
 }
 
-.wordmark__group {
-  margin-left: 0.28em;
-  color: var(--brand-blue);
-  font-weight: 480;
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
 }
 
-.wordmark__dot {
-  width: 0.34em;
-  height: 0.34em;
-  margin-left: 0.3em;
-  border-radius: 50%;
-  background: var(--brand-cyan);
+.wordmark__image {
+  transition: filter 450ms var(--ease-out-expo);
+}
+
+.site-header.is-light .wordmark__image,
+.site-header:has(.nav-menu-button[aria-expanded="true"]) .wordmark__image {
+  filter: grayscale(1) brightness(0) invert(1);
 }
 
 .desktop-nav {
@@ -1602,6 +1595,13 @@ button:focus-visible {
   font-size: clamp(2.4rem, 5.4vw, 6.5rem);
 }
 
+@media (min-width: 901px) and (max-width: 1440px) {
+  .contact-row--email {
+    min-height: clamp(6.5rem, 9vw, 9rem);
+    font-size: clamp(1.6rem, 3.3vw, 4rem);
+  }
+}
+
 .contact-row:hover,
 .contact-row:focus-visible {
   padding-inline: clamp(0.75rem, 1.5vw, 1.5rem);
@@ -1647,28 +1647,15 @@ button:focus-visible {
 }
 
 .footer-wordmark {
-  display: inline-flex;
-  align-items: baseline;
-  color: var(--brand-white);
-  font-size: clamp(1.35rem, 1.8vw, 1.8rem);
-  font-weight: 670;
-  letter-spacing: -0.05em;
+  display: block;
+  width: clamp(12rem, 15vw, 16rem);
   text-decoration: none;
   direction: ltr;
 }
 
-.footer-wordmark span:nth-child(2) {
-  margin-left: 0.3em;
-  color: var(--brand-cyan);
-  font-weight: 450;
-}
-
-.footer-wordmark i {
-  width: 0.3em;
-  aspect-ratio: 1;
-  margin-left: 0.25em;
-  border-radius: 50%;
-  background: var(--brand-cyan);
+.footer-wordmark__image {
+  opacity: 0.96;
+  filter: grayscale(1) brightness(0) invert(1);
 }
 
 .footer-navigation,

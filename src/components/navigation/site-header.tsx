@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { ErtkazLogo } from "@/components/brand/ertkaz-logo";
 import { siteCopy } from "@/content/site-copy";
 import { gsap } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
@@ -154,9 +155,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             data-cursor="link"
             onClick={() => setMenuOpen(false)}
           >
-            <span>ERTKAZ</span>
-            <span className="wordmark__group">GROUP</span>
-            <span className="wordmark__dot" aria-hidden="true" />
+            <ErtkazLogo className="wordmark__image" priority />
           </a>
         </div>
 
