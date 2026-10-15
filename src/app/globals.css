@@ -5109,6 +5109,96 @@ html[lang="ar"] .profile-leadership__name {
   }
 }
 
+/* Render-audited polish: protect fixed navigation, text rhythm and artwork zones. */
+@media (min-width: 901px) {
+  .site-header {
+    border-bottom: 1px solid color-mix(in srgb, var(--brand-navy) 12%, transparent);
+    background: var(--brand-white);
+    transition: color 450ms var(--ease-out-expo), background-color 450ms var(--ease-out-expo),
+      border-color 450ms var(--ease-out-expo);
+  }
+
+  .site-header.is-light {
+    border-color: color-mix(in srgb, var(--brand-white) 12%, transparent);
+    background: var(--brand-navy-deep);
+  }
+}
+
+:is(
+  .hero-title,
+  .route-intro__title,
+  .about-statement,
+  .services-title,
+  .profile-highlights__title,
+  .markets-preview__title,
+  .profile-introduction__title,
+  .profile-purpose__chapter h3,
+  .profile-values-page__title,
+  .profile-sectors__heading h2,
+  .profile-services-index__intro h2,
+  .service-index-group__heading h3,
+  .service-index-row__copy h4,
+  .markets-profile__title,
+  .markets-profile__row h3,
+  .service-detail__title,
+  .service-detail__pagination strong,
+  .contact-title,
+  .footer-invitation > p,
+  .profile-leadership__name
+) {
+  text-wrap: balance;
+}
+
+:is(
+  .route-intro__footer > p,
+  .about-summary,
+  .profile-introduction__copy p,
+  .profile-purpose__chapter li p,
+  .profile-sectors__heading > p,
+  .profile-services-index__intro > p,
+  .service-index-group__heading p,
+  .service-index-row__copy > p,
+  .markets-profile__introduction,
+  .markets-profile__clarification,
+  .service-detail__summary,
+  .footer-brand p
+) {
+  text-wrap: pretty;
+}
+
+@media (max-width: 900px) {
+  .ertkaz-motif__caption {
+    display: none;
+  }
+
+  html[lang="ar"] .ertkaz-motif {
+    top: 12rem;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .localized-contact > .closing-chapter {
+    margin-top: -1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  html[lang="ar"] .ertkaz-motif {
+    top: 10.9rem;
+  }
+
+  .site-footer__layout {
+    column-gap: clamp(1.25rem, 6vw, 2rem);
+    row-gap: 4.5rem;
+  }
+
+  .footer-column,
+  .footer-contact,
+  .footer-office {
+    min-width: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
