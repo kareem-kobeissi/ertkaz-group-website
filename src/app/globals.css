@@ -1935,16 +1935,16 @@ button:focus-visible {
 
 .locale-gateway__progress span {
   display: block;
-  width: 42%;
+  width: 100%;
   height: 100%;
   background: var(--brand-cyan);
-  animation: locale-gateway-progress 1.15s var(--ease-out-expo) infinite alternate;
+  animation: locale-gateway-progress 4s linear forwards;
   transform-origin: left center;
 }
 
 @keyframes locale-gateway-progress {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(238%); }
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 /* Arabic typography and direction */
@@ -5269,6 +5269,10 @@ html[lang="ar"] .profile-leadership__name {
   .custom-cursor-dot { display: none; }
   .project-artwork svg { transition: none; }
   .contact-cta [data-contact-ring] { transform: none !important; }
+  .locale-gateway__progress span {
+    animation: none !important;
+    transform: scaleX(1);
+  }
 }
 
 /* Phase 6 visual refinement: legibility, compact rhythm and clearer brand hierarchy. */

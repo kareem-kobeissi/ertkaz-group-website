@@ -18,7 +18,11 @@ export function RootLocaleGateway() {
       ? stored
       : navigator.language.toLowerCase().startsWith("ar") ? "ar" : "en";
 
-    window.location.replace(`/${preferred}/`);
+    const redirectTimer = window.setTimeout(() => {
+      window.location.replace(`/${preferred}/`);
+    }, 4000);
+
+    return () => window.clearTimeout(redirectTimer);
   }, []);
 
   return (
