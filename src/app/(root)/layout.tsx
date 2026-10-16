@@ -7,7 +7,7 @@ import "../globals.css";
 
 export const metadata: Metadata = {
   title: "ERTKAZ GROUP",
-  description: "Choose the English or Arabic ERTKAZ GROUP website.",
+  description: "ERTKAZ GROUP business consulting and strategic advisory.",
 };
 
 export default function RootGatewayLayout({ children }: PropsWithChildren) {

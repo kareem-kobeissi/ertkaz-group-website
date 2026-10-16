@@ -2,9 +2,18 @@
 
 import { useEffect } from "react";
 
+import { ErtkazLogo } from "@/components/brand/ertkaz-logo";
+
 export function RootLocaleGateway() {
   useEffect(() => {
-    const stored = window.localStorage.getItem("ertkaz-locale");
+    let stored: string | null = null;
+
+    try {
+      stored = window.localStorage.getItem("ertkaz-locale");
+    } catch {
+      // Continue with the browser language when storage is unavailable.
+    }
+
     const preferred = stored === "ar" || stored === "en"
       ? stored
       : navigator.language.toLowerCase().startsWith("ar") ? "ar" : "en";
@@ -13,14 +22,13 @@ export function RootLocaleGateway() {
   }, []);
 
   return (
-    <main className="locale-gateway">
-      <div className="locale-gateway__brand" aria-label="ERTKAZ GROUP">
-        <span>ERTKAZ</span><span>GROUP</span><i aria-hidden="true" />
+    <main className="locale-gateway" aria-busy="true">
+      <div className="locale-gateway__brand">
+        <ErtkazLogo priority />
       </div>
-      <p>Choose your language · اختر لغتك</p>
-      <div className="locale-gateway__links">
-        <a href="/en/">English</a>
-        <a href="/ar/" lang="ar" dir="rtl">العربية</a>
+      <p role="status">Loading ERTKAZ GROUP</p>
+      <div className="locale-gateway__progress" aria-hidden="true">
+        <span />
       </div>
     </main>
   );

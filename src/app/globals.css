@@ -1902,7 +1902,7 @@ button:focus-visible {
   display: grid;
   min-height: 100svh;
   place-content: center;
-  gap: 2rem;
+  gap: 1.5rem;
   background: var(--brand-navy-deep);
   color: var(--brand-white);
   padding: var(--space-page);
@@ -1910,53 +1910,41 @@ button:focus-visible {
 }
 
 .locale-gateway__brand {
-  display: inline-flex;
-  align-items: baseline;
-  justify-content: center;
-  font-size: clamp(2.4rem, 6vw, 5rem);
-  font-weight: 680;
-  letter-spacing: -0.06em;
-}
-
-.locale-gateway__brand span:nth-child(2) {
-  margin-left: 0.25em;
-  color: var(--brand-cyan);
-  font-weight: 430;
-}
-
-.locale-gateway__brand i {
-  width: 0.18em;
-  height: 0.18em;
-  margin-left: 0.16em;
-  border-radius: 50%;
-  background: var(--brand-cyan);
+  width: clamp(12rem, 24vw, 18rem);
+  border-radius: 0.55rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--brand-white);
 }
 
 .locale-gateway > p {
   margin: 0;
   color: color-mix(in srgb, var(--brand-white) 65%, transparent);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.locale-gateway__links {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
+.locale-gateway__progress {
+  width: min(100%, 14rem);
+  height: 1px;
+  margin-inline: auto;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--brand-white) 18%, transparent);
 }
 
-.locale-gateway__links a {
-  min-width: 8rem;
-  border: 1px solid color-mix(in srgb, var(--brand-white) 30%, transparent);
-  border-radius: var(--radius-pill);
-  padding: 0.9rem 1.4rem;
-  color: var(--brand-white);
-  text-decoration: none;
-  transition: background-color 350ms ease, color 350ms ease;
-}
-
-.locale-gateway__links a:hover,
-.locale-gateway__links a:focus-visible {
+.locale-gateway__progress span {
+  display: block;
+  width: 42%;
+  height: 100%;
   background: var(--brand-cyan);
-  color: var(--brand-navy-deep);
+  animation: locale-gateway-progress 1.15s var(--ease-out-expo) infinite alternate;
+  transform-origin: left center;
+}
+
+@keyframes locale-gateway-progress {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(238%); }
 }
 
 /* Arabic typography and direction */
@@ -3572,10 +3560,6 @@ html[lang="ar"] .service-detail__art { left: 0; }
 
   .markets-placeholder::after {
     width: 46vw;
-  }
-
-  .locale-gateway__links {
-    flex-direction: column;
   }
 
   .editorial-link {
