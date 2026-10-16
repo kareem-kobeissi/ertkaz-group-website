@@ -163,9 +163,14 @@ button:focus-visible {
 
 .wordmark {
   display: block;
+  box-sizing: border-box;
   width: clamp(7.4rem, 9vw, 9.5rem);
+  border-radius: 0.42rem;
+  padding: 0.28rem 0.38rem;
+  background: transparent;
   text-decoration: none;
   direction: ltr;
+  transition: background-color 450ms var(--ease-out-expo), box-shadow 450ms var(--ease-out-expo);
 }
 
 .brand-logo {
@@ -176,12 +181,13 @@ button:focus-visible {
 }
 
 .wordmark__image {
-  transition: filter 450ms var(--ease-out-expo);
+  filter: none;
 }
 
-.site-header.is-light .wordmark__image,
-.site-header:has(.nav-menu-button[aria-expanded="true"]) .wordmark__image {
-  filter: grayscale(1) brightness(0) invert(1);
+.site-header.is-light .wordmark,
+.site-header:has(.nav-menu-button[aria-expanded="true"]) .wordmark {
+  background: color-mix(in srgb, var(--brand-white) 96%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--brand-navy-deep) 8%, transparent);
 }
 
 .desktop-nav {
@@ -1648,14 +1654,18 @@ button:focus-visible {
 
 .footer-wordmark {
   display: block;
+  box-sizing: border-box;
   width: clamp(12rem, 15vw, 16rem);
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.58rem;
+  background: var(--brand-white);
   text-decoration: none;
   direction: ltr;
 }
 
 .footer-wordmark__image {
-  opacity: 0.96;
-  filter: grayscale(1) brightness(0) invert(1);
+  opacity: 1;
+  filter: none;
 }
 
 .footer-navigation,
