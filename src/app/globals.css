@@ -5220,3 +5220,222 @@ html[lang="ar"] .profile-leadership__name {
   .project-artwork svg { transition: none; }
   .contact-cta [data-contact-ring] { transform: none !important; }
 }
+
+/* Phase 6 visual refinement: legibility, compact rhythm and clearer brand hierarchy. */
+.wordmark {
+  width: clamp(8.8rem, 10.4vw, 10.9rem);
+}
+
+.footer-wordmark {
+  width: clamp(12.75rem, 15.5vw, 16.5rem);
+}
+
+.service-index-group__heading p {
+  font-size: clamp(0.94rem, 0.92vw, 1.02rem);
+}
+
+.service-index-row__review {
+  font-size: 0.61rem;
+}
+
+.site-footer {
+  padding-top: clamp(2.75rem, 4.25vw, 4.5rem);
+}
+
+.site-footer__layout {
+  row-gap: clamp(3rem, 5vw, 5.5rem);
+}
+
+.footer-invitation {
+  min-height: clamp(15rem, 23vw, 26rem);
+  padding-block: clamp(2.75rem, 5vw, 5.5rem);
+}
+
+.footer-column__label {
+  color: color-mix(in srgb, var(--brand-white) 58%, transparent);
+  font-size: 0.62rem;
+}
+
+.footer-navigation a,
+.footer-contact a,
+.footer-office address,
+.footer-office > a {
+  font-size: clamp(0.84rem, 0.78vw, 0.92rem);
+  line-height: 1.5;
+}
+
+.footer-brand p {
+  color: color-mix(in srgb, var(--brand-white) 70%, transparent);
+  font-size: clamp(0.86rem, 0.8vw, 0.94rem);
+}
+
+@media (min-width: 901px) {
+  .services-section,
+  .profile-introduction,
+  .profile-purpose,
+  .profile-values-page,
+  .profile-sectors,
+  .profile-services-index,
+  .markets-profile,
+  .service-detail__content,
+  .profile-leadership {
+    padding-block: clamp(4.75rem, 7.2vw, 8rem);
+  }
+
+  .profile-highlights__layout,
+  .markets-preview__layout,
+  .contact-section {
+    padding-block: clamp(4.75rem, 7.2vw, 7.5rem) clamp(5.5rem, 8vw, 8rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header__inner {
+    min-height: 5rem;
+  }
+
+  .wordmark {
+    width: clamp(8rem, 35vw, 8.7rem);
+  }
+
+  .hero-stage {
+    height: 108svh;
+  }
+
+  .hero-layout {
+    padding-top: max(6rem, calc(env(safe-area-inset-top) + 5.35rem));
+  }
+
+  .hero-intro__eyebrow,
+  .hero-intro__index {
+    font-size: 0.6rem;
+  }
+
+  .hero-intro__copy {
+    font-size: 0.86rem;
+    line-height: 1.42;
+  }
+
+  .hero-title {
+    margin-top: clamp(6.5rem, 16svh, 8.5rem);
+  }
+
+  .about-layout,
+  .services-section,
+  .profile-highlights__layout,
+  .markets-preview__layout,
+  .profile-introduction,
+  .profile-purpose,
+  .profile-values-page,
+  .profile-sectors,
+  .profile-services-index,
+  .markets-profile,
+  .contact-section,
+  .service-detail__content,
+  .profile-leadership {
+    padding-block: 4rem 4.85rem;
+  }
+
+  .about-statement {
+    margin-block: 4.5rem 4.75rem;
+  }
+
+  .about-notes {
+    gap: 0.85rem;
+  }
+
+  .about-notes p {
+    font-size: 0.64rem;
+    line-height: 1.5;
+  }
+
+  .about-summary,
+  .route-intro__footer > p,
+  .profile-introduction__copy p,
+  .profile-purpose__chapter li p,
+  .profile-sectors__heading > p,
+  .profile-services-index__intro > p,
+  .service-index-group__heading p,
+  .service-index-row__copy > p,
+  .markets-profile__introduction,
+  .markets-profile__clarification,
+  .service-detail__summary,
+  .profile-highlights__footer > p {
+    font-size: 0.92rem;
+    line-height: 1.58;
+  }
+
+  .service-row__description {
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .service-index-row__review {
+    font-size: 0.6rem;
+  }
+
+  .site-footer {
+    padding-block: 3.5rem 1.5rem;
+  }
+
+  .site-footer__layout {
+    row-gap: 2.75rem;
+  }
+
+  .footer-invitation {
+    min-height: 18rem;
+    padding-block: 2.5rem;
+  }
+
+  .footer-invitation > p {
+    max-width: 9ch;
+    font-size: clamp(2.25rem, 10.5vw, 3.1rem);
+  }
+
+  .footer-invitation > a {
+    grid-column: 1 / 6;
+    font-size: 0.88rem;
+  }
+
+  .footer-brand {
+    padding-bottom: 0.5rem;
+  }
+
+  .footer-wordmark {
+    width: clamp(11rem, 48vw, 13rem);
+  }
+
+  .footer-brand p {
+    max-width: 16rem;
+    margin-top: 1rem;
+    font-size: 0.86rem;
+  }
+
+  .footer-column,
+  .footer-office {
+    border-top: 1px solid color-mix(in srgb, var(--brand-white) 16%, transparent);
+    padding-top: 1.25rem;
+  }
+
+  .footer-column__label {
+    margin-bottom: 1.1rem;
+    font-size: 0.62rem;
+  }
+
+  .footer-navigation,
+  .footer-contact {
+    gap: 0.72rem;
+  }
+
+  .footer-navigation a,
+  .footer-contact a,
+  .footer-office address,
+  .footer-office > a {
+    font-size: 0.82rem;
+    line-height: 1.48;
+  }
+
+  .footer-bottom {
+    padding-top: 1.35rem;
+  }
+}

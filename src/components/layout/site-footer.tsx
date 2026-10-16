@@ -44,7 +44,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           <p>{copy.footer.description}</p>
         </div>
 
-        <div className="footer-column" data-footer-reveal>
+        <div className="footer-column footer-column--navigation" data-footer-reveal>
           <p className="footer-column__label">{copy.footer.navigate}</p>
           <nav className="footer-navigation" aria-label={copy.footer.navigationLabel}>
             {navigationPages.map((page) => (
@@ -55,7 +55,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           </nav>
         </div>
 
-        <div className="footer-column" data-footer-reveal>
+        <div className="footer-column footer-column--contact" data-footer-reveal>
           <p className="footer-column__label">{copy.footer.contact}</p>
           <div className="footer-contact" dir="ltr">
             <a href={companyContact.emails.general.href} data-cursor="link">{companyContact.emails.general.label}</a>
