@@ -35,13 +35,41 @@ export function SmoothScrollProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     document.body.classList.remove("menu-open");
-    const frame = window.requestAnimationFrame(() => {
-      lenisRef.current?.scrollTo(0, { immediate: true });
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      ScrollTrigger.refresh();
-    });
+    const scrollToLocation = () => {
+      const hash = window.location.hash.slice(1);
+      let target: HTMLElement | null = null;
 
-    return () => window.cancelAnimationFrame(frame);
+      if (hash) {
+        try {
+          target = document.getElementById(decodeURIComponent(hash));
+        } catch {
+          target = document.getElementById(hash);
+        }
+      }
+
+      if (target) {
+        const scrollMargin = Number.parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0;
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(target, { immediate: true, offset: -scrollMargin });
+        } else {
+          const top = window.scrollY + target.getBoundingClientRect().top - scrollMargin;
+          window.scrollTo({ top, left: 0, behavior: "auto" });
+        }
+      } else {
+        lenisRef.current?.scrollTo(0, { immediate: true });
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      }
+
+      ScrollTrigger.refresh();
+    };
+
+    const frame = window.requestAnimationFrame(scrollToLocation);
+    window.addEventListener("hashchange", scrollToLocation);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("hashchange", scrollToLocation);
+    };
   }, [pathname]);
 
   return children;

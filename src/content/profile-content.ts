@@ -46,6 +46,9 @@ type ProfileContent = {
     leadershipLabel: string;
     leadershipName: string;
     leadershipRole: string;
+    leadershipCredentialsLabel: string;
+    leadershipCredentials: string;
+    leadershipContactLabel: string;
   };
   servicesPage: {
     indexLabel: string;
@@ -149,6 +152,9 @@ export const profileContent: Record<Locale, ProfileContent> = {
       leadershipLabel: "Leadership",
       leadershipName: "Dr. Mohammed M. Sheaitani",
       leadershipRole: "Founder / CEO",
+      leadershipCredentialsLabel: "Credentials listed in the company profile",
+      leadershipCredentials: "PhD, MBA, BC, SA, MC, CA, BSC",
+      leadershipContactLabel: "Executive contact",
     },
     servicesPage: {
       indexLabel: "Complete advisory index",
@@ -383,6 +389,9 @@ export const profileContent: Record<Locale, ProfileContent> = {
       leadershipLabel: "القيادة",
       leadershipName: "Dr. Mohammed M. Sheaitani",
       leadershipRole: "المؤسس / الرئيس التنفيذي",
+      leadershipCredentialsLabel: "المؤهلات الواردة في ملف الشركة",
+      leadershipCredentials: "PhD, MBA, BC, SA, MC, CA, BSC",
+      leadershipContactLabel: "التواصل التنفيذي",
     },
     servicesPage: {
       indexLabel: "الدليل الاستشاري الكامل",

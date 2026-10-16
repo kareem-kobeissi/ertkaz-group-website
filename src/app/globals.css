@@ -4711,6 +4711,7 @@ html[lang="ar"] .route-intro__art {
 
 .profile-leadership {
   overflow: hidden;
+  scroll-margin-top: 5.6rem;
   background: var(--brand-white);
   padding-block: clamp(8rem, 13vw, 15rem);
 }
@@ -4751,6 +4752,49 @@ html[lang="ar"] .route-intro__art {
   line-height: 1;
 }
 
+.profile-leadership__details {
+  grid-column: 1 / 10;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 4rem);
+  margin-top: clamp(3rem, 5vw, 5rem);
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+
+.profile-leadership__detail {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.profile-leadership__detail > span {
+  color: var(--brand-blue);
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.profile-leadership__detail > :is(strong, a) {
+  width: fit-content;
+  color: var(--brand-navy-deep);
+  font-size: clamp(0.95rem, 1.3vw, 1.2rem);
+  font-weight: 450;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.profile-leadership__detail > a {
+  border-bottom: 1px solid color-mix(in srgb, var(--brand-blue) 35%, transparent);
+  transition: color 240ms ease, border-color 240ms ease;
+}
+
+.profile-leadership__detail > a:hover,
+.profile-leadership__detail > a:focus-visible {
+  border-color: var(--brand-cyan);
+  color: var(--brand-blue);
+}
+
 .profile-leadership__art {
   grid-column: 11 / 13;
   grid-row: 2;
@@ -4775,6 +4819,7 @@ html[lang="ar"] .route-intro__art {
 }
 
 html[lang="ar"] .profile-leadership__meta,
+html[lang="ar"] .profile-leadership__detail > span,
 html[lang="ar"] .footer-column__label {
   letter-spacing: 0;
   text-transform: none;
@@ -4895,7 +4940,8 @@ html[lang="ar"] .profile-leadership__name {
 
   .profile-leadership__meta,
   .profile-leadership__role,
-  .profile-leadership__name {
+  .profile-leadership__name,
+  .profile-leadership__details {
     grid-column: 1 / 13;
   }
 
@@ -4909,6 +4955,12 @@ html[lang="ar"] .profile-leadership__name {
     line-height: 1.04;
   }
 
+  .profile-leadership__details {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    margin-top: 2.75rem;
+  }
+
   .profile-leadership__art {
     grid-column: 10 / 13;
     grid-row: auto;
@@ -4918,6 +4970,10 @@ html[lang="ar"] .profile-leadership__name {
 }
 
 @media (max-width: 600px) {
+  .profile-leadership {
+    scroll-margin-top: 4.95rem;
+  }
+
   .hero-title {
     line-height: 0.96;
   }

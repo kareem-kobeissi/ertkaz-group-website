@@ -4,6 +4,7 @@ import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
 import { profileContent } from "@/content/profile-content";
+import { companyContact } from "@/data/company-contact";
 import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import type { Locale } from "@/lib/i18n/config";
@@ -155,6 +156,18 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
           <h2 id="profile-leadership-title" className="profile-leadership__name" data-profile-title dir="ltr">
             {copy.leadershipName}
           </h2>
+          <div className="profile-leadership__details" data-profile-reveal>
+            <div className="profile-leadership__detail">
+              <span>{copy.leadershipCredentialsLabel}</span>
+              <strong dir="ltr">{copy.leadershipCredentials}</strong>
+            </div>
+            <div className="profile-leadership__detail">
+              <span>{copy.leadershipContactLabel}</span>
+              <a href={companyContact.emails.executive.href} dir="ltr" data-cursor="link">
+                {companyContact.emails.executive.label}
+              </a>
+            </div>
+          </div>
           <div className="profile-leadership__art" aria-hidden="true" data-profile-reveal>
             <svg viewBox="0 0 300 340" role="presentation">
               <path d="m150 12 132 76v164l-132 76-132-76V88Z" />

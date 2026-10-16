@@ -36,7 +36,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
 
         <a
           className="footer-founder"
-          href={`${localizedPath(locale, "about")}#leadership`}
+          href={`${localizedPath(locale, "about")}/#leadership`}
           data-footer-reveal
           data-cursor="cta"
           aria-label={`${leadership.leadershipRole}: ${leadership.leadershipName}`}
