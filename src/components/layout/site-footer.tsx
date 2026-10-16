@@ -2,6 +2,7 @@ import { ArrowUp, ArrowUpRight } from "lucide-react";
 
 import { ErtkazLogo } from "@/components/brand/ertkaz-logo";
 import { Container } from "@/components/layout/container";
+import { profileContent } from "@/content/profile-content";
 import { siteCopy } from "@/content/site-copy";
 import { companyContact } from "@/data/company-contact";
 import { localizedPath, navigationPages, type Locale } from "@/lib/i18n/config";
@@ -12,6 +13,7 @@ type SiteFooterProps = {
 
 export function SiteFooter({ locale }: SiteFooterProps) {
   const copy = siteCopy[locale];
+  const leadership = profileContent[locale].aboutPage;
   const currentYear = new Date().getFullYear();
 
   return (
@@ -31,6 +33,33 @@ export function SiteFooter({ locale }: SiteFooterProps) {
             </svg>
           </div>
         </div>
+
+        <a
+          className="footer-founder"
+          href={`${localizedPath(locale, "about")}#leadership`}
+          data-footer-reveal
+          data-cursor="cta"
+          aria-label={`${leadership.leadershipRole}: ${leadership.leadershipName}`}
+        >
+          <span className="footer-founder__meta">
+            <span>05</span>
+            <span>{leadership.leadershipLabel}</span>
+          </span>
+
+          <span className="footer-founder__identity">
+            <span className="footer-founder__role">{leadership.leadershipRole}</span>
+            <strong className="footer-founder__name" dir="ltr">{leadership.leadershipName}</strong>
+          </span>
+
+          <span className="footer-founder__action" aria-hidden="true">
+            <svg viewBox="0 0 120 120" role="presentation">
+              <path d="M60 6 107 33v54l-47 27L13 87V33Z" />
+              <path d="m60 29 27 16v30L60 91 33 75V45Z" />
+              <path d="m60 49 10 6v10l-10 6-10-6V55Z" />
+            </svg>
+            <ArrowUpRight />
+          </span>
+        </a>
 
         <div className="footer-brand" data-footer-reveal>
           <a

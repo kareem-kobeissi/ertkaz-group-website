@@ -145,7 +145,7 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
         </Container>
       </section>
 
-      <section className="profile-leadership" data-profile-section aria-labelledby="profile-leadership-title">
+      <section id="leadership" className="profile-leadership" data-profile-section aria-labelledby="profile-leadership-title">
         <Container className="profile-leadership__layout">
           <div className="profile-leadership__meta" data-profile-reveal>
             <span>05</span>
