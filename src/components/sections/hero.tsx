@@ -133,8 +133,21 @@ export function Hero({ locale }: { locale: Locale }) {
 
           <ErtkazMotif />
 
+          <a
+            className="hero-reel-link"
+            href="#motion-reel"
+            data-hero-reveal
+            data-hero-fade
+            data-cursor="cta"
+          >
+            <span className="hero-reel-link__disc" aria-hidden="true">
+              <span />
+            </span>
+            <span>{copy.motionLabel}</span>
+          </a>
+
           <h1 id="hero-title" ref={titleRef} className="hero-title">
-            {copy.titleLines[0]}
+            <span className="hero-title__first">{copy.titleLines[0]}</span>
             <br />
             <span className="hero-title__second">{copy.titleLines[1]}</span>
           </h1>
