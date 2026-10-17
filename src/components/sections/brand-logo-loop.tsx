@@ -89,7 +89,7 @@ export function BrandLogoLoop({ locale }: { locale: Locale }) {
             <p data-logo-loop-label>{copy.statement}</p>
           </div>
 
-          <div className="brand-logo-loop__bottomline" data-logo-loop-label>
+          <div className="brand-logo-loop__bottomline">
             <span>{copy.disciplines}</span>
             <span dir="ltr">∞ / BRAND LOOP</span>
           </div>

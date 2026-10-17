@@ -2,6 +2,7 @@ import { GeistSans } from "geist/font/sans";
 import type { PropsWithChildren } from "react";
 
 import { CustomCursor } from "@/components/cursor/custom-cursor";
+import { SiteIntro } from "@/components/layout/site-intro";
 import { SiteHeader } from "@/components/navigation/site-header";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { localeConfig, type Locale } from "@/lib/i18n/config";
@@ -16,6 +17,7 @@ export function LocaleRootLayout({ locale, children }: LocaleRootLayoutProps) {
   return (
     <html lang={locale} dir={dir} className={`${GeistSans.variable} locale-${locale}`}>
       <body>
+        <SiteIntro locale={locale} />
         <SmoothScrollProvider>
           <SiteHeader locale={locale} />
           {children}

@@ -33,6 +33,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       if (reduceMotion) return;
 
       const targets = gsap.utils.toArray<HTMLElement>("[data-nav-reveal]");
+      const waitsForSiteIntro = document.body.classList.contains("intro-open");
 
       const entrance = gsap.from(targets, {
         yPercent: -105,
@@ -40,11 +41,16 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         duration: 1.25,
         stagger: 0.045,
         delay: 0.08,
+        paused: waitsForSiteIntro,
         ease: "expo.out",
         onComplete: () => gsap.set(targets, { clearProps: "opacity,visibility,transform" }),
       });
 
+      const playEntrance = () => entrance.play();
+      if (waitsForSiteIntro) window.addEventListener("ertkaz:intro-complete", playEntrance, { once: true });
+
       return () => {
+        window.removeEventListener("ertkaz:intro-complete", playEntrance);
         entrance.kill();
       };
     },
