@@ -33,9 +33,10 @@ type SiteCopy = {
     scroll: string;
     cta: string;
   };
-  brandFilm: {
+  brandLoop: {
     meta: [string, string];
     disciplines: string;
+    statement: string;
     ariaLabel: string;
   };
   about: {
@@ -122,10 +123,11 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       scroll: "Scroll to discover",
       cta: "Start a conversation",
     },
-    brandFilm: {
+    brandLoop: {
       meta: ["ERTKAZ / In motion", "Corporate perspective"],
       disciplines: "Business · Strategy · Technology",
-      ariaLabel: "ERTKAZ brand film",
+      statement: "One identity. Multiple dimensions.",
+      ariaLabel: "Animated ERTKAZ identity",
     },
     about: {
       meta: ["01 / About us", "Our perspective"],
@@ -221,10 +223,11 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       scroll: "مرّر للاستكشاف",
       cta: "ابدأ محادثة",
     },
-    brandFilm: {
+    brandLoop: {
       meta: ["ERTKAZ / في حركة", "منظور مؤسسي"],
       disciplines: "الأعمال · الاستراتيجية · التكنولوجيا",
-      ariaLabel: "الفيلم التعريفي لمجموعة ERTKAZ",
+      statement: "هوية واحدة. أبعاد متعددة.",
+      ariaLabel: "هوية ERTKAZ المتحركة",
     },
     about: {
       meta: ["01 / من نحن", "رؤيتنا"],

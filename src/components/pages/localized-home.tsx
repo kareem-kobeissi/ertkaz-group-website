@@ -1,5 +1,5 @@
 import { About } from "@/components/sections/about";
-import { BrandFilm } from "@/components/sections/brand-film";
+import { BrandLogoLoop } from "@/components/sections/brand-logo-loop";
 import { Contact } from "@/components/sections/contact";
 import { Hero } from "@/components/sections/hero";
 import { MarketsPreview } from "@/components/sections/markets-preview";
@@ -11,7 +11,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
   return (
     <main>
       <Hero locale={locale} />
-      <BrandFilm locale={locale} />
+      <BrandLogoLoop locale={locale} />
       <About locale={locale} showPageLink />
       <Services locale={locale} showPageLink />
       <ProfileHighlights locale={locale} />
