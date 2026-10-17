@@ -37,8 +37,7 @@ export function Hero({ locale }: { locale: Locale }) {
 
         gsap.set(hero, { autoAlpha: 1 });
 
-        const waitsForSiteIntro = document.body.classList.contains("intro-open");
-        const intro = gsap.timeline({ paused: waitsForSiteIntro, defaults: { ease: "expo.out" } });
+        const intro = gsap.timeline({ defaults: { ease: "expo.out" } });
         intro
           .from(split.lines, {
             yPercent: 118,
@@ -64,9 +63,6 @@ export function Hero({ locale }: { locale: Locale }) {
           )
           .set(split.lines, { yPercent: 0, autoAlpha: 1 })
           .set(revealTargets, { y: 0, autoAlpha: 1 });
-
-        const playIntro = () => intro.play();
-        if (waitsForSiteIntro) window.addEventListener("ertkaz:intro-complete", playIntro, { once: true });
 
         const motifSpin = gsap.to("[data-motif-rotor]", {
           rotate: 360,
@@ -103,7 +99,6 @@ export function Hero({ locale }: { locale: Locale }) {
           intro.kill();
           exit.kill();
           motifSpin.kill();
-          window.removeEventListener("ertkaz:intro-complete", playIntro);
           split.revert();
         };
       });

@@ -1898,55 +1898,6 @@ button:focus-visible {
   border-right: 1px solid color-mix(in srgb, var(--brand-white) 20%, transparent);
 }
 
-.locale-gateway {
-  display: grid;
-  min-height: 100svh;
-  place-content: center;
-  gap: 1.5rem;
-  background: var(--brand-navy-deep);
-  color: var(--brand-white);
-  padding: var(--space-page);
-  text-align: center;
-}
-
-.locale-gateway__brand {
-  width: clamp(12rem, 24vw, 18rem);
-  border-radius: 0.55rem;
-  padding: 0.6rem 0.75rem;
-  background: var(--brand-white);
-}
-
-.locale-gateway > p {
-  margin: 0;
-  color: color-mix(in srgb, var(--brand-white) 65%, transparent);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.locale-gateway__progress {
-  width: min(100%, 14rem);
-  height: 1px;
-  margin-inline: auto;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--brand-white) 18%, transparent);
-}
-
-.locale-gateway__progress span {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: var(--brand-cyan);
-  animation: locale-gateway-progress 4s linear forwards;
-  transform-origin: left center;
-}
-
-@keyframes locale-gateway-progress {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
-}
-
 /* Arabic typography and direction */
 html[lang="ar"] body {
   font-family: var(--font-arabic);
@@ -6390,10 +6341,6 @@ html[lang="ar"] .brand-film__bottomline {
   .custom-cursor-dot { display: none; }
   .project-artwork svg { transition: none; }
   .contact-cta [data-contact-ring] { transform: none !important; }
-  .locale-gateway__progress span {
-    animation: none !important;
-    transform: scaleX(1);
-  }
 }
 
 /* Phase 6 visual refinement: legibility, compact rhythm and clearer brand hierarchy. */
@@ -7062,31 +7009,7 @@ html[lang="ar"] :is(
   }
 }
 
-/* Branded opening sequence and live logo loop. */
-body.intro-open {
-  overflow: hidden;
-}
-
-body.intro-open .custom-cursor,
-body.intro-open .custom-cursor-dot {
-  opacity: 0 !important;
-}
-
-.site-intro {
-  position: fixed;
-  z-index: 10000;
-  inset: 0;
-  display: grid;
-  min-height: 100svh;
-  overflow: hidden;
-  grid-template-rows: auto 1fr auto;
-  padding: clamp(1.2rem, 2.6vw, 2.75rem) var(--space-page);
-  background: var(--brand-navy-deep);
-  color: var(--brand-white);
-  clip-path: inset(0% 0% 0% 0%);
-}
-
-.site-intro__grid,
+/* Live logo loop. */
 .brand-logo-loop__grid {
   position: absolute;
   inset: 0;
@@ -7099,48 +7022,6 @@ body.intro-open .custom-cursor-dot {
   mask-image: radial-gradient(circle at center, black 0%, transparent 72%);
 }
 
-.site-intro__topline,
-.site-intro__bottomline {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  border-top: 1px solid color-mix(in srgb, var(--brand-white) 28%, transparent);
-  padding-top: 0.85rem;
-  color: color-mix(in srgb, var(--brand-white) 74%, transparent);
-  font-size: 0.58rem;
-  font-weight: 650;
-  letter-spacing: 0.13em;
-  line-height: 1.3;
-  text-transform: uppercase;
-}
-
-.site-intro__bottomline {
-  align-self: end;
-}
-
-html[lang="ar"] .site-intro__topline,
-html[lang="ar"] .site-intro__bottomline {
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-.site-intro__center {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  place-content: center;
-  place-items: center;
-}
-
-.site-intro__mark {
-  width: clamp(9rem, 15vw, 14rem);
-  color: var(--brand-cyan);
-}
-
-.site-intro__wordmark,
 .brand-logo-loop__wordmark {
   display: flex;
   align-items: baseline;
@@ -7153,35 +7034,19 @@ html[lang="ar"] .site-intro__bottomline {
   line-height: 0.8;
 }
 
-.site-intro__word-mask,
 .brand-logo-loop__wordmark > span {
   display: block;
   overflow: hidden;
   padding: 0.12em 0.06em;
 }
 
-.site-intro__wordmark strong,
 .brand-logo-loop__wordmark strong {
   display: block;
   font: inherit;
 }
 
-.site-intro__wordmark > span:last-child,
 .brand-logo-loop__wordmark > span:last-child {
   color: var(--brand-cyan);
-}
-
-.site-intro__rule {
-  width: min(32rem, 65vw);
-  height: 1px;
-  margin-top: clamp(1.5rem, 3vw, 2.75rem);
-  background: var(--brand-cyan);
-  opacity: 0.72;
-}
-
-.site-intro__progress {
-  min-width: 4.5rem;
-  text-align: end;
 }
 
 .ertkaz-symbol {
@@ -7342,35 +7207,6 @@ html[lang="ar"] .brand-logo-loop__identity > p {
 }
 
 @media (max-width: 600px) {
-  .site-intro {
-    padding: max(1.25rem, env(safe-area-inset-top)) 1.25rem max(1.25rem, env(safe-area-inset-bottom));
-  }
-
-  .site-intro__topline,
-  .site-intro__bottomline {
-    gap: 0.75rem;
-    font-size: 0.48rem;
-  }
-
-  .site-intro__topline > span:last-child {
-    max-width: 11rem;
-    text-align: end;
-  }
-
-  .site-intro__bottomline > span:first-child {
-    max-width: 13rem;
-    text-align: start;
-  }
-
-  .site-intro__mark {
-    width: 9.75rem;
-  }
-
-  .site-intro__wordmark {
-    gap: 0.12em;
-    font-size: clamp(2.35rem, 10.6vw, 3rem);
-  }
-
   .brand-logo-loop {
     min-height: 92svh;
     padding: 0.55rem;
@@ -7423,10 +7259,6 @@ html[lang="ar"] .brand-logo-loop__identity > p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-intro {
-    transition: none;
-  }
-
   .brand-logo-loop__frame {
     clip-path: none !important;
   }
