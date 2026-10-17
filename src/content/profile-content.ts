@@ -30,6 +30,7 @@ type ProfileContent = {
     introductionLabel: string;
     introductionTitle: string;
     introduction: string[];
+    introductionPrinciples: Array<{ label: string; description: string }>;
     missionLabel: string;
     missionTitle: string;
     mission: string[];
@@ -115,6 +116,11 @@ export const profileContent: Record<Locale, ProfileContent> = {
       introduction: [
         "ERTKAZ GROUP provides business growth and management consulting, developing practical strategies tailored to each organization’s requirements.",
         "Its approach emphasizes close collaboration, a clear understanding of business challenges and support through relevant stages of development and expansion.",
+      ],
+      introductionPrinciples: [
+        { label: "Understand", description: "Read the organization, its requirements and its business challenges." },
+        { label: "Shape", description: "Develop practical strategies around the organization’s defined context." },
+        { label: "Support", description: "Stay close through relevant stages of development and expansion." },
       ],
       missionLabel: "Mission",
       missionTitle: "Help people and organizations thrive in a changing world.",
@@ -352,6 +358,11 @@ export const profileContent: Record<Locale, ProfileContent> = {
       introduction: [
         "تقدم مجموعة ERTKAZ استشارات نمو الأعمال والإدارة، وتطور استراتيجيات عملية مصممة وفق متطلبات كل مؤسسة.",
         "يرتكز نهجها على التعاون الوثيق والفهم الواضح لتحديات الأعمال ودعم المراحل المناسبة من التطور والتوسع.",
+      ],
+      introductionPrinciples: [
+        { label: "نفهم", description: "نقرأ المؤسسة ومتطلباتها وتحديات أعمالها بوضوح." },
+        { label: "نصوغ", description: "نطور استراتيجيات عملية منطلقة من سياق المؤسسة المحدد." },
+        { label: "ندعم", description: "نبقى قريبين خلال المراحل المناسبة من التطور والتوسع." },
       ],
       missionLabel: "الرسالة",
       missionTitle: "مساعدة الأفراد والمؤسسات على الازدهار في عالم متغيّر.",
