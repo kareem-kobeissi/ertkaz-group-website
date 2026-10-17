@@ -32,18 +32,10 @@ type SiteCopy = {
     titleLines: [string, string];
     scroll: string;
     cta: string;
-    motionLabel: string;
   };
-  motionReel: {
+  brandFilm: {
     meta: [string, string];
-    titleLines: [string, string];
-    introduction: string;
-    chapters: [
-      { index: string; label: string; title: string },
-      { index: string; label: string; title: string },
-      { index: string; label: string; title: string },
-    ];
-    progress: string;
+    disciplines: string;
     ariaLabel: string;
   };
   about: {
@@ -129,19 +121,11 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       titleLines: ["Strategy today.", "Impact tomorrow."],
       scroll: "Scroll to discover",
       cta: "Start a conversation",
-      motionLabel: "View the motion reel",
     },
-    motionReel: {
-      meta: ["In motion", "ERTKAZ perspective"],
-      titleLines: ["One perspective.", "Many dimensions."],
-      introduction: "A connected view across business, strategy and technology.",
-      chapters: [
-        { index: "01", label: "Business", title: "Business & management consultancy" },
-        { index: "02", label: "Direction", title: "Strategy formulation & development" },
-        { index: "03", label: "Systems", title: "Information technology consultancy" },
-      ],
-      progress: "Scroll through the perspective",
-      ariaLabel: "Animated ERTKAZ perspective across business, strategy and technology",
+    brandFilm: {
+      meta: ["ERTKAZ / In motion", "Corporate perspective"],
+      disciplines: "Business · Strategy · Technology",
+      ariaLabel: "ERTKAZ brand film",
     },
     about: {
       meta: ["01 / About us", "Our perspective"],
@@ -236,19 +220,11 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       titleLines: ["استراتيجية اليوم.", "أثر الغد."],
       scroll: "مرّر للاستكشاف",
       cta: "ابدأ محادثة",
-      motionLabel: "شاهد العرض المتحرك",
     },
-    motionReel: {
-      meta: ["في حركة", "منظور ERTKAZ"],
-      titleLines: ["منظور واحد.", "أبعاد متعددة."],
-      introduction: "رؤية مترابطة تجمع الأعمال والاستراتيجية والتكنولوجيا.",
-      chapters: [
-        { index: "01", label: "الأعمال", title: "استشارات الأعمال والإدارة" },
-        { index: "02", label: "التوجه", title: "صياغة الاستراتيجية وتطويرها" },
-        { index: "03", label: "الأنظمة", title: "استشارات تكنولوجيا المعلومات" },
-      ],
-      progress: "مرّر عبر المنظور",
-      ariaLabel: "منظور متحرك لمجموعة ERTKAZ عبر الأعمال والاستراتيجية والتكنولوجيا",
+    brandFilm: {
+      meta: ["ERTKAZ / في حركة", "منظور مؤسسي"],
+      disciplines: "الأعمال · الاستراتيجية · التكنولوجيا",
+      ariaLabel: "الفيلم التعريفي لمجموعة ERTKAZ",
     },
     about: {
       meta: ["01 / من نحن", "رؤيتنا"],
