@@ -18,6 +18,12 @@
   min-height: 100svh;
 }
 
+/* The old route intros reserved overlap space; photographic heroes use the full viewport. */
+.stage:global(.hero-skyline) + :global(.profile-services-index),
+.stage:global(.hero-skyline) + :global(.closing-chapter) {
+  margin-top: 0;
+}
+
 .background,
 .overlay {
   position: absolute;
