@@ -1,162 +1,189 @@
 "use client";
 
 import { ArrowDown, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import { useRef } from "react";
 
-import { ErtkazMotif } from "@/components/brand/ertkaz-motif";
-import { Container } from "@/components/layout/container";
+import { profileContent } from "@/content/profile-content";
 import { siteCopy } from "@/content/site-copy";
+import { pageHeroes, type PhotographicPage } from "@/data/page-heroes";
 import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import { localizedPath, type Locale } from "@/lib/i18n/config";
 
-export function Hero({ locale }: { locale: Locale }) {
+import styles from "./hero.module.css";
+
+export function Hero({ locale, page }: { locale: Locale; page?: PhotographicPage }) {
   const stageRef = useRef<HTMLElement>(null);
-  const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const copy = siteCopy[locale].hero;
+  const pageCopy = page ? siteCopy[locale].scaffold[page] : undefined;
+  const artwork = page ? pageHeroes[page] : undefined;
+  const titleId = page ? `${page}-page-title` : "hero-title";
+  const titleWords = pageCopy?.title.split(" ");
+  const pageTitleLead = titleWords?.slice(0, -1).join(" ");
+  const pageTitleAccent = titleWords?.at(-1);
+  const destination = artwork?.target ?? localizedPath(locale, "contact");
+  const scrollDestination = artwork?.target ?? "#brand-identity";
 
   useGsapContext(
-    () => {
+    (context) => {
       const stage = stageRef.current;
-      const hero = heroRef.current;
       const title = titleRef.current;
-      if (!stage || !hero || !title) return;
+      if (!stage || !title) return;
 
-      const matchMedia = gsap.matchMedia();
+      let disposed = false;
+      let matchMedia: ReturnType<typeof gsap.matchMedia> | undefined;
 
-      matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
-        const split = SplitText.create(title, {
-          type: "lines",
-          linesClass: "hero-title__line",
-          mask: "lines",
+      const setup = () => {
+        if (disposed) return;
+
+        context.add(() => {
+          matchMedia = gsap.matchMedia();
+          matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
+            let entered = false;
+            let removeIntroListener = () => {};
+
+            const split = SplitText.create(title, {
+              type: "lines",
+              linesClass: styles.titleLine,
+              mask: "lines",
+              autoSplit: true,
+              onSplit: (self) => {
+                removeIntroListener();
+                prepareSplitLineMasks(self.lines);
+
+                // Remeasure masks on resize without replaying a finished entrance.
+                if (entered) return gsap.set(self.lines, { yPercent: 0, autoAlpha: 1 });
+
+                const waitsForOpening = document.body.classList.contains("intro-open");
+                const entrance = gsap.timeline({
+                  paused: waitsForOpening,
+                  defaults: { ease: "expo.out" },
+                  onComplete: () => { entered = true; },
+                });
+
+                entrance
+                  .from(self.lines, { yPercent: 110, duration: 1.25, stagger: 0.12 }, 0.1)
+                  .from("[data-hero-reveal]", { y: 18, autoAlpha: 0, duration: 0.9, stagger: 0.09 }, 0.26)
+                  .fromTo("[data-hero-image]", { scale: 1.035 }, { scale: 1, duration: 2.1 }, 0)
+                  .set(self.lines, { yPercent: 0, autoAlpha: 1 });
+
+                const play = () => entrance.play();
+                if (waitsForOpening) {
+                  window.addEventListener("ertkaz:intro-complete", play, { once: true });
+                  removeIntroListener = () => window.removeEventListener("ertkaz:intro-complete", play);
+                }
+
+                return entrance;
+              },
+            });
+
+            // Keep the exit restrained without adding an extra-height sticky stage.
+            const exit = gsap.to("[data-hero-content]", {
+              y: -28,
+              ease: "none",
+              scrollTrigger: {
+                trigger: stage,
+                start: "top top",
+                end: "bottom top",
+                scrub: 0.8,
+              },
+            });
+
+            return () => {
+              removeIntroListener();
+              exit.kill();
+              split.revert();
+            };
+          });
+
+          matchMedia.add("(prefers-reduced-motion: reduce)", () => {
+            gsap.set("[data-hero-reveal], [data-hero-content], [data-hero-image]", { clearProps: "all" });
+          });
         });
+      };
 
-        prepareSplitLineMasks(split.lines);
-        const revealTargets = gsap.utils.toArray<HTMLElement>("[data-hero-reveal]");
+      // Arabic shaping and line masks are measured after the local fonts settle.
+      if (document.fonts.status === "loaded") setup();
+      else void document.fonts.ready.then(setup);
 
-        gsap.set(hero, { autoAlpha: 1 });
-
-        const waitsForSiteIntro = document.body.classList.contains("intro-open");
-        const intro = gsap.timeline({ paused: waitsForSiteIntro, defaults: { ease: "expo.out" } });
-        intro
-          .from(split.lines, {
-            yPercent: 118,
-            duration: 1.55,
-            stagger: 0.14,
-            delay: 0.18,
-          })
-          .from(
-            revealTargets,
-            {
-              y: 16,
-              autoAlpha: 0,
-              duration: 0.88,
-              stagger: 0.06,
-            },
-            0.32,
-          )
-          .fromTo(
-            "[data-motif-segment]",
-            { strokeDashoffset: 90, autoAlpha: 0 },
-            { strokeDashoffset: 0, autoAlpha: 1, duration: 0.95, stagger: 0.055 },
-            0.48,
-          )
-          .set(split.lines, { yPercent: 0, autoAlpha: 1 })
-          .set(revealTargets, { y: 0, autoAlpha: 1 });
-
-        const playIntro = () => intro.play();
-        if (waitsForSiteIntro) window.addEventListener("ertkaz:intro-complete", playIntro, { once: true });
-
-        const motifSpin = gsap.to("[data-motif-rotor]", {
-          rotate: 360,
-          transformOrigin: "50% 50%",
-          duration: 32,
-          repeat: -1,
-          ease: "none",
-        });
-
-        const exit = gsap.timeline({
-          scrollTrigger: {
-            trigger: stage,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 1,
-          },
-        });
-
-        const direction = locale === "ar" ? -1 : 1;
-
-        exit
-          .to(split.lines[0], { xPercent: 2.5 * direction, duration: 0.72, ease: "none" }, 0.2)
-          .to(split.lines[1], { xPercent: -2.5 * direction, duration: 0.72, ease: "none" }, 0.2)
-          .to(
-            title,
-            { yPercent: -14, scale: 0.975, transformOrigin: "50% 50%", duration: 0.72, ease: "none" },
-            0.2,
-          )
-          .to(".ertkaz-motif", { yPercent: -34, rotate: 14, scale: 1.04, duration: 0.65, ease: "none" }, 0.28)
-          .to("[data-hero-fade]", { y: -14, autoAlpha: 0, duration: 0.2, ease: "none" }, 0.62)
-          .to(hero, { autoAlpha: 0.12, duration: 0.16, ease: "none" }, 0.84);
-
-        return () => {
-          intro.kill();
-          exit.kill();
-          motifSpin.kill();
-          window.removeEventListener("ertkaz:intro-complete", playIntro);
-          split.revert();
-        };
-      });
-
-      matchMedia.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(hero, { autoAlpha: 1 });
-        gsap.set("[data-hero-reveal], [data-hero-fade]", { y: 0, autoAlpha: 1 });
-        gsap.set("[data-motif-segment]", { strokeDashoffset: 0, autoAlpha: 1 });
-      });
-
-      return () => matchMedia.revert();
+      return () => {
+        disposed = true;
+        matchMedia?.revert();
+      };
     },
     stageRef,
-    [locale],
+    [locale, page],
   );
 
   return (
-    <section id="home" ref={stageRef} className="hero-stage" aria-labelledby="hero-title">
-      <div ref={heroRef} className="hero-frame">
-        <Container className="hero-layout">
-          <div className="hero-intro" data-hero-reveal data-hero-fade>
-            <span className="hero-intro__index">01</span>
-            <div>
-              <p className="hero-intro__eyebrow">{copy.eyebrow}</p>
-              <p className="hero-intro__copy">
-                {copy.introLines[0]}
-                <br />
-                {copy.introLines[1]}
-              </p>
-            </div>
-          </div>
+    <section
+      id={page ? `${page}-hero` : "home"}
+      ref={stageRef}
+      className={`hero-stage hero-skyline theme-dark ${styles.stage}`}
+      aria-labelledby={titleId}
+    >
+      <div className={styles.frame}>
+        <picture className={styles.background} data-hero-image>
+          <source media="(max-width: 600px)" srcSet={artwork?.mobile ?? "/images/ertkaz-hero-mobile.webp"} type="image/webp" />
+          <source
+            srcSet={artwork?.desktop ?? "/images/ertkaz-hero-1280.webp 1280w, /images/ertkaz-hero-1672.webp 1672w"}
+            sizes="100vw"
+            type="image/webp"
+          />
+          <Image
+            src={artwork?.image ?? "/images/ertkaz-hero.png"}
+            alt=""
+            fill
+            unoptimized
+            loading="eager"
+            fetchPriority="high"
+            sizes="100vw"
+            className={styles.image}
+          />
+        </picture>
+        <div className={styles.overlay} aria-hidden="true" />
 
-          <ErtkazMotif />
+        <div className={styles.layout}>
+          <div className={styles.content} dir={locale === "ar" ? "rtl" : "ltr"} data-hero-content>
+            <p className={styles.eyebrow} data-hero-reveal>{pageCopy ? `${pageCopy.index} / ${pageCopy.eyebrow}` : copy.eyebrow}</p>
 
-          <h1 id="hero-title" ref={titleRef} className="hero-title">
-            <span className="hero-title__first">{copy.titleLines[0]}</span>
-            <br />
-            <span className="hero-title__second">{copy.titleLines[1]}</span>
-          </h1>
+            <h1 id={titleId} ref={titleRef} className={styles.title}>
+              {pageCopy ? (
+                <>
+                  {pageTitleLead ? <><span className={styles.firstLine}>{pageTitleLead}</span><br /></> : null}
+                  <span className={styles.secondLine}>{pageTitleAccent}</span>
+                </>
+              ) : (
+                <>
+                  <span className={styles.firstLine}>{copy.titleLines[0]}</span>
+                  <br />
+                  <span className={styles.secondLine}>{copy.titleLines[1]}</span>
+                </>
+              )}
+            </h1>
 
-          <div className="hero-footer" data-hero-fade>
-            <div className="hero-scroll" data-hero-reveal>
-              <span className="hero-scroll__icon"><ArrowDown aria-hidden="true" /></span>
-              <span>{copy.scroll}</span>
-            </div>
+            <p className={styles.description} data-hero-reveal>
+              {pageCopy ? pageCopy.description : <>{copy.introLines[0]}<br />{copy.introLines[1]}</>}
+            </p>
 
-            <a className="hero-cta" href={localizedPath(locale, "contact")} data-hero-reveal data-cursor="cta">
-              <span className="hero-cta__fill" aria-hidden="true" />
-              <span className="hero-cta__label">{copy.cta}</span>
-              <span className="hero-cta__icon"><ArrowUpRight aria-hidden="true" /></span>
+            <a
+              className={styles.cta}
+              href={destination}
+              data-hero-reveal
+              data-cursor="cta"
+            >
+              <span>{artwork ? profileContent[locale].interface[artwork.action] : copy.cta}</span>
+              <ArrowUpRight aria-hidden="true" />
             </a>
           </div>
-        </Container>
+
+          <a className={styles.scroll} href={scrollDestination} data-hero-reveal data-cursor="link">
+            <span className={styles.scrollIcon}><ArrowDown aria-hidden="true" /></span>
+            <span>{copy.scroll}</span>
+          </a>
+        </div>
       </div>
     </section>
   );

@@ -21,8 +21,10 @@ const darkSectionSelector = ".about-section, .philosophy-section, .closing-chapt
 export function SiteHeader({ locale }: { locale: Locale }) {
   const headerRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const hasPhotographicHero = /^\/(en|ar)(\/(about|services|markets|contact))?\/?$/.test(pathname);
   const copy = siteCopy[locale];
   const targetLocale = alternateLocale(locale);
   const languageHref = equivalentLocalePath(pathname, targetLocale);
@@ -78,6 +80,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       });
 
       header.classList.toggle("is-light", onDarkSection);
+      header.classList.toggle("is-scrolled", window.scrollY > 24);
       document.body.classList.toggle("on-dark-section", onDarkSection);
     };
     const requestSync = () => {
@@ -94,6 +97,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       window.removeEventListener("scroll", requestSync);
       window.removeEventListener("resize", requestSync);
       header.classList.remove("is-light");
+      header.classList.remove("is-scrolled");
       document.body.classList.remove("on-dark-section");
     };
   }, [pathname]);
@@ -104,6 +108,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const links = panel.querySelectorAll("[data-mobile-link]");
+    const animation = gsap.timeline();
 
     if (menuOpen) {
       document.body.classList.add("menu-open");
@@ -112,7 +117,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         gsap.set(panel, { clipPath: "inset(0% 0% 0% 0%)" });
         gsap.set(links, { yPercent: 0 });
       } else {
-        gsap.timeline()
+        animation
           .to(panel, {
             clipPath: "inset(0% 0% 0% 0%)",
             duration: 0.85,
@@ -130,7 +135,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       if (reduceMotion) {
         gsap.set(panel, { clipPath: "inset(0% 0% 100% 0%)", visibility: "hidden" });
       } else {
-        gsap.to(panel, {
+        animation.to(panel, {
           clipPath: "inset(0% 0% 100% 0%)",
           duration: 0.7,
           ease: "power4.inOut",
@@ -140,21 +145,72 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     }
 
     return () => {
+      animation.kill();
       gsap.killTweensOf([panel, links]);
       document.body.classList.remove("menu-open");
     };
   }, [menuOpen]);
 
   useEffect(() => {
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+    if (!menuOpen) return;
+    const header = headerRef.current;
+    const panel = panelRef.current;
+    const menuButton = menuButtonRef.current;
+    if (!header || !panel) return;
+
+    const background = Array.from(document.querySelectorAll<HTMLElement>("main, footer"));
+    const previousInert = background.map((element) => element.inert);
+    background.forEach((element) => { element.inert = true; });
+
+    const focusFrame = window.requestAnimationFrame(() => {
+      panel.querySelector<HTMLAnchorElement>("[data-mobile-link]")?.focus({ preventScroll: true });
+    });
+
+    const handleKeys = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMenuOpen(false);
+      }
+
+      if (event.key !== "Tab") return;
+      const controls = Array.from(header.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'))
+        .filter((element) => element.tabIndex >= 0 && element.getClientRects().length > 0);
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
     };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
+
+    window.addEventListener("keydown", handleKeys);
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      window.removeEventListener("keydown", handleKeys);
+      background.forEach((element, index) => { element.inert = previousInert[index]; });
+      menuButton?.focus({ preventScroll: true });
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 901px)");
+    const closeOnDesktop = () => { if (desktop.matches) setMenuOpen(false); };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
   }, []);
 
   return (
-    <header ref={headerRef} className="site-header" aria-label={copy.header.primaryLabel}>
+    <header
+      ref={headerRef}
+      className={`site-header${hasPhotographicHero ? " site-header--skyline" : ""}${menuOpen ? " is-menu-open" : ""}`}
+      aria-label={copy.header.primaryLabel}
+      role={menuOpen ? "dialog" : undefined}
+      aria-modal={menuOpen ? true : undefined}
+    >
       <div className="container-site site-header__inner">
         <div className="nav-reveal-mask">
           <a
@@ -206,6 +262,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
         <div className="nav-reveal-mask nav-menu-wrap">
           <button
+            ref={menuButtonRef}
             type="button"
             className="nav-menu-button"
             aria-expanded={menuOpen}
@@ -226,6 +283,8 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         ref={panelRef}
         className="mobile-menu"
         aria-hidden={!menuOpen}
+        inert={!menuOpen}
+        data-lenis-prevent
       >
         <nav className="container-site mobile-menu__inner" aria-label={copy.header.mobileLabel}>
           <p className="mobile-menu__eyebrow">{copy.header.navigate}</p>

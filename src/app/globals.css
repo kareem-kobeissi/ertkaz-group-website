@@ -7009,6 +7009,133 @@ html[lang="ar"] :is(
   }
 }
 
+/* Skyline homepage navigation: transparent at the opening, readable on scroll. */
+.site-header--skyline {
+  padding-top: env(safe-area-inset-top);
+  border-color: transparent;
+  background: transparent;
+  transition: color 350ms ease, background-color 350ms ease, border-color 350ms ease;
+}
+
+.site-header--skyline .site-header__inner {
+  min-height: clamp(6rem, 8vw, 8rem);
+  direction: ltr;
+}
+
+.site-header--skyline .wordmark {
+  width: clamp(10rem, 14vw, 13rem);
+}
+
+.site-header--skyline:not(.is-scrolled):not(.is-menu-open) {
+  border-color: transparent;
+  background: transparent;
+  color: var(--brand-white);
+}
+
+.site-header--skyline:not(.is-scrolled) .wordmark {
+  background: url("/ertkaz-group-corporate-logo-dark.png") center / contain no-repeat;
+  box-shadow: none;
+}
+
+.site-header--skyline:not(.is-scrolled) .wordmark__image {
+  opacity: 0;
+}
+
+.site-header--skyline.is-scrolled {
+  background: var(--brand-white);
+}
+
+.site-header--skyline.is-scrolled.is-light,
+.site-header--skyline.is-menu-open {
+  background: var(--brand-navy-deep);
+  color: var(--brand-white);
+}
+
+.site-header--skyline:not(.is-scrolled) .nav-link[aria-current="page"] .nav-link__label,
+.site-header--skyline.is-light .nav-link[aria-current="page"] .nav-link__label,
+.site-header--skyline.is-light .nav-link__label::after {
+  color: var(--brand-cyan);
+}
+
+.site-header--skyline .nav-reveal-mask {
+  overflow: visible;
+  padding: 0.35rem;
+  margin: -0.35rem;
+}
+
+.site-header--skyline .nav-link {
+  position: relative;
+  padding-block: 0.5rem;
+}
+
+.site-header--skyline .nav-link__label::after {
+  content: none;
+}
+
+.site-header--skyline .nav-link:hover .nav-link__label,
+.site-header--skyline .nav-link:focus-visible .nav-link__label {
+  transform: none;
+}
+
+.site-header--skyline .nav-link::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: var(--brand-cyan);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 450ms var(--ease-out-expo);
+}
+
+.site-header--skyline .nav-link:hover::after,
+.site-header--skyline .nav-link:focus-visible::after,
+.site-header--skyline .nav-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.nav-menu-button {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.mobile-menu {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.mobile-menu__inner {
+  padding-bottom: max(1.5rem, calc(env(safe-area-inset-bottom) + 1rem));
+}
+
+html[lang="ar"] .site-header--skyline nav,
+html[lang="ar"] .site-header--skyline .nav-menu-button {
+  direction: rtl;
+}
+
+@media (max-width: 900px) {
+  .site-header--skyline .site-header__inner {
+    min-height: 5.5rem;
+    padding-inline: max(clamp(1.25rem, 5.5vw, 1.5rem), env(safe-area-inset-left)) max(clamp(1.25rem, 5.5vw, 1.5rem), env(safe-area-inset-right));
+    gap: 1rem;
+  }
+
+  .site-header--skyline .wordmark {
+    width: 9.5rem;
+  }
+
+  .site-header--skyline .nav-menu-button {
+    gap: 0.65rem;
+  }
+
+  .site-header--skyline .nav-menu-button svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+}
+
 /* Branded opening sequence and live logo loop. */
 body.intro-open {
   overflow: hidden;

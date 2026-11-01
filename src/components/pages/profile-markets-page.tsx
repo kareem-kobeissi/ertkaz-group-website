@@ -58,7 +58,7 @@ export function ProfileMarketsPage({ locale }: { locale: Locale }) {
   );
 
   return (
-    <section ref={sectionRef} className="markets-profile theme-dark" aria-labelledby="markets-profile-title">
+    <section id="markets-overview" ref={sectionRef} className="markets-profile theme-dark" aria-labelledby="markets-profile-title">
       <Container className="markets-profile__layout">
         <p className="profile-kicker profile-kicker--light" data-markets-profile-meta>{copy.label}</p>
         <h2 id="markets-profile-title" ref={titleRef} className="markets-profile__title">{copy.title}</h2>

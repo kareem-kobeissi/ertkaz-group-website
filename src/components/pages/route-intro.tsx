@@ -4,6 +4,7 @@ import { ArrowDown } from "lucide-react";
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
+import { Hero } from "@/components/sections/hero";
 import { siteCopy } from "@/content/site-copy";
 import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
@@ -12,6 +13,12 @@ import type { Locale, SitePage } from "@/lib/i18n/config";
 type ScaffoldPage = Exclude<SitePage, "home">;
 
 export function RouteIntro({ locale, page }: { locale: Locale; page: ScaffoldPage }) {
+  if (page !== "projects") return <Hero locale={locale} page={page} />;
+
+  return <EditorialRouteIntro locale={locale} page={page} />;
+}
+
+function EditorialRouteIntro({ locale, page }: { locale: Locale; page: ScaffoldPage }) {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const copy = siteCopy[locale].scaffold[page];

@@ -45,7 +45,7 @@ export function ProfileServicesPage({ locale }: { locale: Locale }) {
   );
 
   return (
-    <section ref={sectionRef} className="profile-services-index" aria-labelledby="profile-services-index-title">
+    <section id="services-index" ref={sectionRef} className="profile-services-index" aria-labelledby="profile-services-index-title">
       <Container>
         <div className="profile-services-index__intro">
           <div>

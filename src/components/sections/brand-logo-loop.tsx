@@ -69,7 +69,7 @@ export function BrandLogoLoop({ locale }: { locale: Locale }) {
   );
 
   return (
-    <section ref={sectionRef} className="brand-logo-loop theme-dark" aria-label={copy.ariaLabel}>
+    <section id="brand-identity" ref={sectionRef} className="brand-logo-loop theme-dark" aria-label={copy.ariaLabel}>
       <div className="brand-logo-loop__frame" data-logo-loop-frame>
         <div className="brand-logo-loop__grid" aria-hidden="true" />
         <Container className="brand-logo-loop__overlay">

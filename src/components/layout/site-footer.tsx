@@ -102,7 +102,13 @@ export function SiteFooter({ locale }: SiteFooterProps) {
 
         <div className="footer-bottom" data-footer-reveal>
           <p>© {currentYear} {copy.footer.copyright}</p>
-          <a className="back-to-top" href={`${localizedPath(locale, "home")}#home`} data-cursor="link">
+          <a
+            className="back-to-top"
+            href="#top"
+            aria-label={copy.footer.backToTop}
+            data-scroll-top
+            data-cursor="link"
+          >
             <span>{copy.footer.backToTop}</span>
             <ArrowUp aria-hidden="true" />
           </a>
