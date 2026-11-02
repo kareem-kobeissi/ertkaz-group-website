@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpLeft, ArrowUpRight } from "lucide-react";
+import { SiteLink as Link } from "@/components/ui/site-link";
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
@@ -71,7 +72,7 @@ export function ProfileServicesPage({ locale }: { locale: Locale }) {
                 </div>
                 <div className="service-index-group__rows">
                   {services.map((service) => (
-                    <a
+                    <Link
                       className="service-index-row"
                       href={`${localizedPath(locale, "services")}/${service.slug}`}
                       key={service.slug}
@@ -86,7 +87,7 @@ export function ProfileServicesPage({ locale }: { locale: Locale }) {
                       <span className="service-index-row__arrow">
                         {locale === "ar" ? <ArrowUpLeft aria-hidden="true" /> : <ArrowUpRight aria-hidden="true" />}
                       </span>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </section>

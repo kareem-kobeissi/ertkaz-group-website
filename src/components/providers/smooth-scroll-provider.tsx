@@ -34,6 +34,16 @@ export function SmoothScrollProvider({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
+    const syncOverlay = (event: Event) => {
+      if (!(event instanceof CustomEvent)) return;
+      if (event.detail?.open) lenisRef.current?.stop();
+      else lenisRef.current?.start();
+    };
+    window.addEventListener("ertkaz:overlay", syncOverlay);
+    return () => window.removeEventListener("ertkaz:overlay", syncOverlay);
+  }, []);
+
+  useEffect(() => {
     const focusPageStart = () => {
       const target = document.querySelector<HTMLElement>("main h1") ?? document.querySelector<HTMLElement>("main");
       if (!target) return;

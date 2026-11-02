@@ -148,7 +148,7 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
         </Container>
       </section>
 
-      <section className="profile-purpose theme-dark" data-profile-section aria-labelledby="profile-purpose-title">
+      <section id="purpose" className="profile-purpose theme-dark" data-profile-section aria-labelledby="profile-purpose-title">
         <Container>
           <h2 id="profile-purpose-title" className="sr-only">{copy.missionLabel} / {copy.visionLabel}</h2>
           <div className="profile-purpose__columns">

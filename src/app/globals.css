@@ -7537,3 +7537,320 @@ html[lang="ar"] .brand-logo-loop__identity > p {
     clip-path: none !important;
   }
 }
+
+/* Content-led spacing: reserve a full viewport for the photographic hero only. */
+html {
+  scrollbar-gutter: stable;
+}
+
+body.founder-dialog-open {
+  overflow: hidden;
+}
+
+body.founder-dialog-open :is(.custom-cursor, .custom-cursor-dot) {
+  display: none;
+}
+
+.about-layout,
+.services-section,
+.profile-introduction,
+.profile-purpose,
+.profile-values-page,
+.profile-sectors,
+.profile-services-index,
+.markets-profile,
+.contact-section,
+.profile-leadership,
+.service-detail__content,
+.markets-preview__layout {
+  min-height: 0;
+  padding-block: clamp(2.75rem, 4.5vw, 4.5rem);
+}
+
+.services-section,
+.markets-preview,
+.profile-services-index,
+.markets-profile,
+.closing-chapter {
+  margin-top: 0;
+}
+
+.about-layout,
+.markets-preview__layout {
+  align-content: start;
+}
+
+.about-statement {
+  margin-block: clamp(1.75rem, 3.5vw, 3.25rem);
+}
+
+.about-layout > .section-meta,
+.markets-preview__layout > .section-meta {
+  grid-column: 1 / 11;
+  grid-row: 1;
+  align-self: start;
+}
+
+.about-visual,
+.markets-preview__art {
+  grid-column: 11 / 13;
+  grid-row: 1;
+  align-self: start;
+  width: clamp(3rem, 5vw, 4.5rem);
+  margin-top: 0;
+}
+
+.about-summary {
+  margin-top: 1.75rem;
+}
+
+.services-heading {
+  padding-block: clamp(1.75rem, 3vw, 3rem);
+}
+
+.services-page-link,
+.projects-page-link,
+.contact-page-link,
+.about-page-link {
+  margin-top: 1.75rem;
+}
+
+.brand-logo-loop {
+  min-height: 0;
+}
+
+.brand-logo-loop__frame {
+  height: auto;
+  min-height: 0;
+}
+
+.brand-logo-loop__overlay {
+  height: auto;
+  min-height: 0;
+  grid-template-rows: auto auto auto;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  padding-block: clamp(1.25rem, 2vw, 2rem);
+}
+
+.brand-logo-loop__identity {
+  margin-top: 0;
+}
+
+.brand-logo-loop__mark {
+  width: clamp(12rem, 22vw, 22rem);
+}
+
+.markets-preview__title {
+  max-width: 18ch;
+  margin-block: clamp(1.75rem, 3vw, 3rem);
+}
+
+.markets-preview__art {
+  margin-top: 0.75rem;
+}
+
+.markets-preview__footer {
+  margin-top: 1.5rem;
+}
+
+.profile-introduction__title {
+  max-width: 18ch;
+  margin-block: clamp(1.75rem, 3vw, 3rem);
+}
+
+.profile-introduction__story {
+  padding-bottom: clamp(1.75rem, 3vw, 3rem);
+}
+
+.profile-introduction__principle {
+  min-height: 0;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  padding-block: 1rem 1.5rem;
+}
+
+.profile-purpose__chapter--offset {
+  padding-top: 0;
+}
+
+.profile-purpose__chapter + .profile-purpose__chapter {
+  margin-top: 0;
+}
+
+.profile-purpose__columns {
+  gap: clamp(2rem, 4vw, 4rem);
+}
+
+.profile-purpose__chapter h3,
+.profile-values-page__title,
+.profile-sectors__heading h2 {
+  margin-block: 1.5rem 2rem;
+}
+
+.profile-values-page__item p {
+  margin-top: 1.5rem;
+}
+
+.profile-values-page__item {
+  min-height: 0;
+  padding-bottom: 0.75rem;
+}
+
+.profile-introduction__principles {
+  margin-top: 1.75rem;
+}
+
+.profile-introduction__art {
+  margin-block: 1rem 1.5rem;
+}
+
+.profile-leadership__name {
+  margin-top: 1.5rem;
+}
+
+.profile-leadership__details {
+  margin-top: 1.5rem;
+}
+
+.profile-sectors__heading > p {
+  margin-bottom: 2rem;
+}
+
+.profile-services-index__intro {
+  padding-bottom: clamp(1.75rem, 3vw, 3rem);
+}
+
+.profile-services-index__intro h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+.service-index-group {
+  padding-block: clamp(1.75rem, 3vw, 3rem);
+}
+
+.markets-profile__title {
+  margin-block: clamp(1.5rem, 3vw, 3rem);
+}
+
+.markets-profile__list,
+.markets-profile__clarification {
+  margin-top: 1.5rem;
+}
+
+.contact-heading {
+  padding-block: clamp(1.75rem, 3vw, 3rem);
+}
+
+.service-detail__hero-layout {
+  padding-bottom: 2.5rem;
+}
+
+.service-detail__title {
+  margin-block: 1.5rem;
+}
+
+.service-detail__description p + p {
+  margin-top: 1.5rem;
+}
+
+.service-detail__pagination {
+  padding-block: 2.5rem;
+}
+
+.service-detail__pagination a {
+  min-height: 0;
+  padding-bottom: 1rem;
+}
+
+.service-detail__pagination strong {
+  margin-top: 1rem;
+}
+
+.site-footer {
+  padding-block: clamp(1.75rem, 3vw, 3rem) 1.5rem;
+}
+
+.site-footer__layout {
+  row-gap: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.footer-invitation {
+  min-height: 0;
+  padding-block: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.footer-invitation > p {
+  max-width: 16ch;
+}
+
+.footer-invitation__art {
+  width: min(100%, 5.5rem);
+}
+
+.footer-founder {
+  padding-block: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.footer-founder__name {
+  max-width: 22ch;
+}
+
+@media (max-width: 600px) {
+  .about-layout,
+  .services-section,
+  .profile-introduction,
+  .profile-purpose,
+  .profile-values-page,
+  .profile-sectors,
+  .profile-services-index,
+  .markets-profile,
+  .contact-section,
+  .profile-leadership,
+  .service-detail__content,
+  .markets-preview__layout {
+    padding-block: 2.5rem;
+  }
+
+  .markets-preview__title,
+  .profile-introduction__title {
+    max-width: 100%;
+  }
+
+  .service-index-group__heading {
+    margin-bottom: 1.5rem;
+  }
+
+  .markets-preview__footer > p {
+    margin-bottom: 1rem;
+  }
+
+  .footer-invitation > p {
+    max-width: 16ch;
+  }
+
+  .about-layout,
+  .markets-preview__layout {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .markets-preview__title,
+  .markets-preview__footer {
+    grid-column: 1 / -1;
+  }
+
+  .about-visual,
+  .markets-preview__art {
+    width: 2.75rem;
+    margin-top: 0;
+  }
+
+  .profile-purpose__chapter + .profile-purpose__chapter {
+    margin-top: 2rem;
+  }
+
+  .profile-values-page__list {
+    gap: 1.5rem 1rem;
+  }
+}

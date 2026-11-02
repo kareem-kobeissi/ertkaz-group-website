@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { SiteLink as Link } from "@/components/ui/site-link";
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
@@ -68,10 +69,10 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
             <span>{group.label}</span>
           </div>
 
-          <a className="service-detail__back" href={localizedPath(locale, "services")} data-service-detail-meta data-cursor="link">
+          <Link className="service-detail__back" href={localizedPath(locale, "services")} data-service-detail-meta data-cursor="link">
             {locale === "ar" ? <ArrowRight aria-hidden="true" /> : <ArrowLeft aria-hidden="true" />}
             <span>{copy.interface.backToServices}</span>
-          </a>
+          </Link>
 
           <div className="service-detail__art" data-service-detail-art aria-hidden="true">
             <svg viewBox="0 0 360 420" role="presentation">
@@ -98,14 +99,14 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
       {neighbors ? (
         <nav className="service-detail__pagination" aria-label={copy.interface.backToServices}>
           <Container className="service-detail__pagination-layout">
-            <a href={`${localizedPath(locale, "services")}/${neighbors.previous.slug}`} data-cursor="link">
+            <Link href={`${localizedPath(locale, "services")}/${neighbors.previous.slug}`} data-cursor="link">
               <span>{copy.interface.previousService}</span>
               <strong>{neighbors.previous.title}</strong>
-            </a>
-            <a href={`${localizedPath(locale, "services")}/${neighbors.next.slug}`} data-cursor="link">
+            </Link>
+            <Link href={`${localizedPath(locale, "services")}/${neighbors.next.slug}`} data-cursor="link">
               <span>{copy.interface.nextService}</span>
               <strong>{neighbors.next.title}</strong>
-            </a>
+            </Link>
           </Container>
         </nav>
       ) : null}

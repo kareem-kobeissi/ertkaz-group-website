@@ -1,6 +1,7 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
+import { SiteLink as Link } from "@/components/ui/site-link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -213,7 +214,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     >
       <div className="container-site site-header__inner">
         <div className="nav-reveal-mask">
-          <a
+          <Link
             href={localizedPath(locale, "home")}
             className="wordmark"
             aria-label={copy.header.homeLabel}
@@ -222,7 +223,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             onClick={() => setMenuOpen(false)}
           >
             <ErtkazLogo className="wordmark__image" priority />
-          </a>
+          </Link>
         </div>
 
         <nav className="desktop-nav" aria-label={copy.header.desktopLabel}>
@@ -233,7 +234,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
             return (
               <div className="nav-reveal-mask" key={page}>
-                <a
+                <Link
                   className="nav-link"
                   href={href}
                   aria-current={active ? "page" : undefined}
@@ -241,13 +242,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                   data-cursor="link"
                 >
                   <span className="nav-link__label" data-label={label}>{label}</span>
-                </a>
+                </Link>
               </div>
             );
           })}
 
           <div className="nav-reveal-mask">
-            <a
+            <Link
               href={languageHref}
               className="language-switch"
               hrefLang={targetLocale}
@@ -256,7 +257,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               data-cursor="link"
             >
               {locale === "en" ? "AR" : "EN"}
-            </a>
+            </Link>
           </div>
         </nav>
 
@@ -293,7 +294,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               const href = localizedPath(locale, page);
               return (
                 <div className="mobile-link-mask" key={page}>
-                  <a
+                  <Link
                     href={href}
                     className="mobile-link"
                     aria-current={pathname === href || (page !== "home" && pathname.startsWith(`${href}/`)) ? "page" : undefined}
@@ -304,13 +305,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                   >
                     <span>{copy.navigation[page]}</span>
                     <span className="mobile-link__index">0{index + 1}</span>
-                  </a>
+                  </Link>
                 </div>
               );
             })}
           </div>
 
-          <a
+          <Link
             href={languageHref}
             hrefLang={targetLocale}
             className="mobile-language-switch"
@@ -322,7 +323,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           >
             <span>{locale === "en" ? "العربية" : "English"}</span>
             <span>{locale === "en" ? "AR" : "EN"}</span>
-          </a>
+          </Link>
 
           <p className="mobile-menu__footer">{copy.header.footer}</p>
         </nav>

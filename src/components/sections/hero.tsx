@@ -2,6 +2,7 @@
 
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
+import { SiteLink as Link } from "@/components/ui/site-link";
 import { useRef } from "react";
 
 import { profileContent } from "@/content/profile-content";
@@ -168,7 +169,7 @@ export function Hero({ locale, page }: { locale: Locale; page?: PhotographicPage
               {pageCopy ? pageCopy.description : <>{copy.introLines[0]}<br />{copy.introLines[1]}</>}
             </p>
 
-            <a
+            <Link
               className={styles.cta}
               href={destination}
               data-hero-reveal
@@ -176,7 +177,7 @@ export function Hero({ locale, page }: { locale: Locale; page?: PhotographicPage
             >
               <span>{artwork ? profileContent[locale].interface[artwork.action] : copy.cta}</span>
               <ArrowUpRight aria-hidden="true" />
-            </a>
+            </Link>
           </div>
 
           <a className={styles.scroll} href={scrollDestination} data-hero-reveal data-cursor="link">
