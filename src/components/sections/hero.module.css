@@ -11,6 +11,10 @@
   scroll-margin-top: 0;
 }
 
+.stage:lang(ar) {
+  --hero-overlay-direction: 270deg;
+}
+
 .frame {
   position: relative;
   display: flex;
@@ -44,7 +48,7 @@
 .overlay {
   z-index: -1;
   background:
-    linear-gradient(90deg, rgb(3 22 40 / 84%) 0%, rgb(3 22 40 / 54%) 36%, rgb(3 22 40 / 6%) 72%),
+    linear-gradient(var(--hero-overlay-direction, 90deg), rgb(3 22 40 / 84%) 0%, rgb(3 22 40 / 54%) 36%, rgb(3 22 40 / 6%) 72%),
     linear-gradient(180deg, rgb(3 22 40 / 30%) 0%, transparent 28%, rgb(3 22 40 / 10%) 65%, rgb(3 22 40 / 64%) 100%);
 }
 
@@ -206,7 +210,12 @@
 }
 
 .content[dir="rtl"] {
+  justify-self: end;
   text-align: right;
+}
+
+.content[dir="rtl"] .titleLine {
+  transform-origin: right bottom;
 }
 
 .content[dir="rtl"] .title {
@@ -252,7 +261,7 @@
   .overlay {
     background:
       linear-gradient(180deg, rgb(3 22 40 / 30%) 0%, rgb(3 22 40 / 3%) 20%, rgb(3 22 40 / 68%) 64%, rgb(3 22 40 / 94%) 100%),
-      linear-gradient(90deg, rgb(3 22 40 / 35%), transparent 85%);
+      linear-gradient(var(--hero-overlay-direction, 90deg), rgb(3 22 40 / 35%), transparent 85%);
   }
 
   .content {
