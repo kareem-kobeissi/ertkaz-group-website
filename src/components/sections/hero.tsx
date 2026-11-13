@@ -3,6 +3,7 @@
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { SiteLink as Link } from "@/components/ui/site-link";
+import { PageTitle } from "@/components/ui/page-title";
 import { useRef } from "react";
 
 import { profileContent } from "@/content/profile-content";
@@ -147,10 +148,10 @@ export function Hero({ locale, page }: { locale: Locale; page?: PhotographicPage
         <div className={styles.overlay} aria-hidden="true" />
 
         <div className={styles.layout}>
-          <div className={styles.content} dir={locale === "ar" ? "rtl" : "ltr"} data-hero-content>
+          <div className={`${styles.content}${page ? "" : ` ${styles.homeCopy}`}`} dir={locale === "ar" ? "rtl" : "ltr"} data-hero-content>
             <p className={styles.eyebrow} data-hero-reveal>{pageCopy ? `${pageCopy.index} / ${pageCopy.eyebrow}` : copy.eyebrow}</p>
 
-            <h1 id={titleId} ref={titleRef} className={styles.title}>
+            <PageTitle id={titleId} ref={titleRef} className={styles.title}>
               {pageCopy ? (
                 <>
                   {pageTitleLead ? <><span className={styles.firstLine}>{pageTitleLead}</span><br /></> : null}
@@ -163,7 +164,7 @@ export function Hero({ locale, page }: { locale: Locale; page?: PhotographicPage
                   <span className={styles.secondLine}>{copy.titleLines[1]}</span>
                 </>
               )}
-            </h1>
+            </PageTitle>
 
             <p className={styles.description} data-hero-reveal>
               {pageCopy ? pageCopy.description : <>{copy.introLines[0]}<br />{copy.introLines[1]}</>}

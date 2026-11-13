@@ -25,6 +25,16 @@
   --radius-pill: 999px;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  /* Shared page-title scale and reference baseline: Our Clients. */
+  --page-heading-font: var(--font-geist-sans), Arial, sans-serif;
+  --page-heading-size: clamp(5.5rem, 9.5vw, 10rem);
+  --page-heading-leading: 1.02;
+  --page-heading-tracking: -0.065em;
+  --page-heading-top: max(calc(env(safe-area-inset-top) + 12.5rem), calc(50svh - var(--page-heading-size) * 1.02));
+  --page-heading-eyebrow-size: 0.65rem;
+  --page-heading-eyebrow-height: calc(var(--page-heading-eyebrow-size) * 1.7);
+  --page-heading-eyebrow-gap: 1.75rem;
+  --page-heading-copy-top: calc(var(--page-heading-top) - var(--page-heading-eyebrow-height) - var(--page-heading-eyebrow-gap));
 }
 
 @theme inline {
@@ -7853,4 +7863,113 @@ body.founder-dialog-open :is(.custom-cursor, .custom-cursor-dot) {
   .profile-values-page__list {
     gap: 1.5rem 1rem;
   }
+}
+
+/* One page-title baseline, shared with the approved Our Clients composition.
+   Headings stay in normal flow so longer translations can grow safely. */
+:root:lang(ar) {
+  --page-heading-font: var(--font-arabic);
+  --page-heading-size: clamp(4.5rem, 8vw, 8rem);
+  --page-heading-leading: 1.5;
+  --page-heading-tracking: 0;
+  --page-heading-top: max(calc(env(safe-area-inset-top) + 12.5rem), calc(50svh - var(--page-heading-size) * 0.75 + 0.875rem));
+}
+
+.route-intro__layout[data-page-title-layout] {
+  --page-heading-header-adjust: calc(clamp(5.5rem, 7vw, 7.25rem) - clamp(6rem, 8vw, 8rem));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto auto auto;
+  row-gap: 0;
+  padding-top: calc(var(--page-heading-copy-top) + var(--page-heading-header-adjust));
+  padding-bottom: 3rem;
+}
+
+.service-detail__hero {
+  --page-heading-header-adjust: calc(clamp(5.5rem, 7vw, 7.25rem) - clamp(6rem, 8vw, 8rem));
+  padding-top: calc(var(--page-heading-copy-top) + var(--page-heading-header-adjust));
+}
+
+.service-detail__hero-layout[data-page-title-layout] {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto auto auto auto;
+  row-gap: 0;
+}
+
+html[lang] [data-page-title-layout] :is(.route-intro__meta, .service-detail__meta) {
+  display: flex;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  gap: 1rem;
+  align-items: center;
+  min-width: 0;
+  margin: 0 0 var(--page-heading-eyebrow-gap);
+  border: 0;
+  padding: 0;
+  font-size: var(--page-heading-eyebrow-size);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+html[lang] [data-page-title-layout] :is(.route-intro__title, .service-detail__title) {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  width: 100%;
+  max-width: 100%;
+  align-self: start;
+  margin: 0;
+}
+
+html[lang] [data-page-title-layout] :is(.route-intro__art, .service-detail__art) {
+  position: relative;
+  inset: auto;
+  grid-column: 10 / -1;
+  grid-row: 3;
+  align-self: start;
+  width: clamp(3rem, 7vw, 7rem);
+  margin: 2rem 0 0;
+}
+
+html[lang] .route-intro__layout[data-page-title-layout] .route-intro__footer {
+  grid-column: 1 / 9;
+  grid-row: 3;
+  margin-top: 2rem;
+}
+
+html[lang] .service-detail__hero-layout[data-page-title-layout] .service-detail__summary {
+  grid-column: 1 / 9;
+  grid-row: 3;
+  justify-self: start;
+  align-self: start;
+  margin-top: 2rem;
+}
+
+html[lang] .service-detail__hero-layout[data-page-title-layout] .service-detail__back {
+  grid-column: 1 / -1;
+  grid-row: 4;
+  justify-self: start;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .route-intro__layout[data-page-title-layout],
+  .service-detail__hero { --page-heading-header-adjust: 0px; }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --page-heading-size: clamp(4.5rem, 18vw, 7.5rem);
+    --page-heading-top: max(calc(env(safe-area-inset-top) + 10rem), calc(50svh - var(--page-heading-size) * 1.02 - 1rem));
+    --page-heading-eyebrow-size: 0.6rem;
+    --page-heading-eyebrow-gap: 1rem;
+  }
+
+  :root:lang(ar) {
+    --page-heading-size: clamp(3.75rem, 17vw, 7rem);
+    --page-heading-top: max(calc(env(safe-area-inset-top) + 10rem), calc(50svh - var(--page-heading-size) * 0.75 - 0.125rem));
+  }
+}
+
+@media (max-width: 600px) {
+  .route-intro__layout[data-page-title-layout],
+  .service-detail__hero { --page-heading-header-adjust: -0.5rem; }
 }

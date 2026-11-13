@@ -6,10 +6,12 @@ import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { PageTitle } from "@/components/ui/page-title";
 import { getServiceNeighbors, profileContent, type ServiceProfile } from "@/content/profile-content";
 import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import { localizedPath, type Locale } from "@/lib/i18n/config";
+import { withTitleBreaks } from "@/lib/typography/page-title";
 
 export function ServiceDetailPage({ locale, service }: { locale: Locale; service: ServiceProfile }) {
   const mainRef = useRef<HTMLElement>(null);
@@ -63,7 +65,7 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
   return (
     <main ref={mainRef} className="service-detail">
       <section className="service-detail__hero" aria-labelledby="service-detail-title">
-        <Container className="service-detail__hero-layout">
+        <Container className="service-detail__hero-layout" data-page-title-layout>
           <div className="service-detail__meta" data-service-detail-meta>
             <span>{service.id} / 13</span>
             <span>{group.label}</span>
@@ -83,7 +85,9 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
             <span>{service.id}</span>
           </div>
 
-          <h1 id="service-detail-title" ref={titleRef} className="service-detail__title">{service.title}</h1>
+          <PageTitle id="service-detail-title" ref={titleRef} className="service-detail__title" aria-label={service.title}>
+            {locale === "en" ? withTitleBreaks(service.title) : service.title}
+          </PageTitle>
           <p className="service-detail__summary" data-service-detail-summary>{service.summary}</p>
         </Container>
       </section>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
+import { PageTitle } from "@/components/ui/page-title";
 import { clientsCopy } from "@/data/clients";
 import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
@@ -71,10 +72,10 @@ export function ClientsIntroduction({ locale }: { locale: Locale }) {
         <div className={styles.layout}>
           <div className={styles.copy} dir={locale === "ar" ? "rtl" : "ltr"} data-clients-hero-content>
             <p className={styles.eyebrow} data-clients-hero-copy>ERTKAZ GROUP / {copy.title}</p>
-            <h1 ref={titleRef} id="clients-page-title" className={styles.title}>
+            <PageTitle ref={titleRef} id="clients-page-title" className={styles.title}>
               <span>{copy.headline[0]}</span>
               {copy.headline[1] ? <span className={styles.accent}>{copy.headline[1]}</span> : null}
-            </h1>
+            </PageTitle>
             <p className={styles.description} data-clients-hero-copy>{copy.description}</p>
           </div>
         </div>

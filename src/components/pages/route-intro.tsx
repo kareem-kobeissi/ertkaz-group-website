@@ -4,6 +4,7 @@ import { ArrowDown } from "lucide-react";
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
+import { PageTitle } from "@/components/ui/page-title";
 import { Hero } from "@/components/sections/hero";
 import { siteCopy } from "@/content/site-copy";
 import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
@@ -67,7 +68,7 @@ function EditorialRouteIntro({ locale, page }: { locale: Locale; page: ScaffoldP
 
   return (
     <section ref={sectionRef} className={`route-intro route-intro--${page}`} aria-labelledby={`${page}-page-title`}>
-      <Container className="route-intro__layout">
+      <Container className="route-intro__layout" data-page-title-layout>
         <div className="route-intro__meta" data-route-reveal>
           <span>{copy.index}</span>
           <span>{copy.eyebrow}</span>
@@ -81,9 +82,9 @@ function EditorialRouteIntro({ locale, page }: { locale: Locale; page: ScaffoldP
           </svg>
         </div>
 
-        <h1 id={`${page}-page-title`} ref={titleRef} className="route-intro__title">
+        <PageTitle id={`${page}-page-title`} ref={titleRef} className="route-intro__title">
           {copy.title}
-        </h1>
+        </PageTitle>
 
         <div className="route-intro__footer" data-route-reveal>
           <p>{copy.description}</p>
