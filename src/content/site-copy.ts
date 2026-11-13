@@ -74,7 +74,7 @@ type SiteCopy = {
     homeLabel: string;
     navigationLabel: string;
   };
-  scaffold: Record<Exclude<SitePage, "home">, {
+  scaffold: Record<Exclude<SitePage, "home" | "clients">, {
     index: string;
     eyebrow: string;
     title: string;
@@ -87,6 +87,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     navigation: {
       home: "Home",
       about: "About",
+      clients: "Our Clients",
       services: "Services",
       projects: "Projects",
       markets: "Markets",
@@ -111,6 +112,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         description: "ERTKAZ GROUP is a business consulting and strategic advisory firm.",
       },
       about: { title: "About — ERTKAZ GROUP", description: "About ERTKAZ GROUP." },
+      clients: { title: "Our Clients — ERTKAZ GROUP", description: "Explore a selection of ERTKAZ GROUP's clients and their official websites." },
       services: { title: "Services — ERTKAZ GROUP", description: "Explore thirteen ERTKAZ GROUP advisory services." },
       projects: { title: "Projects — ERTKAZ GROUP", description: "Discuss project requirements with ERTKAZ GROUP." },
       markets: { title: "Markets — ERTKAZ GROUP", description: "Explore ERTKAZ GROUP's regional perspective." },
@@ -190,6 +192,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     navigation: {
       home: "الرئيسية",
       about: "من نحن",
+      clients: "عملاؤنا",
       services: "خدماتنا",
       projects: "المشاريع",
       markets: "أسواقنا",
@@ -211,6 +214,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     metadata: {
       home: { title: "ERTKAZ GROUP — استراتيجية اليوم. أثر الغد.", description: "مجموعة ERTKAZ للاستشارات الإدارية والاستراتيجية." },
       about: { title: "من نحن — ERTKAZ GROUP", description: "تعرف إلى مجموعة ERTKAZ." },
+      clients: { title: "عملاؤنا — ERTKAZ GROUP", description: "تعرّف إلى نخبة من عملاء مجموعة ERTKAZ واستكشف مواقعهم الرسمية." },
       services: { title: "خدماتنا — ERTKAZ GROUP", description: "استكشف ثلاث عشرة خدمة استشارية لمجموعة ERTKAZ." },
       projects: { title: "المشاريع — ERTKAZ GROUP", description: "ناقش متطلبات مشروعك مع مجموعة ERTKAZ." },
       markets: { title: "أسواقنا — ERTKAZ GROUP", description: "استكشف منظور مجموعة ERTKAZ الإقليمي." },

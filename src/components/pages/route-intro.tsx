@@ -10,7 +10,7 @@ import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import type { Locale, SitePage } from "@/lib/i18n/config";
 
-type ScaffoldPage = Exclude<SitePage, "home">;
+type ScaffoldPage = Exclude<SitePage, "home" | "clients">;
 
 export function RouteIntro({ locale, page }: { locale: Locale; page: ScaffoldPage }) {
   if (page !== "projects") return <Hero locale={locale} page={page} />;

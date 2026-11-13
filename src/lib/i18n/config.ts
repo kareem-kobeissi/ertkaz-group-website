@@ -2,11 +2,11 @@ export const locales = ["en", "ar"] as const;
 
 export type Locale = (typeof locales)[number];
 
-export const pages = ["home", "about", "services", "projects", "markets", "contact"] as const;
+export const pages = ["home", "about", "clients", "services", "projects", "markets", "contact"] as const;
 
 export type SitePage = (typeof pages)[number];
 
-export const navigationPages = ["home", "about", "services", "markets", "contact"] as const satisfies readonly SitePage[];
+export const navigationPages = ["home", "about", "clients", "services", "markets", "contact"] as const satisfies readonly SitePage[];
 
 export const localeConfig: Record<Locale, { dir: "ltr" | "rtl"; label: string; alternateLabel: string }> = {
   en: { dir: "ltr", label: "English", alternateLabel: "العربية" },
@@ -16,6 +16,7 @@ export const localeConfig: Record<Locale, { dir: "ltr" | "rtl"; label: string; a
 export const pageSegments: Record<SitePage, string> = {
   home: "",
   about: "about",
+  clients: "clients",
   services: "services",
   projects: "projects",
   markets: "markets",

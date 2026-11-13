@@ -6,7 +6,7 @@ import { RouteIntro } from "@/components/pages/route-intro";
 import { About } from "@/components/sections/about";
 import type { Locale, SitePage } from "@/lib/i18n/config";
 
-type DetailPage = Exclude<SitePage, "home" | "contact">;
+type DetailPage = Exclude<SitePage, "home" | "contact" | "clients">;
 
 export function LocalizedRoutePage({ locale, page }: { locale: Locale; page: DetailPage }) {
   return (

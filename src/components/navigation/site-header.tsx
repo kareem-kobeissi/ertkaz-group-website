@@ -25,7 +25,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const hasPhotographicHero = /^\/(en|ar)(\/(about|services|markets|contact))?\/?$/.test(pathname);
+  const hasPhotographicHero = /^\/(en|ar)(\/(about|clients|services|markets|contact))?\/?$/.test(pathname);
   const copy = siteCopy[locale];
   const targetLocale = alternateLocale(locale);
   const languageHref = equivalentLocalePath(pathname, targetLocale);
