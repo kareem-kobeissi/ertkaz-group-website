@@ -60,16 +60,16 @@
   min-height: inherit;
   grid-template-rows: 1fr auto;
   margin-inline: auto;
-  padding: max(8.5rem, calc(env(safe-area-inset-top) + 7rem)) max(var(--space-page), env(safe-area-inset-right)) max(1.75rem, calc(env(safe-area-inset-bottom) + 1rem)) max(var(--space-page), env(safe-area-inset-left));
+  padding: max(8.5rem, calc(env(safe-area-inset-top) + 8rem)) max(var(--space-page), env(safe-area-inset-right)) max(1.75rem, calc(env(safe-area-inset-bottom) + 1rem)) max(var(--space-page), env(safe-area-inset-left));
   direction: ltr;
 }
 
 .content {
   width: min(68%, 65rem);
   min-width: 0;
-  align-self: center;
+  align-self: start;
   justify-self: start;
-  margin-block: 2rem 3rem;
+  margin-block: 0.75rem 2rem;
 }
 
 .eyebrow {
@@ -258,16 +258,19 @@
 }
 
 @media (max-width: 900px) {
+  .layout {
+    padding-top: max(7rem, calc(env(safe-area-inset-top) + 6.25rem));
+  }
+
   .overlay {
     background:
-      linear-gradient(180deg, rgb(3 22 40 / 30%) 0%, rgb(3 22 40 / 3%) 20%, rgb(3 22 40 / 68%) 64%, rgb(3 22 40 / 94%) 100%),
-      linear-gradient(var(--hero-overlay-direction, 90deg), rgb(3 22 40 / 35%), transparent 85%);
+      linear-gradient(180deg, rgb(3 22 40 / 72%) 0%, rgb(3 22 40 / 66%) 42%, rgb(3 22 40 / 42%) 70%, rgb(3 22 40 / 82%) 100%),
+      linear-gradient(var(--hero-overlay-direction, 90deg), rgb(3 22 40 / 45%), transparent 85%);
   }
 
   .content {
     width: 100%;
-    align-self: end;
-    margin-block: clamp(10rem, 27svh, 19rem) 2rem;
+    margin-block: 0.75rem 2rem;
   }
 
   .title {
@@ -285,7 +288,7 @@
   }
 
   .content {
-    margin-block: clamp(8rem, 25svh, 15rem) 1.75rem;
+    margin-block: 0.75rem 1.5rem;
   }
 
   .eyebrow {
