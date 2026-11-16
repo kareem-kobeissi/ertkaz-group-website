@@ -4,8 +4,8 @@ export const companyContact = {
     executive: { label: "ceo@ertkazgroup.com", href: "mailto:ceo@ertkazgroup.com" },
   },
   phones: {
-    primary: { label: "+971 52 911 1578", href: "tel:+971529111578" },
-    secondary: { label: "+971 54 718 9154", href: "tel:+971547189154" },
+    primary: { label: "+961 70 943 860", href: "tel:+96170943860" },
+    secondary: { label: "+961 78 743 757", href: "tel:+96178743757" },
   },
   office: {
     en: "15th Floor, City Tower 2, Sheikh Zayed Road, Dubai, UAE",
