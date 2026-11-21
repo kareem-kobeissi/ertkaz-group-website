@@ -8,7 +8,7 @@ h1.title[data-page-title]:lang(ar) {
   overflow: visible;
   font-family: var(--page-heading-font);
   font-size: var(--page-heading-size);
-  font-weight: 430;
+  font-weight: var(--page-heading-weight, 430);
   line-height: var(--page-heading-leading);
   letter-spacing: var(--page-heading-tracking);
   overflow-wrap: anywhere;

@@ -1,0 +1,262 @@
+/* Institutional presentation layer. ERTKAZ's palette and content remain unchanged. */
+:root.institutional {
+  --font-display: "Source Serif 4 Variable", Georgia, serif;
+  --page-heading-font: var(--font-display);
+  --page-heading-size: clamp(2.5rem, 3.3vw, 3rem);
+  --page-heading-weight: 400;
+  --page-heading-leading: 1.12;
+  --page-heading-tracking: -0.025em;
+  --page-heading-copy-top: calc(env(safe-area-inset-top) + 10.5rem);
+  --page-heading-top: calc(env(safe-area-inset-top) + 12.5rem);
+  --page-heading-eyebrow-gap: 1rem;
+  --type-desktop-section: clamp(2.25rem, 3.3vw, 3.25rem);
+  --type-desktop-tertiary: clamp(1.75rem, 2.25vw, 2.25rem);
+  --space-page: clamp(1.25rem, 5.5vw, 5rem);
+  --nav-drawer-width: 300px;
+}
+:root.institutional:lang(ar) {
+  --font-display: "Noto Naskh Arabic Variable", "Noto Sans Arabic Variable", serif;
+  --page-heading-font: var(--font-display);
+  --page-heading-size: clamp(2.6rem, 3.8vw, 3.8rem);
+  --page-heading-weight: 400;
+  --page-heading-leading: 1.6;
+  --page-heading-tracking: 0;
+  --page-heading-copy-top: calc(env(safe-area-inset-top) + 10.5rem);
+  --page-heading-top: calc(env(safe-area-inset-top) + 12.5rem);
+}
+html.institutional body { background: var(--brand-white); }
+html.institutional body .container-site { max-width: 1280px; }
+html.institutional body :is(h1,h2,h3) { font-family: var(--font-display); font-weight: 400; font-optical-sizing: auto; }
+html.institutional body :is(h1,h2,h3):lang(ar) { letter-spacing: 0; line-height: 1.6; }
+html.institutional body :is(h1,h2)[dir="ltr"] { font-family: "Source Serif 4 Variable", Georgia, serif; }
+.corporate-kicker { margin: 0; color: var(--brand-blue); font-family: var(--font-geist-sans), Arial, sans-serif; font-size: 0.67rem; font-weight: 500; letter-spacing: 0.13em; line-height: 1.75; text-transform: uppercase; }
+.theme-dark .corporate-kicker { color: var(--brand-ice); }
+html[lang="ar"] .corporate-kicker { font-family: var(--font-arabic); letter-spacing: 0; }
+.institutional-entry-rule { position: fixed; z-index: 150; inset: 0 0 auto; height: 2px; background: var(--brand-cyan); transform-origin: left; pointer-events: none; }
+.institutional-entry-rule[dir="rtl"] { transform-origin: right; }
+html.institutional body .page-canvas { width: 100%; min-height: 100svh; background: var(--brand-white); transition: transform 560ms var(--ease-out-expo); }
+html.institutional body.menu-open .page-canvas { transform: translateX(calc(-1 * var(--nav-drawer-width))); }
+html.institutional[dir="rtl"] body.menu-open .page-canvas { transform: translateX(var(--nav-drawer-width)); }
+/* Viewport-fixed chrome is deliberately outside the translated page canvas. */
+html.institutional body .site-header { padding-top: env(safe-area-inset-top); }
+html.institutional body :is(.site-header__inner,.site-header--skyline .site-header__inner) { min-height: 100px; grid-template-columns: 1fr auto; direction: inherit; }
+html.institutional body .wordmark { width: 148px; padding: 0; border-radius: 0; }
+html.institutional body .site-header:not(.site-header--skyline),
+html.institutional body .site-header.is-scrolled,
+html.institutional body .site-header.is-menu-open { background: var(--brand-white); color: var(--brand-navy-deep); }
+html.institutional body .site-header--skyline:not(.is-scrolled):not(.is-menu-open) { background: transparent; color: var(--brand-white); }
+html.institutional body .site-header__inner { z-index: 3; }
+html.institutional body .nav-menu-wrap { display: block; }
+html.institutional body .nav-menu-button { min-width: 44px; min-height: 44px; gap: 0; padding: 8px; }
+html.institutional body .nav-menu-button__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+html.institutional body .nav-menu-button svg { width: 27px; height: 27px; stroke-width: 1.5; }
+html.institutional body .site-header .wordmark { background-image: none; }
+html.institutional body .site-header .wordmark__image { opacity: 1; filter: none; }
+html.institutional body .site-header--skyline:not(.is-scrolled):not(.is-menu-open) .wordmark { background: url("/ertkaz-group-corporate-logo-dark.png") center / contain no-repeat; }
+html.institutional body .site-header--skyline:not(.is-scrolled):not(.is-menu-open) .wordmark__image { opacity: 0; }
+html.institutional body .nav-drawer { z-index: 5; width: var(--nav-drawer-width); padding-top: env(safe-area-inset-top); box-shadow: none; background: var(--brand-white); }
+html.institutional body .nav-scrim { z-index: 2; background: rgb(6 31 54 / 12%); }
+html.institutional body .nav-drawer__top { display: flex; min-height: 100px; align-items: center; justify-content: flex-end; padding-inline: 1.5rem; }
+html.institutional body .nav-drawer__close { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; border: 0; background: none; color: var(--brand-navy-deep); font-size: 0.7rem; }
+html.institutional body .nav-drawer__close svg { width: 21px; height: 21px; stroke-width: 1.2; }
+html.institutional body .nav-drawer__scroll { padding: 0 1.75rem 1.5rem; }
+html.institutional body :is(.nav-drawer__link,.nav-drawer__disclosure) { min-height: 44px; padding-block: 0.75rem; font-size: 0.9rem; font-weight: 400; letter-spacing: 0; }
+html.institutional body .nav-drawer__list > li + li { border-color: color-mix(in srgb, var(--brand-navy) 9%, transparent); }
+html.institutional body .nav-drawer__sublink { padding-block: 0.6rem; font-size: 0.78rem; line-height: 1.6; border-inline-start-color: var(--line); }
+html.institutional body .nav-drawer__footer { gap: 0.75rem; padding-inline: 1.75rem; }
+html.institutional body .nav-drawer__footer p { display: none; }
+html.institutional body .nav-drawer__contact { color: var(--ink-muted); font-size: 0.73rem; text-decoration: none; }
+html.institutional body .nav-drawer__language { font-size: 0.8rem; font-weight: 400; }
+html.institutional body .editorial-link { padding: 0.6rem 0.9rem; min-height: 42px; border: 1px solid var(--line); font-size: 0.75rem; font-weight: 400; letter-spacing: 0; text-transform: none; }
+html.institutional body .editorial-link:hover { color: var(--brand-white); background: var(--brand-blue); border-color: var(--brand-blue); }
+html.institutional body .editorial-link > svg { width: 1rem; height: 1rem; border: 0; padding: 0; background: none; color: inherit; }
+/* About: text columns, factual values and restrained editorial scale. */
+html.institutional body :is(.profile-introduction,.profile-values-page,.profile-sectors,.profile-leadership) { margin: 0; padding-block: clamp(3rem, 6vw, 5.5rem); background: var(--brand-white); color: var(--brand-navy-deep); border-radius: 0; }
+html.institutional body .profile-introduction__layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 4rem; }
+html.institutional body .profile-introduction__masthead { grid-column: 1 / -1; margin: 0; }
+html.institutional body .profile-introduction__title { grid-column: 1; grid-row: 2; max-width: 18ch; margin: 0; padding: 0; font-size: clamp(2.4rem, 3.5vw, 3.5rem); line-height: 1.15; letter-spacing: -0.025em; }
+html.institutional body .profile-introduction__story { display: block; grid-column: 2; grid-row: 2; margin: 0; }
+html.institutional body .profile-introduction__art { display: none; }
+html.institutional body .profile-about-image { position: relative; height: clamp(220px,32vw,460px); overflow: hidden; }
+html.institutional body .profile-about-image img { object-fit: cover; object-position: 50% 58%; }
+html.institutional body .profile-introduction__copy { max-width: 48ch; }
+html.institutional body .profile-introduction__copy p { max-width: none; font-family: inherit; font-size: 1rem; line-height: 1.8; font-weight: 400; letter-spacing: 0; }
+html.institutional body .profile-introduction__copy p + p { margin-top: 1.25rem; }
+html.institutional body .profile-introduction__principles { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 2rem; margin-top: 1rem; }
+html.institutional body .profile-introduction__principle { display: block; border-top: 1px solid var(--line); padding-top: 1rem; }
+html.institutional body .profile-introduction__principle h3 { margin-block: 0.75rem; font-size: 1.8rem; }
+html.institutional body .profile-introduction__principle p { font-size: 0.9rem; line-height: 1.75; }
+html.institutional body .profile-purpose { margin: 0; border-radius: 0; background: var(--brand-navy); padding-block: clamp(3.5rem, 6vw, 5.5rem); }
+html.institutional body .profile-purpose__columns { grid-template-columns: 1fr 1fr; gap: 4rem; }
+html.institutional body .profile-purpose__chapter--offset { padding-top: 0; }
+html.institutional body .profile-purpose__chapter h3 { margin-block: 1.5rem; font-size: clamp(2rem, 3vw, 3rem); line-height: 1.25; letter-spacing: -0.02em; }
+html.institutional body .profile-purpose__chapter li { grid-template-columns: 1.5rem 1fr; gap: 0.75rem; padding-block: 1rem; }
+html.institutional body .profile-purpose__chapter li p { font-size: 0.9375rem; line-height: 1.75; letter-spacing: 0; }
+html.institutional body :is(.profile-values-page__title,.profile-sectors__heading h2) { margin-block: 1rem 2rem; max-width: 25ch; font-size: clamp(2.25rem, 3.4vw, 3.25rem); line-height: 1.15; letter-spacing: -0.02em; }
+html.institutional body .profile-values-page__list { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 2rem; }
+html.institutional body .profile-values-page__item { padding-top: 1rem; border-radius: 0; }
+html.institutional body .profile-values-page__item p { margin-top: 1rem; font-family: var(--font-display); font-size: 1.8rem; line-height: 1.3; font-weight: 400; }
+html.institutional body .profile-sectors__heading { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+html.institutional body .profile-sectors__heading > p { font-size: 1rem; line-height: 1.75; }
+html.institutional body .profile-sectors__list { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 3rem; }
+html.institutional body .profile-sectors__row { padding-block: 1rem; }
+html.institutional body .profile-sectors__row p { font-size: 1.05rem; line-height: 1.5; }
+html.institutional body .profile-leadership { background: var(--brand-navy-deep); color: var(--brand-white); }
+html.institutional body .profile-leadership__layout { grid-template-columns: 1fr 2fr; gap: 1.5rem 3rem; }
+html.institutional body .profile-leadership__meta { grid-column: 1; grid-row: 1; }
+html.institutional body .profile-leadership__role { grid-column: 2; grid-row: 1; margin: 0; }
+html.institutional body .profile-leadership__name { grid-column: 2; grid-row: 2; max-width: 100%; margin: 0; font-size: clamp(2rem,3.5vw,3.5rem); line-height: 1.15; letter-spacing: -0.025em; }
+html.institutional body .profile-leadership__details { grid-column: 2; grid-row: 3; margin: 0; }
+html.institutional body .profile-leadership__art { display: none; }
+/* Portfolio-style service detail pages. */
+html.institutional body .service-detail__hero { padding-top: calc(env(safe-area-inset-top) + 10.5rem); background: var(--brand-white); color: var(--brand-navy-deep); }
+html.institutional body .service-detail__hero-layout[data-page-title-layout] { display: grid; grid-template-columns: 1fr; gap: 0; min-height: 0; padding-bottom: 3rem; }
+html.institutional body .service-detail__hero-layout[data-page-title-layout] .service-detail__meta { grid-column: 1; grid-row: 1; margin-bottom: 1rem; }
+html.institutional body .service-detail__hero-layout[data-page-title-layout] .service-detail__title { grid-column: 1; grid-row: 2; width: min(100%,900px); }
+html.institutional body .service-detail__hero-layout[data-page-title-layout] .service-detail__back { grid-column: 1; grid-row: 3; margin-top: 1.5rem; font-size: 0.75rem; }
+html.institutional body .service-detail__lead { background: var(--brand-navy); color: var(--brand-white); padding-block: clamp(2.5rem, 5vw, 4rem); }
+html.institutional body .service-detail__summary { max-width: 54ch; margin: 0; font-family: var(--font-display); font-size: clamp(1.5rem, 2.25vw, 2rem); line-height: 1.6; color: var(--brand-white); }
+html.institutional body .service-detail__content { margin: 0; background: var(--brand-white); color: var(--brand-navy-deep); border-radius: 0; padding-block: clamp(3rem,6vw,5rem); }
+html.institutional body .service-detail__content-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,5rem); align-items: center; }
+html.institutional body .service-detail__description { grid-column: 1; }
+html.institutional body .service-detail__description p { max-width: none; color: var(--ink-muted); font-family: inherit; font-size: 1rem; line-height: 1.8; font-weight: 400; letter-spacing: 0; }
+html.institutional body .service-detail__back span { display: inline; }
+html.institutional body .service-detail__description p + p { margin-top: 1.5rem; }
+html.institutional body .service-detail__image { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+html.institutional body .service-detail__image img { object-fit: cover; }
+html.institutional body .service-detail__pagination { padding-block: 2rem; border-top: 1px solid var(--line); }
+html.institutional body .service-detail__pagination a { min-height: 0; padding-block: 1rem; }
+html.institutional body .service-detail__pagination strong { margin-top: 0.75rem; }
+html.institutional body .service-detail__pagination strong { max-width: 100%; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.4; font-weight: 400; }
+/* The remaining page introductions and factual markets use the same editorial grid. */
+html.institutional body .route-intro__layout[data-page-title-layout] { padding-top: calc(env(safe-area-inset-top) + 10.5rem); padding-bottom: 3.5rem; }
+html.institutional body .route-intro__art { display: none; }
+html.institutional body .route-intro__footer { max-width: 56ch; }
+html.institutional body .route-intro__footer > p { font-size: 1rem; line-height: 1.8; }
+html.institutional body .markets-profile { background: var(--brand-white); color: var(--brand-navy-deep); margin: 0; border-radius: 0; padding-block: 4rem; }
+html.institutional body .markets-profile__layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 4rem; }
+html.institutional body .markets-profile__title { grid-column: 1; grid-row: 2; max-width: 18ch; margin: 0; font-size: clamp(2.4rem,3.5vw,3.5rem); line-height: 1.15; letter-spacing: -0.025em; }
+html.institutional body .markets-profile__introduction { grid-column: 2; grid-row: 2; margin: 0; color: var(--ink-muted); font-size: 1rem; line-height: 1.8; }
+html.institutional body .markets-profile__art { display: none; }
+html.institutional body .markets-profile__list { grid-column: 1/-1; grid-row: 3; margin-top: 1rem; }
+html.institutional body .markets-profile__row { grid-template-columns: 2.5rem minmax(0,1fr) 6rem 3rem; padding-block: 1.25rem; border-color: var(--line); }
+html.institutional body .markets-profile__row h3 { font-size: clamp(1.75rem,2.8vw,2.6rem); line-height: 1.3; color: var(--brand-navy-deep); }
+html.institutional body .markets-profile__row p { color: var(--ink-muted); }
+html.institutional body .markets-profile :is(.profile-kicker,.markets-profile__row > span,.markets-profile__row b) { color: var(--brand-blue); }
+html.institutional body .markets-profile__clarification { grid-column: 1/-1; grid-row: 4; color: var(--ink-muted); margin: 0; font-size: 0.85rem; }
+html.institutional body .markets-preview { margin: 0; padding-block: 4rem; border-radius: 0; background: var(--brand-white); }
+html.institutional body .markets-preview__layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 4rem; }
+html.institutional body .markets-preview .section-meta { grid-column: 1/-1; }
+html.institutional body .markets-preview__art { display: none; }
+html.institutional body .markets-preview__title { grid-column: 1; margin: 0; max-width: 20ch; font-size: clamp(2.2rem,3.5vw,3.3rem); line-height: 1.2; letter-spacing: -0.025em; }
+html.institutional body .markets-preview__footer { grid-column: 2; display: block; align-self: center; }
+html.institutional body .markets-preview__footer p { margin: 0 0 1.5rem; font-size: 1rem; line-height: 1.8; }
+html.institutional body .profile-highlights { border-radius: 0; background: var(--brand-navy); }
+html.institutional body .profile-highlights h2 { font-size: clamp(2rem,3.3vw,3.25rem); line-height: 1.2; letter-spacing: -0.02em; }
+html.institutional body .profile-highlights h3 { font-family: inherit; }
+/* Contact: a genuine directory, not an unconnected form. */
+html.institutional body .closing-chapter { margin: 0; border-radius: 0; background: var(--brand-white); color: var(--brand-navy-deep); }
+html.institutional body .contact-section { min-height: 0; padding-block: clamp(3rem,6vw,5rem); background: var(--brand-white); color: var(--brand-navy-deep); }
+html.institutional body .contact-section > .container-site { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 1.5rem 4rem; }
+html.institutional body .contact-section .section-meta { grid-column: 1/-1; color: var(--brand-blue); border-color: var(--line); }
+html.institutional body .contact-heading { grid-column: 1; grid-row: 2; display: block; padding: 0; margin: 0; }
+html.institutional body .contact-title { margin: 0; max-width: 100%; font-size: clamp(2.5rem,3.7vw,3.75rem); line-height: 1.12; letter-spacing: -0.025em; }
+html.institutional body .contact-title span { margin: 0; color: var(--brand-blue); }
+html.institutional body .contact-cta { display: inline-flex; width: auto; height: auto; aspect-ratio: auto; min-height: 44px; gap: 2rem; border: 1px solid var(--line); border-radius: 0; padding: 0.7rem 1rem; margin-top: 1.75rem; background: transparent; color: var(--brand-navy-deep); font-size: 0.8rem; font-weight: 400; letter-spacing: 0; transform: none; transition: color 250ms,background-color 250ms,border-color 250ms; }
+html.institutional body .contact-cta:hover, html.institutional body .contact-cta:focus-visible { background: var(--brand-blue); color: var(--brand-white); transform: none; }
+html.institutional body .contact-cta > span { position: static; transform: none; font-size: inherit; }
+html.institutional body .contact-cta > svg:not([data-contact-ring]) { position: static; width: 1rem; height: 1rem; margin: 0; transform: none; }
+html.institutional body .contact-cta [data-contact-ring] { display: none; }
+html.institutional body .contact-directory { grid-column: 2; grid-row: 2; margin: 0; }
+html.institutional body .contact-row { display: grid; min-height: 0; grid-template-columns: minmax(0,1fr) auto; gap: 0.5rem 1rem; border-color: var(--line); padding: 1rem 0; color: var(--brand-navy-deep); }
+html.institutional body .contact-row:hover, html.institutional body .contact-row:focus-visible { padding-inline: 0; color: var(--brand-blue); }
+html.institutional body .contact-row:hover .contact-row__label { color: var(--ink-muted); }
+html.institutional body .contact-row__label { grid-column: 1; grid-row: 1; color: var(--ink-muted); font-size: 0.65rem; line-height: 1.6; }
+html.institutional body .contact-row > span:not(.contact-row__label):not(.contact-row__marker) { grid-column: 1; grid-row: 2; font-family: inherit; font-size: clamp(0.95rem,1.5vw,1.15rem); line-height: 1.65; letter-spacing: 0; overflow-wrap: anywhere; }
+html.institutional body .contact-row > svg, html.institutional body .contact-row__marker { grid-column: 2; grid-row: 1/3; align-self: center; width: 1rem; height: 1rem; color: var(--brand-blue); }
+html.institutional body .contact-row::before { display: none; }
+html.institutional body .contact-page-link { grid-column: 1; grid-row: 3; justify-self: start; color: var(--brand-navy-deep); }
+/* Quiet corporate footer with the verified founder available on every page. */
+html.institutional body .site-footer { padding: 0; border-radius: 0; background: var(--brand-navy-deep); color: var(--brand-white); }
+html.institutional body .site-footer__layout { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 2rem; padding-block: 2rem; }
+html.institutional body .footer-invitation { position: relative; grid-column: 1/-1; grid-row: 1; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; min-height: 0; border-bottom: 1px solid rgb(217 238 247 / 20%); padding-bottom: 1.75rem; }
+html.institutional body .footer-invitation > p { max-width: none; margin: 0; font-family: var(--font-display); font-size: 1.9rem; line-height: 1.3; letter-spacing: -0.015em; }
+html.institutional body .footer-invitation > a { position: static; min-height: 44px; width: auto; border: 1px solid rgb(217 238 247 / 40%); border-radius: 0; padding: 0.65rem 1rem; gap: 1.5rem; font-size: 0.75rem; }
+html.institutional body .footer-invitation > a svg { width: 1rem; height: 1rem; }
+html.institutional body .footer-invitation__art { display: none; }
+html.institutional body .footer-founder { grid-column: 1/-1; grid-row: 2; display: grid; grid-template-columns: 1fr 3fr auto; align-items: center; gap: 1.5rem; padding: 0 0 1.75rem; margin: 0; color: var(--brand-white); }
+html.institutional body .footer-founder__identity { grid-column: 2; min-width: 0; padding: 0; text-align: start; }
+html.institutional body .footer-founder__name { font-family: "Source Serif 4 Variable",Georgia,serif; font-size: clamp(1.6rem,2.5vw,2.35rem); font-weight: 400; line-height: 1.25; letter-spacing: -0.02em; padding: 0; white-space: normal; }
+html.institutional body .footer-founder__meta { grid-column: 1; align-self: center; font-size: 0.6rem; }
+html.institutional body .footer-founder__role { margin-bottom: 0.6rem; font-size: 0.65rem; }
+html.institutional body .footer-founder__action { grid-column: 3; position: static; width: 24px; height: 24px; }
+html.institutional body .footer-founder__action > svg:first-child, html.institutional body .footer-founder::before { display: none; }
+html.institutional body .footer-founder__action > svg:last-child { width: 24px; height: 24px; }
+html.institutional body .footer-brand { grid-column: 1; grid-row: 3; margin: 0; }
+html.institutional body .footer-wordmark { width: 172px; background: url("/ertkaz-group-corporate-logo-dark.png") center / contain no-repeat; padding: 0; border-radius: 0; }
+html.institutional body .footer-brand > p { max-width: 25ch; margin-top: 1rem; font-size: 0.8rem; line-height: 1.7; }
+html.institutional body .footer-column--navigation { grid-column: 2; grid-row: 3; }
+html.institutional body .footer-column--contact { grid-column: 3; grid-row: 3; }
+html.institutional body .footer-office { grid-column: 4; grid-row: 3; }
+html.institutional body .footer-column__label { margin: 0 0 1rem; font-size: 0.65rem; letter-spacing: 0.07em; }
+html.institutional body :is(.footer-navigation,.footer-contact) { display: grid; gap: 0.55rem; }
+html.institutional body :is(.footer-navigation a,.footer-contact a,.footer-office address,.footer-office > a) { font-size: 0.75rem; font-weight: 400; line-height: 1.7; letter-spacing: 0; overflow-wrap: anywhere; }
+html.institutional body .footer-bottom { grid-column: 1/-1; grid-row: 4; margin: 0; padding-top: 1.25rem; }
+html.institutional body .footer-bottom p, html.institutional body .back-to-top { font-size: 0.65rem; }
+html.institutional body [data-founder-dialog] { border-radius: 0; }
+html.institutional body [data-founder-dialog] h2 { font-family: "Source Serif 4 Variable",Georgia,serif; font-weight: 400; }
+/* Matched typographic rhythm, with natural Arabic shaping instead of tight masks. */
+html.institutional body :is(.profile-introduction__title,.profile-values-page__title,.profile-purpose__chapter h3,.profile-sectors__heading h2,.markets-profile__title,.markets-preview__title,.contact-title):lang(ar) { letter-spacing: 0; line-height: 1.6; }
+@media(max-width:900px) {
+  html.institutional body :is(.site-header__inner,.site-header--skyline .site-header__inner) { min-height: 80px; }
+  html.institutional body .wordmark { width: 126px; }
+  html.institutional body .nav-drawer__top { min-height: 80px; }
+}
+@media(max-width:767px) {
+  :root.institutional { --page-heading-size: clamp(2.5rem,10.5vw,3.25rem); --page-heading-leading: 1.15; --page-heading-copy-top: calc(env(safe-area-inset-top) + 8rem); --nav-drawer-width: min(360px,calc(100vw - 3rem)); }
+  :root.institutional:lang(ar) { --page-heading-size: clamp(2.4rem,9.8vw,3.1rem); --page-heading-leading: 1.6; --page-heading-copy-top: calc(env(safe-area-inset-top) + 8rem); }
+  html.institutional body .custom-cursor, html.institutional body .custom-cursor-dot { display: none; }
+  html.institutional body .nav-drawer__scroll { padding-inline: 1.5rem; }
+  html.institutional body .profile-introduction__layout { grid-template-columns: 1fr; gap: 1.5rem; }
+  html.institutional body .profile-introduction__title { grid-column: 1; grid-row: 2; max-width: 100%; }
+  html.institutional body .profile-introduction__story { grid-column: 1; grid-row: 3; }
+  html.institutional body .profile-introduction__principles { grid-template-columns: 1fr; }
+  html.institutional body .profile-purpose__columns { grid-template-columns: 1fr; gap: 2.75rem; }
+  html.institutional body .profile-values-page__list { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  html.institutional body .profile-sectors__heading { grid-template-columns: 1fr; gap: 0.5rem; }
+  html.institutional body .profile-sectors__list { grid-template-columns: 1fr; }
+  html.institutional body .profile-leadership__layout { grid-template-columns: 1fr; }
+  html.institutional body :is(.profile-leadership__meta,.profile-leadership__role,.profile-leadership__name,.profile-leadership__details) { grid-column: 1; grid-row: auto; }
+  html.institutional body .service-detail__hero { padding-top: calc(env(safe-area-inset-top) + 8rem); }
+  html.institutional body .service-detail__content-layout { grid-template-columns: 1fr; }
+  html.institutional body .service-detail__description { grid-column: 1; }
+  html.institutional body .service-detail__image { grid-row: 1; }
+  html.institutional body .route-intro__layout[data-page-title-layout] { padding-top: calc(env(safe-area-inset-top) + 8rem); }
+  html.institutional body .markets-profile__layout { grid-template-columns: 1fr; gap: 1rem; }
+  html.institutional body :is(.markets-profile__title,.markets-profile__introduction,.markets-profile__list,.markets-profile__clarification) { grid-column: 1; grid-row: auto; }
+  html.institutional body .markets-profile__row { grid-template-columns: 1.5rem minmax(0,1fr) 3rem; gap: 0.5rem; }
+  html.institutional body .markets-profile__row > p { display: none; }
+  html.institutional body .markets-profile__row h3 { font-size: 1.8rem; }
+  html.institutional body .markets-preview__layout { grid-template-columns: 1fr; gap: 1.5rem; }
+  html.institutional body .markets-preview__title, html.institutional body .markets-preview__footer { grid-column: 1; }
+  html.institutional body .contact-section > .container-site { grid-template-columns: 1fr; gap: 1.5rem; }
+  html.institutional body .contact-heading, html.institutional body .contact-directory, html.institutional body .contact-page-link { grid-column: 1; grid-row: auto; }
+  html.institutional body .contact-title { font-size: 2.8rem; }
+  html.institutional body .contact-row > span:not(.contact-row__label):not(.contact-row__marker) { font-size: 1rem; }
+  html.institutional body .site-footer__layout { grid-template-columns: 1fr 1fr; gap: 1.75rem; }
+  html.institutional body .footer-invitation { flex-direction: column; align-items: start; }
+  html.institutional body .footer-founder { grid-template-columns: 1fr auto; gap: 0.75rem; }
+  html.institutional body .footer-founder__meta { grid-column: 1/-1; }
+  html.institutional body .footer-founder__identity { grid-column: 1; }
+  html.institutional body .footer-founder__action { grid-column: 2; }
+  html.institutional body .footer-founder__name { font-size: 1.65rem; }
+  html.institutional body .footer-brand { grid-column: 1; grid-row: 3; }
+  html.institutional body .footer-column--navigation { grid-column: 2; grid-row: 3; }
+  html.institutional body .footer-column--contact { grid-column: 1; grid-row: 4; }
+  html.institutional body .footer-office { grid-column: 2; grid-row: 4; }
+  html.institutional body .footer-wordmark { width: min(150px,100%); }
+  html.institutional body .footer-bottom { grid-row: 5; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html.institutional body .page-canvas, html.institutional body .nav-drawer, html.institutional body .nav-scrim { transition: none; }
+}

@@ -7,7 +7,7 @@ export const pageHeroes = {
     image: "/images/ertkaz-about-hero.png",
     desktop: "/images/ertkaz-about-hero-1280.webp 1280w, /images/ertkaz-about-hero-1600.webp 1600w",
     mobile: "/images/ertkaz-about-hero-mobile.webp",
-    target: "#about",
+    target: "#who-we-are",
     action: "exploreAbout",
   },
   services: {

@@ -3,8 +3,7 @@
   position: relative;
   isolation: isolate;
   height: auto;
-  min-height: 100vh;
-  min-height: 100svh;
+  min-height: max(28rem, 78svh);
   overflow: clip;
   background: var(--brand-navy-deep);
   color: var(--brand-white);
@@ -18,8 +17,7 @@
 .frame {
   position: relative;
   display: flex;
-  min-height: 100vh;
-  min-height: 100svh;
+  min-height: inherit;
 }
 
 /* The old route intros reserved overlap space; photographic heroes use the full viewport. */

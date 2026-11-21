@@ -10,20 +10,19 @@ const introStorageKey = "ertkaz-intro-seen";
 
 export function SiteIntro({ locale }: { locale: Locale }) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLSpanElement>(null);
   const [visible, setVisible] = useState(true);
 
   useLayoutEffect(() => {
     const root = rootRef.current;
-    if (!root) return;
-
-    if (window.sessionStorage.getItem(introStorageKey) === "1") {
+    const alreadySeen = window.sessionStorage.getItem(introStorageKey) === "1"
+      || document.documentElement.classList.contains("intro-seen");
+    if (!root || alreadySeen) {
+      document.body.classList.remove("intro-open");
       const frame = window.requestAnimationFrame(() => setVisible(false));
       return () => window.cancelAnimationFrame(frame);
     }
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const progress = { value: 0 };
     let completed = false;
 
     document.body.classList.add("intro-open");
@@ -32,13 +31,14 @@ export function SiteIntro({ locale }: { locale: Locale }) {
       if (completed) return;
       completed = true;
       window.sessionStorage.setItem(introStorageKey, "1");
+      document.documentElement.classList.add("intro-seen");
       document.body.classList.remove("intro-open");
       window.dispatchEvent(new CustomEvent("ertkaz:intro-complete"));
       setVisible(false);
     };
 
     if (reduceMotion) {
-      const timeout = window.setTimeout(finish, 180);
+      const timeout = window.setTimeout(finish, 120);
       return () => {
         window.clearTimeout(timeout);
         document.body.classList.remove("intro-open");
@@ -54,23 +54,13 @@ export function SiteIntro({ locale }: { locale: Locale }) {
 
       const timeline = gsap.timeline({ defaults: { ease: "expo.out" } });
       timeline
-        .from("[data-intro-rule]", { scaleX: 0, transformOrigin: "left", duration: 1.1 }, 0.08)
-        .to(segments, { strokeDashoffset: 0, duration: 1.4, stagger: 0.09 }, 0.18)
-        .from("[data-brand-inner]", { scale: 0.72, rotate: -24, autoAlpha: 0, transformOrigin: "center", duration: 1.2 }, 0.48)
-        .to(nodes, { scale: 1, duration: 0.65, stagger: 0.055 }, 0.72)
-        .from("[data-intro-word]", { yPercent: 115, duration: 1.05, stagger: 0.08 }, 0.72)
-        .from("[data-intro-meta]", { y: 14, autoAlpha: 0, duration: 0.8, stagger: 0.08 }, 1.05)
-        .to(progress, {
-          value: 100,
-          duration: 3.35,
-          ease: "none",
-          onUpdate: () => {
-            if (progressRef.current) progressRef.current.textContent = String(Math.round(progress.value)).padStart(3, "0");
-          },
-        }, 0)
-        .to("[data-intro-mark]", { scale: 0.94, rotate: 12, duration: 0.75, ease: "power3.inOut" }, 3.05)
-        .to(root, { clipPath: "inset(0% 0% 100% 0%)", duration: 0.82, ease: "power4.inOut" }, 3.18)
-        .call(finish, [], 4);
+        .to(segments, { strokeDashoffset: 0, duration: 0.55, stagger: 0.04 }, 0)
+        .from("[data-brand-inner]", { scale: 0.86, autoAlpha: 0, transformOrigin: "center", duration: 0.45 }, 0.05)
+        .to(nodes, { scale: 1, duration: 0.35, stagger: 0.03 }, 0.18)
+        .from("[data-intro-word]", { yPercent: 110, duration: 0.5, stagger: 0.05 }, 0.12)
+        .from("[data-intro-meta]", { autoAlpha: 0, duration: 0.35 }, 0.2)
+        .to(root, { autoAlpha: 0, duration: 0.38, ease: "power2.inOut" }, 0.72)
+        .call(finish, [], 1.08);
     }, root);
 
     return () => {
@@ -100,12 +90,10 @@ export function SiteIntro({ locale }: { locale: Locale }) {
           <span className="site-intro__word-mask"><strong data-intro-word>ERTKAZ</strong></span>
           <span className="site-intro__word-mask"><strong data-intro-word>GROUP</strong></span>
         </div>
-        <span className="site-intro__rule" data-intro-rule aria-hidden="true" />
       </div>
 
       <div className="site-intro__bottomline" data-intro-meta>
         <span>{locale === "ar" ? "نفكر عالميًا، ونعمل محليًا" : "Thinking globally, acting locally"}</span>
-        <span className="site-intro__progress" dir="ltr"><span ref={progressRef}>000</span> / 100</span>
       </div>
     </div>
   );

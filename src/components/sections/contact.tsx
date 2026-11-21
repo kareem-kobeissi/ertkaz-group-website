@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
+import { EnquiryForm } from "@/components/sections/enquiry-form";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { EditorialLink } from "@/components/ui/editorial-link";
 import { profileContent } from "@/content/profile-content";
@@ -41,7 +42,7 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
         reveal
           .from("[data-contact-meta]", { y: 18, autoAlpha: 0, duration: 0.75 })
           .from(split.lines, { yPercent: 114, duration: 1.4, stagger: 0.12 }, 0.08)
-          .from("[data-contact-cta]", { scale: 0.76, autoAlpha: 0, duration: 1, transformOrigin: "50% 50%" }, 0.34)
+          .fromTo("[data-contact-cta]", { y: 12, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.65, clearProps: "transform,opacity,visibility" }, 0.24)
           .from("[data-contact-row]", { y: 30, autoAlpha: 0, duration: 0.9, stagger: 0.08 }, 0.55)
           .from("[data-footer-reveal]", { y: 20, autoAlpha: 0, duration: 0.8, stagger: 0.06 }, 0.76)
           .set(
@@ -53,17 +54,8 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
             { y: 0, yPercent: 0, autoAlpha: 1 },
           );
 
-        const ringMotion = gsap.to("[data-contact-ring]", {
-          rotate: 360,
-          transformOrigin: "50% 50%",
-          duration: 30,
-          ease: "none",
-          repeat: -1,
-        });
-
         return () => {
           reveal.kill();
-          ringMotion.kill();
           split.revert();
         };
       });
@@ -84,7 +76,7 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
 
   return (
     <div ref={chapterRef} className="closing-chapter">
-      <section id="contact" className="contact-section" aria-labelledby="contact-title">
+      <section id="contact" className={`contact-section${showPageLink ? "" : " contact-section--with-form"}`} aria-labelledby="contact-title">
         <Container>
           <div className="section-meta section-meta--light" data-contact-meta>
             <span>{copy.meta[0]}</span>
@@ -101,9 +93,6 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
             <a className="contact-cta" href={companyContact.emails.general.href} data-contact-cta data-cursor="cta">
               <span>{copy.cta}</span>
               <ArrowUpRight aria-hidden="true" />
-              <svg viewBox="0 0 160 160" aria-hidden="true" data-contact-ring>
-                <path d="M80 8 142 44v72l-62 36-62-36V44Z" />
-              </svg>
             </a>
           </div>
 
@@ -132,6 +121,7 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
               <span className="contact-row__label">{copy.office}</span>
               <span>{companyContact.office[locale]}</span>
               <span className="contact-row__marker" aria-hidden="true">DXB</span>
+              <a className="contact-location" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(companyContact.office.en)}`} target="_blank" rel="noopener noreferrer">{locale === "ar" ? "عرض الموقع في خرائط Google" : "View location on Google Maps"}</a>
             </div>
             <a className="contact-row" href={companyContact.website.href} data-contact-row data-cursor="link">
               <span className="contact-row__label">{copy.website}</span>
@@ -139,6 +129,8 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
               <ArrowUpRight aria-hidden="true" />
             </a>
           </div>
+
+          {!showPageLink ? <EnquiryForm locale={locale} /> : null}
 
           {showPageLink ? (
             <EditorialLink

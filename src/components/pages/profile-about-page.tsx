@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 
 import { Container } from "@/components/layout/container";
 import { profileContent } from "@/content/profile-content";
@@ -134,7 +135,7 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
             </div>
           </div>
 
-          <div className="profile-introduction__principles" aria-label={copy.introductionLabel}>
+          <div id="philosophy" className="profile-introduction__principles" aria-label={copy.introductionLabel}>
             {copy.introductionPrinciples.map((principle, index) => (
               <article className="profile-introduction__principle" key={principle.label} data-profile-reveal>
                 <span>{String(index + 1).padStart(2, "0")}</span>
@@ -147,6 +148,10 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
           </div>
         </Container>
       </section>
+
+      <div className="profile-about-image" aria-hidden="true">
+        <Image src="/images/ertkaz-services-hero-1600.webp" alt="" fill unoptimized sizes="100vw" />
+      </div>
 
       <section id="purpose" className="profile-purpose theme-dark" data-profile-section aria-labelledby="profile-purpose-title">
         <Container>

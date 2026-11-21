@@ -2,6 +2,7 @@
 
 import { ArrowUpRight, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { profileContent } from "@/content/profile-content";
 import { companyContact } from "@/data/company-contact";
@@ -16,6 +17,7 @@ export function FounderProfile({ locale }: { locale: Locale }) {
   const closeRef = useRef<HTMLButtonElement>(null);
   const animationRef = useRef<ReturnType<typeof gsap.to> | null>(null);
   const [open, setOpen] = useState(false);
+  const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
   const id = useId();
   const copy = profileContent[locale].aboutPage;
 
@@ -24,8 +26,10 @@ export function FounderProfile({ locale }: { locale: Locale }) {
   };
 
   useEffect(() => {
+    const mountFrame = !portalRoot ? requestAnimationFrame(() => setPortalRoot(document.body)) : undefined;
     const dialog = dialogRef.current;
     return () => {
+      if (mountFrame !== undefined) cancelAnimationFrame(mountFrame);
       animationRef.current?.kill();
       if (dialog?.open) {
         dialog.close();
@@ -33,7 +37,7 @@ export function FounderProfile({ locale }: { locale: Locale }) {
         window.dispatchEvent(new CustomEvent("ertkaz:overlay", { detail: { open: false } }));
       }
     };
-  }, []);
+  }, [portalRoot]);
 
   const showProfile = () => {
     const dialog = dialogRef.current;
@@ -95,7 +99,7 @@ export function FounderProfile({ locale }: { locale: Locale }) {
         </span>
       </button>
 
-      <dialog
+      {portalRoot ? createPortal(<dialog
         id={id}
         ref={dialogRef}
         className={styles.dialog}
@@ -139,7 +143,7 @@ export function FounderProfile({ locale }: { locale: Locale }) {
         <button type="button" className={styles.returnButton} onClick={hideProfile}>
           {locale === "ar" ? "العودة إلى الصفحة" : "Back to the page"}
         </button>
-      </dialog>
+      </dialog>, portalRoot) : null}
     </>
   );
 }

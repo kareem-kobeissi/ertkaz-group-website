@@ -6,9 +6,14 @@ import { useEffect, useRef, type PropsWithChildren } from "react";
 
 import { gsap, ScrollTrigger } from "@/lib/animations/gsap";
 
+function normalizePath(path: string) {
+  return path.replace(/\/+$/, "") || "/";
+}
+
 export function SmoothScrollProvider({ children }: PropsWithChildren) {
   const lenisRef = useRef<Lenis | null>(null);
   const pathname = usePathname();
+  const scrollToIdRef = useRef<(id: string, immediate: boolean) => void>(() => {});
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -44,44 +49,98 @@ export function SmoothScrollProvider({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    const scrollToSection = (event: MouseEvent) => {
-      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      if (!(event.target instanceof Element)) return;
-      const link = event.target.closest<HTMLAnchorElement>("a[data-scroll-section]");
-      if (!link) return;
-      const destination = new URL(link.href);
-      const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
-      if (destination.origin !== location.origin || normalizePath(destination.pathname) !== normalizePath(location.pathname)) return;
-      const target = document.getElementById(link.dataset.scrollSection ?? "");
-      if (!target) return;
-
-      // Intercept before Next Link so repeated clicks on the current hash also scroll.
-      event.preventDefault();
-      if (location.hash !== destination.hash) {
-        history.pushState(history.state, "", `${destination.pathname}${destination.search}${destination.hash}`);
+    const scrollToId = (id: string, immediate: boolean) => {
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let target: HTMLElement | null = null;
+      if (id) {
+        try {
+          target = document.getElementById(decodeURIComponent(id));
+        } catch {
+          target = document.getElementById(id);
+        }
       }
-      const margin = Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
-      const top = scrollY + target.getBoundingClientRect().top - margin;
-      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const focusTarget = () => {
-        const heading = target.querySelector<HTMLElement>("h2") ?? target;
+
+      const lenis = lenisRef.current;
+      lenis?.start();
+
+      const focusTarget = (element: HTMLElement) => {
+        const heading = element.querySelector<HTMLElement>("h2, h3") ?? element;
         if (!heading.hasAttribute("tabindex")) {
           heading.setAttribute("tabindex", "-1");
           heading.addEventListener("blur", () => heading.removeAttribute("tabindex"), { once: true });
         }
         heading.focus({ preventScroll: true });
       };
-      if (lenisRef.current) {
-        lenisRef.current.scrollTo(top, { duration: 1.25, immediate: reduced, onComplete: focusTarget });
+
+      if (!target) {
+        if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+        else window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+        return;
+      }
+
+      const margin = Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+      const top = window.scrollY + target.getBoundingClientRect().top - margin;
+      const jump = immediate || reduced;
+      if (lenis) {
+        lenis.scrollTo(top, {
+          duration: jump ? 0 : 1.05,
+          immediate: jump,
+          force: true,
+          onComplete: () => focusTarget(target),
+        });
       } else {
-        window.scrollTo({ top, behavior: reduced ? "instant" : "smooth" });
-        if (reduced) focusTarget();
-        else window.addEventListener("scrollend", focusTarget, { once: true });
+        window.scrollTo({ top, left: 0, behavior: jump ? "instant" : "smooth" });
+        if (jump) focusTarget(target);
+        else window.addEventListener("scrollend", () => focusTarget(target), { once: true });
       }
     };
 
+    scrollToIdRef.current = scrollToId;
+
+    const releaseMenu = () => {
+      document.body.classList.remove("menu-open");
+      window.dispatchEvent(new CustomEvent("ertkaz:menu-close"));
+      window.dispatchEvent(new CustomEvent("ertkaz:overlay", { detail: { open: false } }));
+      lenisRef.current?.start();
+    };
+
+    const scrollToSection = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (!(event.target instanceof Element)) return;
+      const link = event.target.closest<HTMLAnchorElement>("a[data-scroll-section]");
+      if (!link) return;
+      const destination = new URL(link.href);
+      if (destination.origin !== location.origin || normalizePath(destination.pathname) !== normalizePath(location.pathname)) return;
+      if (!document.getElementById(link.dataset.scrollSection ?? "")) return;
+
+      // Same-page anchors must update history and scroll even while the drawer has Lenis stopped.
+      event.preventDefault();
+      const next = `${destination.pathname}${destination.search}${destination.hash}`;
+      const current = `${location.pathname}${location.search}${location.hash}`;
+      if (current !== next) history.pushState(history.state, "", next);
+      releaseMenu();
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
+    };
+
+    let frame = 0;
+    const scheduleLocationScroll = () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        lenisRef.current?.start();
+        scrollToId(window.location.hash.replace(/^#/, ""), false);
+      });
+    };
+
     document.addEventListener("click", scrollToSection, true);
-    return () => document.removeEventListener("click", scrollToSection, true);
+    window.addEventListener("hashchange", scheduleLocationScroll);
+    window.addEventListener("popstate", scheduleLocationScroll);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      document.removeEventListener("click", scrollToSection, true);
+      window.removeEventListener("hashchange", scheduleLocationScroll);
+      window.removeEventListener("popstate", scheduleLocationScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -142,42 +201,13 @@ export function SmoothScrollProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     document.body.classList.remove("menu-open");
-    const scrollToLocation = () => {
-      const hash = window.location.hash.slice(1);
-      let target: HTMLElement | null = null;
-
-      if (hash) {
-        try {
-          target = document.getElementById(decodeURIComponent(hash));
-        } catch {
-          target = document.getElementById(hash);
-        }
-      }
-
-      if (target) {
-        const scrollMargin = Number.parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0;
-        // Use a numeric position: Lenis already applies scroll-margin for element targets.
-        const top = window.scrollY + target.getBoundingClientRect().top - scrollMargin;
-        if (lenisRef.current) {
-          lenisRef.current.scrollTo(top, { immediate: true });
-        } else {
-          window.scrollTo({ top, left: 0, behavior: "auto" });
-        }
-      } else {
-        lenisRef.current?.scrollTo(0, { immediate: true });
-        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      }
-
+    const frame = window.requestAnimationFrame(() => {
+      lenisRef.current?.start();
+      scrollToIdRef.current(window.location.hash.replace(/^#/, ""), true);
       ScrollTrigger.refresh();
-    };
+    });
 
-    const frame = window.requestAnimationFrame(scrollToLocation);
-    window.addEventListener("hashchange", scrollToLocation);
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("hashchange", scrollToLocation);
-    };
+    return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
   return children;

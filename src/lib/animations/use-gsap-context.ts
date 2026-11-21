@@ -11,12 +11,24 @@ export function useGsapContext(
 ) {
   useLayoutEffect(() => {
     let cleanup: void | (() => void);
-    const context = gsap.context((self) => {
-      cleanup = setup(self);
-    }, scope);
+    let context: gsap.Context | undefined;
+    let cancelled = false;
+    const initialize = () => {
+      if (cancelled) return;
+      context = gsap.context((self) => {
+        cleanup = setup(self);
+      }, scope);
+    };
+    // Measure text against the final, locally bundled fonts, not fallback glyphs.
+    if (document.fonts.status === "loading") {
+      void document.fonts.ready.then(initialize);
+    } else {
+      initialize();
+    }
     return () => {
+      cancelled = true;
       cleanup?.();
-      context.revert();
+      context?.revert();
     };
     // The caller controls reruns explicitly through dependencies.
     // eslint-disable-next-line react-hooks/exhaustive-deps

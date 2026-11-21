@@ -1,11 +1,13 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { SiteLink as Link } from "@/components/ui/site-link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { ErtkazLogo } from "@/components/brand/ertkaz-logo";
+import { profileContent, type ServiceGroupKey } from "@/content/profile-content";
+import { companyContact } from "@/data/company-contact";
 import { siteCopy } from "@/content/site-copy";
 import { gsap } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
@@ -13,22 +15,102 @@ import {
   alternateLocale,
   equivalentLocalePath,
   localizedPath,
-  navigationPages,
   type Locale,
 } from "@/lib/i18n/config";
 
-const darkSectionSelector = ".about-section, .philosophy-section, .closing-chapter, .site-footer, .theme-dark";
+const darkSectionSelector = ".about-section, .philosophy-section, .site-footer, .theme-dark";
+const groupOrder: ServiceGroupKey[] = ["transformation", "finance", "strategy", "technology"];
+
+type DrawerLink = {
+  label: string;
+  href: string;
+  sectionId?: string;
+  children?: DrawerLink[];
+};
+
+type DrawerEntry =
+  | { id: string; kind: "link"; label: string; href: string; sectionId?: string }
+  | { id: string; kind: "group"; label: string; links: DrawerLink[] };
+
+function normalizePath(path: string) {
+  return path.replace(/\/+$/, "") || "/";
+}
 
 export function SiteHeader({ locale }: { locale: Locale }) {
   const headerRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerCloseRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
+  const menuId = useId();
   const [menuOpen, setMenuOpen] = useState(false);
-  const hasPhotographicHero = /^\/(en|ar)(\/(about|clients|services|markets|contact))?\/?$/.test(pathname);
+  const [hash, setHash] = useState("");
+  const [activePath, setActivePath] = useState(pathname);
+  const [groupOverride, setGroupOverride] = useState<{ path: string; open: Record<string, boolean> } | null>(null);
+  const hasPhotographicHero = /^\/(en|ar)(\/(about|clients|markets|contact))?\/?$/.test(pathname);
   const copy = siteCopy[locale];
+  const sections = copy.header.sections;
+  const profile = profileContent[locale];
   const targetLocale = alternateLocale(locale);
   const languageHref = equivalentLocalePath(pathname, targetLocale);
+  const aboutPath = localizedPath(locale, "about");
+  const servicesPath = localizedPath(locale, "services");
+
+  const entries: DrawerEntry[] = [
+    { id: "home", kind: "link", label: sections.home, href: localizedPath(locale, "home") },
+    {
+      id: "who-we-are",
+      kind: "group",
+      label: sections.whoWeAre,
+      links: [
+        { label: sections.companyOverview, href: `${aboutPath}#who-we-are`, sectionId: "who-we-are" },
+        { label: sections.purpose, href: `${aboutPath}#purpose`, sectionId: "purpose" },
+        { label: sections.philosophy, href: `${aboutPath}#philosophy`, sectionId: "philosophy" },
+        { label: sections.leadership, href: `${aboutPath}#leadership`, sectionId: "leadership" },
+      ],
+    },
+    {
+      id: "services",
+      kind: "group",
+      label: sections.services,
+      links: [
+        { label: sections.servicesOverview, href: servicesPath },
+        ...groupOrder.map((group) => ({
+          label: profile.servicesPage.groups[group].label,
+          href: `${servicesPath}#service-group-${group}`,
+          sectionId: `service-group-${group}`,
+          children: profile.services.filter(service => service.group === group).map(service => ({
+            label: service.title,
+            href: `${servicesPath}/${service.slug}`,
+          })),
+        })),
+      ],
+    },
+    { id: "clients", kind: "link", label: sections.clients, href: localizedPath(locale, "clients") },
+    { id: "projects", kind: "link", label: sections.projects, href: localizedPath(locale, "projects") },
+    { id: "markets", kind: "link", label: sections.markets, href: localizedPath(locale, "markets") },
+    { id: "contact", kind: "link", label: sections.contact, href: localizedPath(locale, "contact") },
+  ];
+
+  if (activePath !== pathname) {
+    setActivePath(pathname);
+    setMenuOpen(false);
+  }
+
+  const defaultGroups: Record<string, boolean> = {
+    "who-we-are": normalizePath(pathname) === normalizePath(aboutPath),
+    services: normalizePath(pathname) === normalizePath(servicesPath) || normalizePath(pathname).startsWith(`${normalizePath(servicesPath)}/`),
+  };
+  const openGroups = groupOverride?.path === pathname ? groupOverride.open : defaultGroups;
+
+  const isCurrent = (href: string) => {
+    const [path, fragment] = href.split("#");
+    const current = normalizePath(pathname);
+    const target = normalizePath(path);
+    if (current !== target) return false;
+    if (fragment) return hash === `#${fragment}`;
+    return true;
+  };
 
   useGsapContext(
     () => {
@@ -39,11 +121,11 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       const waitsForSiteIntro = document.body.classList.contains("intro-open");
 
       const entrance = gsap.from(targets, {
-        yPercent: -105,
+        y: -8,
         opacity: 0,
-        duration: 1.25,
+        duration: 0.55,
         stagger: 0.045,
-        delay: 0.08,
+        delay: 0.04,
         paused: waitsForSiteIntro,
         ease: "expo.out",
         onComplete: () => gsap.set(targets, { clearProps: "opacity,visibility,transform" }),
@@ -64,6 +146,24 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   useEffect(() => {
     window.localStorage.setItem("ertkaz-locale", locale);
   }, [locale]);
+
+  useEffect(() => {
+    const syncHash = () => setHash(window.location.hash);
+    window.addEventListener("hashchange", syncHash);
+    window.addEventListener("popstate", syncHash);
+    const frame = window.requestAnimationFrame(syncHash);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("hashchange", syncHash);
+      window.removeEventListener("popstate", syncHash);
+    };
+  }, [pathname]);
+
+  useEffect(() => {
+    const closeMenu = () => setMenuOpen(false);
+    window.addEventListener("ertkaz:menu-close", closeMenu);
+    return () => window.removeEventListener("ertkaz:menu-close", closeMenu);
+  }, []);
 
   useEffect(() => {
     const header = headerRef.current;
@@ -104,51 +204,17 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   }, [pathname]);
 
   useEffect(() => {
-    const panel = panelRef.current;
-    if (!panel) return;
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const links = panel.querySelectorAll("[data-mobile-link]");
-    const animation = gsap.timeline();
-
-    if (menuOpen) {
-      document.body.classList.add("menu-open");
-      gsap.set(panel, { visibility: "visible" });
-      if (reduceMotion) {
-        gsap.set(panel, { clipPath: "inset(0% 0% 0% 0%)" });
-        gsap.set(links, { yPercent: 0 });
-      } else {
-        animation
-          .to(panel, {
-            clipPath: "inset(0% 0% 0% 0%)",
-            duration: 0.85,
-            ease: "power4.inOut",
-          })
-          .fromTo(
-            links,
-            { yPercent: 115 },
-            { yPercent: 0, duration: 0.85, stagger: 0.055, ease: "power4.out" },
-            "-=0.35",
-          );
-      }
-    } else {
-      document.body.classList.remove("menu-open");
-      if (reduceMotion) {
-        gsap.set(panel, { clipPath: "inset(0% 0% 100% 0%)", visibility: "hidden" });
-      } else {
-        animation.to(panel, {
-          clipPath: "inset(0% 0% 100% 0%)",
-          duration: 0.7,
-          ease: "power4.inOut",
-          onComplete: () => gsap.set(panel, { visibility: "hidden" }),
-        });
-      }
+    document.body.classList.toggle("menu-open", menuOpen);
+    const founderOpen = document.body.classList.contains("founder-dialog-open");
+    if (!founderOpen) {
+      window.dispatchEvent(new CustomEvent("ertkaz:overlay", { detail: { open: menuOpen } }));
     }
 
     return () => {
-      animation.kill();
-      gsap.killTweensOf([panel, links]);
       document.body.classList.remove("menu-open");
+      if (!document.body.classList.contains("founder-dialog-open")) {
+        window.dispatchEvent(new CustomEvent("ertkaz:overlay", { detail: { open: false } }));
+      }
     };
   }, [menuOpen]);
 
@@ -159,23 +225,24 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     const menuButton = menuButtonRef.current;
     if (!header || !panel) return;
 
-    const background = Array.from(document.querySelectorAll<HTMLElement>("main, footer"));
+    const background = Array.from(document.querySelectorAll<HTMLElement>(".page-canvas"));
     const previousInert = background.map((element) => element.inert);
     background.forEach((element) => { element.inert = true; });
 
     const focusFrame = window.requestAnimationFrame(() => {
-      panel.querySelector<HTMLAnchorElement>("[data-mobile-link]")?.focus({ preventScroll: true });
+      drawerCloseRef.current?.focus({ preventScroll: true });
     });
 
     const handleKeys = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
         setMenuOpen(false);
+        return;
       }
 
       if (event.key !== "Tab") return;
-      const controls = Array.from(header.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'))
-        .filter((element) => element.tabIndex >= 0 && element.getClientRects().length > 0);
+      const controls = Array.from(panel.querySelectorAll<HTMLElement>("a[href], button:not([disabled]), summary"))
+        .filter((element) => element.tabIndex >= 0 && !element.closest("[inert], [aria-hidden='true']") && element.getClientRects().length > 0);
       const first = controls[0];
       const last = controls[controls.length - 1];
 
@@ -197,20 +264,12 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     };
   }, [menuOpen]);
 
-  useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 901px)");
-    const closeOnDesktop = () => { if (desktop.matches) setMenuOpen(false); };
-    desktop.addEventListener("change", closeOnDesktop);
-    return () => desktop.removeEventListener("change", closeOnDesktop);
-  }, []);
-
   return (
     <header
       ref={headerRef}
       className={`site-header${hasPhotographicHero ? " site-header--skyline" : ""}${menuOpen ? " is-menu-open" : ""}`}
       aria-label={copy.header.primaryLabel}
-      role={menuOpen ? "dialog" : undefined}
-      aria-modal={menuOpen ? true : undefined}
+      data-home-header={normalizePath(pathname) === normalizePath(localizedPath(locale, "home")) || undefined}
     >
       <div className="container-site site-header__inner">
         <div className="nav-reveal-mask">
@@ -226,107 +285,145 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           </Link>
         </div>
 
-        <nav className="desktop-nav" aria-label={copy.header.desktopLabel}>
-          {navigationPages.map((page) => {
-            const href = localizedPath(locale, page);
-            const active = pathname === href || (page !== "home" && pathname.startsWith(`${href}/`));
-            const label = copy.navigation[page];
-
-            return (
-              <div className="nav-reveal-mask" key={page}>
-                <Link
-                  className="nav-link"
-                  href={href}
-                  aria-current={active ? "page" : undefined}
-                  data-nav-reveal
-                  data-cursor="link"
-                >
-                  <span className="nav-link__label" data-label={label}>{label}</span>
-                </Link>
-              </div>
-            );
-          })}
-
-          <div className="nav-reveal-mask">
-            <Link
-              href={languageHref}
-              className="language-switch"
-              hrefLang={targetLocale}
-              aria-label={copy.header.switchLanguage}
-              data-nav-reveal
-              data-cursor="link"
-            >
-              {locale === "en" ? "AR" : "EN"}
-            </Link>
-          </div>
-        </nav>
-
         <div className="nav-reveal-mask nav-menu-wrap">
           <button
             ref={menuButtonRef}
             type="button"
             className="nav-menu-button"
             aria-expanded={menuOpen}
-            aria-controls="mobile-navigation"
+            aria-controls={menuId}
             aria-label={menuOpen ? copy.header.close : copy.header.open}
             data-nav-reveal
             data-cursor="link"
             onClick={() => setMenuOpen((open) => !open)}
           >
-            <span>{menuOpen ? copy.header.closeText : copy.header.menu}</span>
+            <span className="nav-menu-button__label">{menuOpen ? copy.header.closeText : copy.header.menu}</span>
             {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </button>
         </div>
       </div>
 
+      <button
+        type="button"
+        className="nav-scrim"
+        tabIndex={-1}
+        aria-hidden="true"
+        hidden={!menuOpen}
+        onClick={() => setMenuOpen(false)}
+      />
+
       <div
-        id="mobile-navigation"
+        id={menuId}
         ref={panelRef}
-        className="mobile-menu"
+        className="nav-drawer"
+        role="dialog"
+        aria-modal={menuOpen}
+        aria-label={copy.header.mobileLabel}
         aria-hidden={!menuOpen}
         inert={!menuOpen}
         data-lenis-prevent
       >
-        <nav className="container-site mobile-menu__inner" aria-label={copy.header.mobileLabel}>
-          <p className="mobile-menu__eyebrow">{copy.header.navigate}</p>
-          <div className="mobile-menu__links">
-            {navigationPages.map((page, index) => {
-              const href = localizedPath(locale, page);
+        <div className="nav-drawer__top">
+          <button
+            ref={drawerCloseRef}
+            type="button"
+            className="nav-drawer__close"
+            onClick={() => setMenuOpen(false)}
+          >
+            <span>{copy.header.closeText}</span>
+            <X aria-hidden="true" />
+          </button>
+        </div>
+        <nav className="nav-drawer__scroll" aria-label={copy.header.navigate}>
+          <ul className="nav-drawer__list">
+            {entries.map((entry) => {
+              if (entry.kind === "link") {
+                return (
+                  <li key={entry.id}>
+                    <Link
+                      href={entry.href}
+                      className="nav-drawer__link"
+                      aria-current={isCurrent(entry.href) ? "page" : undefined}
+                      data-cursor="link"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {entry.label}
+                    </Link>
+                  </li>
+                );
+              }
+
+              const expanded = openGroups[entry.id] === true;
+              const panelId = `${menuId}-${entry.id}`;
+              const groupCurrent = entry.links.some((link) => isCurrent(link.href) || link.children?.some(child => isCurrent(child.href)));
+
               return (
-                <div className="mobile-link-mask" key={page}>
-                  <Link
-                    href={href}
-                    className="mobile-link"
-                    aria-current={pathname === href || (page !== "home" && pathname.startsWith(`${href}/`)) ? "page" : undefined}
-                    data-mobile-link
-                    data-cursor="link"
-                    tabIndex={menuOpen ? 0 : -1}
-                    onClick={() => setMenuOpen(false)}
+                <li key={entry.id} className={`nav-drawer__group${expanded ? " is-open" : ""}`}>
+                  <button
+                    type="button"
+                    className="nav-drawer__disclosure"
+                    aria-expanded={expanded}
+                    aria-controls={panelId}
+                    data-current={groupCurrent ? "true" : undefined}
+                    onClick={() => setGroupOverride({
+                      path: pathname,
+                      open: { ...openGroups, [entry.id]: !openGroups[entry.id] },
+                    })}
                   >
-                    <span>{copy.navigation[page]}</span>
-                    <span className="mobile-link__index">0{index + 1}</span>
-                  </Link>
-                </div>
+                    <span>{entry.label}</span>
+                    <ChevronDown className="nav-drawer__chevron" aria-hidden="true" />
+                  </button>
+                  <div id={panelId} className="nav-drawer__sub" inert={!expanded} aria-hidden={!expanded}>
+                    <div className="nav-drawer__sub-inner">
+                      <ul>
+                        {entry.links.map((link) => (
+                          <li key={link.href}>
+                            {link.children ? (
+                              <details className="nav-service-group" open={link.children.some(child => isCurrent(child.href)) || undefined}>
+                                <summary><span>{link.label}</span><ChevronDown aria-hidden="true" /></summary>
+                                <Link className="nav-drawer__sublink nav-service-group__overview" href={link.href} data-scroll-section={link.sectionId} onClick={() => setMenuOpen(false)}>{sections.servicesOverview}</Link>
+                                <ul>
+                                  {link.children.map(child => <li key={child.href}><Link className="nav-drawer__sublink" href={child.href} aria-current={isCurrent(child.href) ? "page" : undefined} onClick={() => setMenuOpen(false)} data-cursor="link">{child.label}</Link></li>)}
+                                </ul>
+                              </details>
+                            ) : (
+                            <Link
+                              href={link.href}
+                              className="nav-drawer__sublink"
+                              aria-current={isCurrent(link.href) ? "page" : undefined}
+                              data-scroll-section={link.sectionId}
+                              data-cursor="link"
+                              onClick={() => setMenuOpen(false)}
+                            >
+                              {link.label}
+                            </Link>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </li>
               );
             })}
-          </div>
+          </ul>
+        </nav>
 
+        <div className="nav-drawer__footer">
           <Link
             href={languageHref}
             hrefLang={targetLocale}
-            className="mobile-language-switch"
+            className="nav-drawer__language"
             aria-label={copy.header.switchLanguage}
-            data-mobile-link
             data-cursor="link"
-            tabIndex={menuOpen ? 0 : -1}
             onClick={() => setMenuOpen(false)}
           >
             <span>{locale === "en" ? "العربية" : "English"}</span>
             <span>{locale === "en" ? "AR" : "EN"}</span>
           </Link>
-
-          <p className="mobile-menu__footer">{copy.header.footer}</p>
-        </nav>
+          <p>{copy.header.footer}</p>
+          <a className="nav-drawer__contact" href={companyContact.emails.general.href} dir="ltr">{companyContact.emails.general.label}</a>
+        </div>
       </div>
     </header>
   );

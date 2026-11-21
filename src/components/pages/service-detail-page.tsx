@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ServiceStudy } from "@/components/brand/service-study";
 import { SiteLink as Link } from "@/components/ui/site-link";
 import { useRef } from "react";
 
@@ -34,7 +35,6 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
         timeline
           .from("[data-service-detail-meta]", { y: 18, autoAlpha: 0, duration: 0.8, stagger: 0.06, delay: 0.08 })
           .from(split.lines, { yPercent: 112, duration: 1.35, stagger: 0.09 }, 0.1)
-          .from("[data-service-detail-art]", { scale: 0.76, rotate: -12, autoAlpha: 0, duration: 1.15 }, 0.24)
           .from("[data-service-detail-summary]", { y: 22, autoAlpha: 0, duration: 0.9 }, 0.38);
 
         const bodyReveal = gsap.from("[data-service-detail-body]", {
@@ -76,26 +76,23 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
             <span>{copy.interface.backToServices}</span>
           </Link>
 
-          <div className="service-detail__art" data-service-detail-art aria-hidden="true">
-            <svg viewBox="0 0 360 420" role="presentation">
-              <path d="m180 18 157 91v202l-157 91-157-91V109Z" />
-              <path d="m180 91 94 54v130l-94 54-94-54V145Z" />
-              <path d="m180 163 32 19v56l-32 19-32-19v-56Z" />
-            </svg>
-            <span>{service.id}</span>
-          </div>
-
           <PageTitle id="service-detail-title" ref={titleRef} className="service-detail__title" aria-label={service.title}>
             {locale === "en" ? withTitleBreaks(service.title) : service.title}
           </PageTitle>
-          <p className="service-detail__summary" data-service-detail-summary>{service.summary}</p>
         </Container>
       </section>
 
-      <section className="service-detail__content theme-dark" aria-label={service.title}>
+      <section className="service-detail__lead theme-dark" aria-label={locale === "ar" ? "نظرة عامة" : "Overview"}>
+        <Container><p className="service-detail__summary" data-service-detail-summary>{service.summary}</p></Container>
+      </section>
+
+      <section className="service-detail__content" aria-label={service.title}>
         <Container className="service-detail__content-layout">
           <div className="service-detail__description">
             {service.details.map((paragraph) => <p key={paragraph} data-service-detail-body>{paragraph}</p>)}
+          </div>
+          <div className="service-detail__image" data-service-detail-body>
+            <ServiceStudy group={service.group} ordinal={service.id} />
           </div>
         </Container>
       </section>

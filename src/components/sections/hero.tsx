@@ -13,7 +13,7 @@ import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import { localizedPath, type Locale } from "@/lib/i18n/config";
 
-import styles from "./hero.module.css";
+import styles from "./corporate-hero.module.css";
 
 export function Hero({ locale, page }: { locale: Locale; page?: PhotographicPage }) {
   const stageRef = useRef<HTMLElement>(null);
@@ -26,7 +26,7 @@ export function Hero({ locale, page }: { locale: Locale; page?: PhotographicPage
   const pageTitleLead = titleWords?.slice(0, -1).join(" ");
   const pageTitleAccent = titleWords?.at(-1);
   const destination = artwork?.target ?? localizedPath(locale, "contact");
-  const scrollDestination = artwork?.target ?? "#brand-identity";
+  const scrollDestination = artwork?.target ?? "#about";
 
   useGsapContext(
     (context) => {
@@ -66,15 +66,24 @@ export function Hero({ locale, page }: { locale: Locale; page?: PhotographicPage
                 });
 
                 entrance
-                  .from(self.lines, { yPercent: 110, duration: 1.25, stagger: 0.12 }, 0.1)
-                  .from("[data-hero-reveal]", { y: 18, autoAlpha: 0, duration: 0.9, stagger: 0.09 }, 0.26)
-                  .fromTo("[data-hero-image]", { scale: 1.035 }, { scale: 1, duration: 2.1 }, 0)
+                  .from(self.lines, { yPercent: 104, duration: 0.95, stagger: 0.08 }, 0.08)
+                  .from("[data-hero-reveal]", { y: 12, autoAlpha: 0, duration: 0.65, stagger: 0.06 }, 0.2)
+                  .fromTo("[data-hero-image]", { scale: 1.02 }, { scale: 1, duration: 1.5 }, 0)
                   .set(self.lines, { yPercent: 0, autoAlpha: 1 });
 
-                const play = () => entrance.play();
+                let played = false;
+                const play = () => {
+                  if (played) return;
+                  played = true;
+                  entrance.play();
+                };
                 if (waitsForOpening) {
+                  const failsafe = window.setTimeout(play, 1400);
                   window.addEventListener("ertkaz:intro-complete", play, { once: true });
-                  removeIntroListener = () => window.removeEventListener("ertkaz:intro-complete", play);
+                  removeIntroListener = () => {
+                    window.clearTimeout(failsafe);
+                    window.removeEventListener("ertkaz:intro-complete", play);
+                  };
                 }
 
                 return entrance;
@@ -123,7 +132,8 @@ export function Hero({ locale, page }: { locale: Locale; page?: PhotographicPage
     <section
       id={page ? `${page}-hero` : "home"}
       ref={stageRef}
-      className={`hero-stage hero-skyline theme-dark ${styles.stage}`}
+      className={`hero-stage hero-skyline ${page === "services" ? "theme-light" : "theme-dark"} ${styles.stage}`}
+      data-corporate-hero={page ?? "home"}
       aria-labelledby={titleId}
     >
       <div className={styles.frame}>
@@ -152,7 +162,7 @@ export function Hero({ locale, page }: { locale: Locale; page?: PhotographicPage
             <p className={styles.eyebrow} data-hero-reveal>{pageCopy ? `${pageCopy.index} / ${pageCopy.eyebrow}` : copy.eyebrow}</p>
 
             <PageTitle id={titleId} ref={titleRef} className={styles.title}>
-              {pageCopy ? (
+              {pageCopy && page === "services" ? pageCopy.title : pageCopy ? (
                 <>
                   {pageTitleLead ? <><span className={styles.firstLine}>{pageTitleLead}</span><br /></> : null}
                   <span className={styles.secondLine}>{pageTitleAccent}</span>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 
 import { Container } from "@/components/layout/container";
 import { profileContent } from "@/content/profile-content";
@@ -58,7 +59,7 @@ export function ProfileMarketsPage({ locale }: { locale: Locale }) {
   );
 
   return (
-    <section id="markets-overview" ref={sectionRef} className="markets-profile theme-dark" aria-labelledby="markets-profile-title">
+    <section id="markets-overview" ref={sectionRef} className="markets-profile" aria-labelledby="markets-profile-title">
       <Container className="markets-profile__layout">
         <p className="profile-kicker profile-kicker--light" data-markets-profile-meta>{copy.label}</p>
         <h2 id="markets-profile-title" ref={titleRef} className="markets-profile__title">{copy.title}</h2>
@@ -89,6 +90,10 @@ export function ProfileMarketsPage({ locale }: { locale: Locale }) {
           ))}
         </div>
 
+        <figure className="markets-profile__visual" data-markets-profile-meta>
+          <Image src="/images/ertkaz-markets-hero-1600.webp" alt="" fill unoptimized sizes="(max-width: 767px) 100vw, 50vw" />
+          <figcaption>{copy.label}</figcaption>
+        </figure>
         <p className="markets-profile__clarification" data-markets-profile-note>{copy.clarification}</p>
       </Container>
     </section>

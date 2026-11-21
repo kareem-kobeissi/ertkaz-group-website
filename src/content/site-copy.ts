@@ -24,6 +24,20 @@ type SiteCopy = {
     footer: string;
     switchLanguage: string;
     homeLabel: string;
+    sections: {
+      home: string;
+      whoWeAre: string;
+      companyOverview: string;
+      purpose: string;
+      philosophy: string;
+      leadership: string;
+      services: string;
+      servicesOverview: string;
+      clients: string;
+      projects: string;
+      markets: string;
+      contact: string;
+    };
   };
   metadata: Record<SitePage, { title: string; description: string }>;
   hero: {
@@ -105,6 +119,20 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       footer: "Business consulting · Strategic advisory",
       switchLanguage: "Switch to Arabic",
       homeLabel: "ERTKAZ GROUP — Home",
+      sections: {
+        home: "Home",
+        whoWeAre: "Who We Are",
+        companyOverview: "Company overview",
+        purpose: "Mission, Vision & Values",
+        philosophy: "Philosophy",
+        leadership: "Leadership",
+        services: "Our Services",
+        servicesOverview: "Services overview",
+        clients: "Our Clients",
+        projects: "Projects",
+        markets: "Markets",
+        contact: "Contact Us",
+      },
     },
     metadata: {
       home: {
@@ -210,6 +238,20 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       footer: "استشارات الأعمال · الاستشارات الاستراتيجية",
       switchLanguage: "Switch to English",
       homeLabel: "ERTKAZ GROUP — الصفحة الرئيسية",
+      sections: {
+        home: "الرئيسية",
+        whoWeAre: "من نحن",
+        companyOverview: "لمحة عن الشركة",
+        purpose: "الرسالة والرؤية والقيم",
+        philosophy: "الفلسفة",
+        leadership: "القيادة",
+        services: "خدماتنا",
+        servicesOverview: "نظرة عامة على الخدمات",
+        clients: "عملاؤنا",
+        projects: "المشاريع",
+        markets: "الأسواق",
+        contact: "تواصل معنا",
+      },
     },
     metadata: {
       home: { title: "ERTKAZ GROUP — استراتيجية اليوم. أثر الغد.", description: "مجموعة ERTKAZ للاستشارات الإدارية والاستراتيجية." },
