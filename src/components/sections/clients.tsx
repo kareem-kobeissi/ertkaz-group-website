@@ -60,7 +60,7 @@ export function Clients({ locale }: { locale: Locale }) {
     <section id="client-directory" ref={sectionRef} className={styles.section} aria-labelledby="clients-title">
       <Container>
         <div className="section-meta" data-clients-copy>
-          <span>01 / {copy.directory}</span>
+          <span>{copy.directory}</span>
           <span>ERTKAZ GROUP</span>
         </div>
         <div className={styles.heading}>
@@ -68,7 +68,7 @@ export function Clients({ locale }: { locale: Locale }) {
           <p data-clients-copy>{copy.directoryDescription}</p>
         </div>
         <ul className={styles.list} data-clients-list aria-label={copy.title}>
-          {clients.map((client, index) => (
+          {clients.map((client) => (
             <li className={`${styles.entry}${client.dark ? ` ${styles.dark}` : ""}`} key={client.id} data-client-entry>
               <a
                 className={styles.link}
@@ -80,7 +80,6 @@ export function Clients({ locale }: { locale: Locale }) {
                 data-client={client.id}
                 style={{ "--client-logo-width": `${client.displayWidth}px` } as CSSProperties}
               >
-                <span className={styles.index} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                 <span className={styles.destination}>{client.profile ? copy.profileLabel : copy.websiteLabel}</span>
                 <span className={styles.visual}>
                   {client.logo ? (

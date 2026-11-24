@@ -2,7 +2,7 @@ export const locales = ["en", "ar"] as const;
 
 export type Locale = (typeof locales)[number];
 
-export const pages = ["home", "about", "clients", "services", "projects", "markets", "contact"] as const;
+export const pages = ["home", "about", "clients", "services", "markets", "contact"] as const;
 
 export type SitePage = (typeof pages)[number];
 
@@ -18,7 +18,6 @@ export const pageSegments: Record<SitePage, string> = {
   about: "about",
   clients: "clients",
   services: "services",
-  projects: "projects",
   markets: "markets",
   contact: "contact",
 };

@@ -47,7 +47,7 @@ export function ProfileHighlights({ locale }: { locale: Locale }) {
     <section id="principles" ref={sectionRef} className={`profile-highlights theme-dark ${styles.section}`} aria-labelledby="profile-highlights-title">
       <Container>
         <div className={`section-meta section-meta--light ${styles.meta}`} data-principle-reveal>
-          <span>04 / {copy.homeHighlights.label}</span>
+          <span>{copy.homeHighlights.label}</span>
           <span>ERTKAZ GROUP</span>
         </div>
 
@@ -55,20 +55,19 @@ export function ProfileHighlights({ locale }: { locale: Locale }) {
           <h2 id="profile-highlights-title" ref={titleRef} className={styles.title}>{copy.homeHighlights.title}</h2>
           <div className={styles.purpose}>
             <article data-principle-reveal>
-              <h3><span>01</span>{copy.aboutPage.missionLabel}</h3>
+              <h3>{copy.aboutPage.missionLabel}</h3>
               <p>{copy.aboutPage.missionTitle}</p>
             </article>
             <article data-principle-reveal>
-              <h3><span>02</span>{copy.aboutPage.visionLabel}</h3>
+              <h3>{copy.aboutPage.visionLabel}</h3>
               <p>{copy.aboutPage.visionTitle}</p>
             </article>
           </div>
         </div>
 
         <div className={styles.values} aria-label={copy.aboutPage.valuesLabel}>
-          {copy.homeHighlights.values.map((value, index) => (
+          {copy.homeHighlights.values.map((value) => (
             <div className={styles.value} key={value} data-principle-reveal>
-              <span>0{index + 1}</span>
               <p>{value}</p>
             </div>
           ))}

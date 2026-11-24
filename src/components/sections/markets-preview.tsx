@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 
 import { Container } from "@/components/layout/container";
 import { EditorialLink } from "@/components/ui/editorial-link";
@@ -31,7 +32,7 @@ export function MarketsPreview({ locale }: { locale: Locale }) {
         timeline
           .from("[data-markets-preview-meta]", { y: 18, autoAlpha: 0, duration: 0.75 })
           .from(split.lines, { yPercent: 112, duration: 1.25, stagger: 0.08 }, 0.08)
-          .from("[data-markets-preview-art]", { scale: 0.75, rotate: -10, autoAlpha: 0, duration: 1.1 }, 0.22)
+          .from("[data-markets-preview-art]", { y: 20, autoAlpha: 0, duration: 0.9 }, 0.22)
           .from("[data-markets-preview-detail]", { y: 20, autoAlpha: 0, duration: 0.85, stagger: 0.07 }, 0.42);
 
         return () => {
@@ -52,21 +53,11 @@ export function MarketsPreview({ locale }: { locale: Locale }) {
     <section ref={sectionRef} className="markets-preview" aria-labelledby="markets-preview-title">
       <Container className="markets-preview__layout">
         <div className="section-meta" data-markets-preview-meta>
-          <span>07 / {copy.homeMarkets.label}</span>
-          <span>05</span>
+          <span>{copy.homeMarkets.label}</span>
         </div>
 
-        <div className="markets-preview__art" data-markets-preview-art aria-hidden="true">
-          <svg viewBox="0 0 420 420" role="presentation">
-            <path d="m210 19 165 95v192l-165 95L45 306V114Z" />
-            <path d="m210 89 105 61v120l-105 61-105-61V150Z" />
-            <path d="m210 166 38 22v44l-38 22-38-22v-44Z" />
-            <circle cx="210" cy="19" r="6" />
-            <circle cx="375" cy="114" r="6" />
-            <circle cx="315" cy="270" r="6" />
-            <circle cx="105" cy="270" r="6" />
-            <circle cx="45" cy="114" r="6" />
-          </svg>
+        <div className="markets-preview__image" data-markets-preview-art>
+          <Image src="/images/ertkaz-markets-hero-1600.webp" alt="" fill unoptimized sizes="(max-width: 767px) 100vw, 50vw" />
         </div>
 
         <h2 id="markets-preview-title" ref={titleRef} className="markets-preview__title">

@@ -3,7 +3,6 @@ import { ProfileAboutPage } from "@/components/pages/profile-about-page";
 import { ProfileMarketsPage } from "@/components/pages/profile-markets-page";
 import { CorporateServices } from "@/components/sections/corporate-services";
 import { RouteIntro } from "@/components/pages/route-intro";
-import { ProjectsDirectory } from "@/components/pages/projects-directory";
 import type { Locale, SitePage } from "@/lib/i18n/config";
 
 type DetailPage = Exclude<SitePage, "home" | "contact" | "clients">;
@@ -21,7 +20,6 @@ export function LocalizedRoutePage({ locale, page }: { locale: Locale; page: Det
 
       {page === "services" ? <CorporateServices locale={locale} fullPage /> : null}
       {page === "markets" ? <ProfileMarketsPage locale={locale} /> : null}
-      {page === "projects" ? <ProjectsDirectory locale={locale} /> : null}
 
       <SiteFooter locale={locale} />
     </main>

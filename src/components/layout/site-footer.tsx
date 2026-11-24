@@ -21,10 +21,10 @@ export function SiteFooter({ locale }: SiteFooterProps) {
       <Container className="site-footer__layout">
         <div className="footer-invitation" data-footer-reveal>
           <p>{copy.footer.invitation}</p>
-          <a href={companyContact.emails.general.href} data-cursor="cta">
+          <Link href={`${localizedPath(locale, "contact")}#enquiry-form`} data-scroll-section="enquiry-form" data-cursor="cta">
             <span>{copy.footer.invitationLink}</span>
             <ArrowUpRight aria-hidden="true" />
-          </a>
+          </Link>
           <div className="footer-invitation__art" aria-hidden="true">
             <svg viewBox="0 0 160 160" role="presentation">
               <path d="M80 8 142 44v72l-62 36-62-36V44Z" />
@@ -71,7 +71,12 @@ export function SiteFooter({ locale }: SiteFooterProps) {
 
         <div className="footer-column footer-office" data-footer-reveal>
           <p className="footer-column__label">{copy.footer.office}</p>
-          <address>{companyContact.office[locale]}</address>
+          {companyContact.offices.map(office => (
+            <div className="footer-office__entry" key={office.id}>
+              <p>{office.label[locale]}</p>
+              <address>{office.address[locale]}</address>
+            </div>
+          ))}
           <a href={companyContact.website.href} data-cursor="link" dir="ltr">{companyContact.website.label}</a>
         </div>
 

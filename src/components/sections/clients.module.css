@@ -275,7 +275,7 @@
   }
 
   .title {
-    font-size: clamp(2.35rem, 10vw, 3rem);
+    font-size: 2rem;
   }
 
   .heading > p {

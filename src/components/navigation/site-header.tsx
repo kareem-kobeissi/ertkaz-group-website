@@ -52,7 +52,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const sections = copy.header.sections;
   const profile = profileContent[locale];
   const targetLocale = alternateLocale(locale);
-  const languageHref = equivalentLocalePath(pathname, targetLocale);
+  const languageHref = `${equivalentLocalePath(pathname, targetLocale)}${hash}`;
   const aboutPath = localizedPath(locale, "about");
   const servicesPath = localizedPath(locale, "services");
 
@@ -87,7 +87,6 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       ],
     },
     { id: "clients", kind: "link", label: sections.clients, href: localizedPath(locale, "clients") },
-    { id: "projects", kind: "link", label: sections.projects, href: localizedPath(locale, "projects") },
     { id: "markets", kind: "link", label: sections.markets, href: localizedPath(locale, "markets") },
     { id: "contact", kind: "link", label: sections.contact, href: localizedPath(locale, "contact") },
   ];
@@ -246,7 +245,10 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       const first = controls[0];
       const last = controls[controls.length - 1];
 
-      if (event.shiftKey && document.activeElement === first) {
+      if (!panel.contains(document.activeElement)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first)?.focus();
+      } else if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();
         last?.focus();
       } else if (!event.shiftKey && document.activeElement === last) {
@@ -271,7 +273,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       aria-label={copy.header.primaryLabel}
       data-home-header={normalizePath(pathname) === normalizePath(localizedPath(locale, "home")) || undefined}
     >
-      <div className="container-site site-header__inner">
+      <div className="container-site site-header__inner" inert={menuOpen}>
         <div className="nav-reveal-mask">
           <Link
             href={localizedPath(locale, "home")}
@@ -290,6 +292,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             ref={menuButtonRef}
             type="button"
             className="nav-menu-button"
+            dir={locale === "ar" ? "rtl" : "ltr"}
             aria-expanded={menuOpen}
             aria-controls={menuId}
             aria-label={menuOpen ? copy.header.close : copy.header.open}
@@ -328,6 +331,8 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             ref={drawerCloseRef}
             type="button"
             className="nav-drawer__close"
+            dir={locale === "ar" ? "rtl" : "ltr"}
+            aria-label={copy.header.close}
             onClick={() => setMenuOpen(false)}
           >
             <span>{copy.header.closeText}</span>
@@ -418,7 +423,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             data-cursor="link"
             onClick={() => setMenuOpen(false)}
           >
-            <span>{locale === "en" ? "العربية" : "English"}</span>
+            <span lang={targetLocale}>{locale === "en" ? "العربية" : "English"}</span>
             <span>{locale === "en" ? "AR" : "EN"}</span>
           </Link>
           <p>{copy.header.footer}</p>

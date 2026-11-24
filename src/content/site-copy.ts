@@ -34,7 +34,6 @@ type SiteCopy = {
       services: string;
       servicesOverview: string;
       clients: string;
-      projects: string;
       markets: string;
       contact: string;
     };
@@ -89,7 +88,6 @@ type SiteCopy = {
     navigationLabel: string;
   };
   scaffold: Record<Exclude<SitePage, "home" | "clients">, {
-    index: string;
     eyebrow: string;
     title: string;
     description: string;
@@ -103,7 +101,6 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       about: "About",
       clients: "Our Clients",
       services: "Services",
-      projects: "Projects",
       markets: "Markets",
       contact: "Contact",
     },
@@ -129,7 +126,6 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         services: "Our Services",
         servicesOverview: "Services overview",
         clients: "Our Clients",
-        projects: "Projects",
         markets: "Markets",
         contact: "Contact Us",
       },
@@ -142,7 +138,6 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       about: { title: "About — ERTKAZ GROUP", description: "About ERTKAZ GROUP." },
       clients: { title: "Our Clients — ERTKAZ GROUP", description: "Explore a selection of ERTKAZ GROUP's clients and their official websites." },
       services: { title: "Services — ERTKAZ GROUP", description: "Explore thirteen ERTKAZ GROUP advisory services." },
-      projects: { title: "Projects — ERTKAZ GROUP", description: "Discuss project requirements with ERTKAZ GROUP." },
       markets: { title: "Markets — ERTKAZ GROUP", description: "Explore ERTKAZ GROUP's regional perspective." },
       contact: { title: "Contact — ERTKAZ GROUP", description: "Contact ERTKAZ GROUP." },
     },
@@ -160,7 +155,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       ariaLabel: "Animated ERTKAZ identity",
     },
     about: {
-      meta: ["01 / About us", "Our perspective"],
+      meta: ["About us", "Our perspective"],
       statement: [
         { text: "Practical strategies" },
         { text: "shaped around requirements.", modifier: "indent" },
@@ -173,7 +168,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       summary: "We analyze requirements, define scope and develop considered responses that support meaningful decisions and opportunities.",
     },
     services: {
-      meta: ["02 / Our services", "Selected services"],
+      meta: ["Our services", "Selected services"],
       title: "Our services",
       items: [
         { title: "Business & Management Consultancy", description: "Organizational analysis, strategic goals and relevant performance indicators." },
@@ -185,9 +180,9 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       ],
     },
     contact: {
-      meta: ["05 / Contact", "ERTKAZ GROUP"],
+      meta: ["Contact", "ERTKAZ GROUP"],
       titleLines: ["Start a", "conversation."],
-      cta: "Email us",
+      cta: "Send an enquiry",
       generalEmail: "General enquiries",
       executiveEmail: "Executive office",
       primaryPhone: "Primary phone",
@@ -202,18 +197,17 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       invitationLink: "Start a conversation",
       navigate: "Navigate",
       contact: "Contact",
-      office: "Office",
+      office: "Offices",
       copyright: "ERTKAZ GROUP",
       backToTop: "Back to top",
       homeLabel: "ERTKAZ GROUP — Back to home",
       navigationLabel: "Footer navigation",
     },
     scaffold: {
-      about: { index: "01", eyebrow: "Who we are", title: "About ERTKAZ", description: "Our positioning, mission, vision, values and sector perspective." },
-      services: { index: "02", eyebrow: "Advisory index", title: "Our Services", description: "Thirteen advisory services presented in a focused bilingual index." },
-      projects: { index: "03", eyebrow: "Project enquiries", title: "Projects", description: "Speak with ERTKAZ GROUP about your project requirements." },
-      markets: { index: "04", eyebrow: "Regional perspective", title: "Our Markets", description: "A global outlook grounded in local understanding across five named markets and regions." },
-      contact: { index: "05", eyebrow: "Start a conversation", title: "Contact", description: "Speak with ERTKAZ GROUP about your requirements." },
+      about: { eyebrow: "Who we are", title: "About ERTKAZ", description: "Our positioning, mission, vision, values and sector perspective." },
+      services: { eyebrow: "Advisory index", title: "Our Services", description: "Thirteen advisory services presented in a focused bilingual index." },
+      markets: { eyebrow: "Regional perspective", title: "Our Markets", description: "A global outlook grounded in local understanding across five named markets and regions." },
+      contact: { eyebrow: "Start a conversation", title: "Contact", description: "Speak with ERTKAZ GROUP about your requirements." },
     },
   },
   ar: {
@@ -222,7 +216,6 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       about: "من نحن",
       clients: "عملاؤنا",
       services: "خدماتنا",
-      projects: "المشاريع",
       markets: "أسواقنا",
       contact: "تواصل معنا",
     },
@@ -248,7 +241,6 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         services: "خدماتنا",
         servicesOverview: "نظرة عامة على الخدمات",
         clients: "عملاؤنا",
-        projects: "المشاريع",
         markets: "الأسواق",
         contact: "تواصل معنا",
       },
@@ -258,7 +250,6 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       about: { title: "من نحن — ERTKAZ GROUP", description: "تعرف إلى مجموعة ERTKAZ." },
       clients: { title: "عملاؤنا — ERTKAZ GROUP", description: "تعرّف إلى نخبة من عملاء مجموعة ERTKAZ واستكشف مواقعهم الرسمية." },
       services: { title: "خدماتنا — ERTKAZ GROUP", description: "استكشف ثلاث عشرة خدمة استشارية لمجموعة ERTKAZ." },
-      projects: { title: "المشاريع — ERTKAZ GROUP", description: "ناقش متطلبات مشروعك مع مجموعة ERTKAZ." },
       markets: { title: "أسواقنا — ERTKAZ GROUP", description: "استكشف منظور مجموعة ERTKAZ الإقليمي." },
       contact: { title: "تواصل معنا — ERTKAZ GROUP", description: "تواصل مع مجموعة ERTKAZ." },
     },
@@ -276,7 +267,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       ariaLabel: "هوية ERTKAZ المتحركة",
     },
     about: {
-      meta: ["01 / من نحن", "رؤيتنا"],
+      meta: ["من نحن", "رؤيتنا"],
       statement: [
         { text: "استراتيجيات عملية" },
         { text: "مصمّمة وفق المتطلبات.", modifier: "indent" },
@@ -289,7 +280,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       summary: "نحلل المتطلبات ونحدد النطاق ونطور استجابات مدروسة تدعم القرارات والفرص المهمة.",
     },
     services: {
-      meta: ["02 / خدماتنا", "خدمات مختارة"],
+      meta: ["خدماتنا", "خدمات مختارة"],
       title: "خدماتنا",
       items: [
         { title: "استشارات الأعمال والإدارة", description: "تحليل المؤسسة وأهدافها الاستراتيجية ومؤشرات الأداء ذات الصلة." },
@@ -301,9 +292,9 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       ],
     },
     contact: {
-      meta: ["05 / تواصل معنا", "ERTKAZ GROUP"],
+      meta: ["تواصل معنا", "ERTKAZ GROUP"],
       titleLines: ["لنبدأ", "محادثة."],
-      cta: "راسلنا",
+      cta: "أرسل استفسارك",
       generalEmail: "الاستفسارات العامة",
       executiveEmail: "المكتب التنفيذي",
       primaryPhone: "الهاتف الرئيسي",
@@ -318,18 +309,17 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       invitationLink: "ابدأ محادثة",
       navigate: "تصفّح",
       contact: "تواصل",
-      office: "المكتب",
+      office: "المكاتب",
       copyright: "ERTKAZ GROUP",
       backToTop: "العودة إلى الأعلى",
       homeLabel: "ERTKAZ GROUP — العودة إلى الرئيسية",
       navigationLabel: "تنقل التذييل",
     },
     scaffold: {
-      about: { index: "01", eyebrow: "من نحن", title: "عن ERTKAZ", description: "تموضعنا ورسالتنا ورؤيتنا وقيمنا ومنظورنا القطاعي." },
-      services: { index: "02", eyebrow: "دليل الاستشارات", title: "خدماتنا", description: "ثلاث عشرة خدمة استشارية ضمن دليل مركز باللغتين." },
-      projects: { index: "03", eyebrow: "استفسارات المشاريع", title: "المشاريع", description: "تحدث مع مجموعة ERTKAZ حول متطلبات مشروعك." },
-      markets: { index: "04", eyebrow: "منظور إقليمي", title: "أسواقنا", description: "نظرة عالمية ترتكز على فهم محلي عبر خمسة أسواق ومناطق مسماة." },
-      contact: { index: "05", eyebrow: "ابدأ محادثة", title: "تواصل معنا", description: "تحدث مع مجموعة ERTKAZ حول متطلباتك." },
+      about: { eyebrow: "من نحن", title: "عن ERTKAZ", description: "تموضعنا ورسالتنا ورؤيتنا وقيمنا ومنظورنا القطاعي." },
+      services: { eyebrow: "دليل الاستشارات", title: "خدماتنا", description: "ثلاث عشرة خدمة استشارية ضمن دليل مركز باللغتين." },
+      markets: { eyebrow: "منظور إقليمي", title: "أسواقنا", description: "نظرة عالمية ترتكز على فهم محلي عبر خمسة أسواق ومناطق مسماة." },
+      contact: { eyebrow: "ابدأ محادثة", title: "تواصل معنا", description: "تحدث مع مجموعة ERTKAZ حول متطلباتك." },
     },
   },
 };

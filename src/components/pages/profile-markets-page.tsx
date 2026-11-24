@@ -80,9 +80,8 @@ export function ProfileMarketsPage({ locale }: { locale: Locale }) {
         </div>
 
         <div className="markets-profile__list">
-          {copy.markets.map((market, index) => (
+          {copy.markets.map((market) => (
             <div className="markets-profile__row" key={market.name} data-market-row>
-              <span>0{index + 1}</span>
               <h3>{market.name}</h3>
               <p>{market.type}</p>
               <b dir="ltr">{market.code}</b>

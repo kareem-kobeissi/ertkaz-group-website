@@ -84,7 +84,7 @@ export function FounderProfile({ locale }: { locale: Locale }) {
         data-footer-reveal
         data-cursor="cta"
       >
-        <span className="footer-founder__meta"><span>05</span><span>{copy.leadershipLabel}</span></span>
+        <span className="footer-founder__meta"><span>{copy.leadershipLabel}</span></span>
         <span className="footer-founder__identity">
           <span className="footer-founder__role">{copy.leadershipRole}</span>
           <strong className="footer-founder__name" dir="ltr">{copy.leadershipName}</strong>
@@ -122,7 +122,7 @@ export function FounderProfile({ locale }: { locale: Locale }) {
         }}
       >
         <div className={styles.topline}>
-          <span>05 / {copy.leadershipLabel}</span>
+          <span>{copy.leadershipLabel}</span>
           <button ref={closeRef} type="button" className={styles.close} onClick={hideProfile} aria-label={locale === "ar" ? "إغلاق ملف المؤسس" : "Close founder profile"}>
             <X aria-hidden="true" />
           </button>
@@ -131,10 +131,6 @@ export function FounderProfile({ locale }: { locale: Locale }) {
         <h2 id={`${id}-name`} className={styles.name} dir="ltr">{copy.leadershipName}</h2>
         <p className={styles.company} dir="ltr">ERTKAZ GROUP</p>
         <dl className={styles.details}>
-          <div>
-            <dt>{copy.leadershipCredentialsLabel}</dt>
-            <dd dir="ltr">{copy.leadershipCredentials}</dd>
-          </div>
           <div>
             <dt>{copy.leadershipContactLabel}</dt>
             <dd><a href={companyContact.emails.executive.href} dir="ltr">{companyContact.emails.executive.label}<ArrowUpRight aria-hidden="true" /></a></dd>

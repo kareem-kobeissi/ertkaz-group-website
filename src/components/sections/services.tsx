@@ -78,7 +78,6 @@ export function Services({ locale, showPageLink = false }: { locale: Locale; sho
     const preview = previewRef.current;
     if (!section || !preview) return;
 
-    const number = preview.querySelector("[data-preview-number]");
     const rotor = preview.querySelector("[data-preview-rotor]");
     const caption = preview.querySelector("[data-preview-caption]");
     const rows = Array.from(section.querySelectorAll<HTMLElement>("[data-service-row]"));
@@ -130,11 +129,11 @@ export function Services({ locale, showPageLink = false }: { locale: Locale; sho
     });
 
     if (reduceMotion) {
-      gsap.set([number, caption], { y: 0, autoAlpha: 1 });
+      gsap.set(caption, { y: 0, autoAlpha: 1 });
       gsap.set(rotor, { rotate: activeIndex * 60, transformOrigin: "50% 50%" });
     } else {
       gsap.fromTo(
-        [number, caption],
+        caption,
         { y: 8, autoAlpha: 0 },
         { y: 0, autoAlpha: 1, duration: 0.42, ease: "power3.out", overwrite: true },
       );
@@ -147,7 +146,7 @@ export function Services({ locale, showPageLink = false }: { locale: Locale; sho
       });
     }
 
-    return () => gsap.killTweensOf([number, rotor, caption, ...animatedTargets]);
+    return () => gsap.killTweensOf([rotor, caption, ...animatedTargets]);
   }, [activeIndex, locale]);
 
   return (
@@ -162,7 +161,6 @@ export function Services({ locale, showPageLink = false }: { locale: Locale; sho
           <h2 id="services-title" ref={titleRef} className="services-title">{copy.title}</h2>
 
           <div ref={previewRef} className="services-preview" data-services-preview aria-hidden="true">
-            <span className="services-preview__number" data-preview-number>0{activeIndex + 1}</span>
             <svg viewBox="0 0 160 160" role="presentation">
               <g data-preview-rotor>
                 <path d="M80 13 137 46M145 58v65M137 135l-57 33M69 168l-57-33M4 123V58M12 46l57-33" />
@@ -191,7 +189,6 @@ export function Services({ locale, showPageLink = false }: { locale: Locale; sho
                   onFocus={() => setActiveIndex(index)}
                   onClick={() => setActiveIndex(index)}
                 >
-                  <span className="service-row__number">0{index + 1}</span>
                   <span className="service-row__title">{service.title}</span>
                   <span id={descriptionId} className="service-row__description">{service.description}</span>
                   <span className="service-row__icon">

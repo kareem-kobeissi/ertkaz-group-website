@@ -39,10 +39,10 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
           scrollTrigger: { trigger: "#contact", start: "top 66%", once: true },
           defaults: { ease: "expo.out" },
         });
+        const cta = chapter.querySelector("[data-contact-cta]");
         reveal
           .from("[data-contact-meta]", { y: 18, autoAlpha: 0, duration: 0.75 })
           .from(split.lines, { yPercent: 114, duration: 1.4, stagger: 0.12 }, 0.08)
-          .fromTo("[data-contact-cta]", { y: 12, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.65, clearProps: "transform,opacity,visibility" }, 0.24)
           .from("[data-contact-row]", { y: 30, autoAlpha: 0, duration: 0.9, stagger: 0.08 }, 0.55)
           .from("[data-footer-reveal]", { y: 20, autoAlpha: 0, duration: 0.8, stagger: 0.06 }, 0.76)
           .set(
@@ -53,6 +53,7 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
             ],
             { y: 0, yPercent: 0, autoAlpha: 1 },
           );
+        if (cta) reveal.fromTo(cta, { y: 12, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.65, clearProps: "transform,opacity,visibility" }, 0.24);
 
         return () => {
           reveal.kill();
@@ -90,10 +91,10 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
               <span>{copy.titleLines[1]}</span>
             </h2>
 
-            <a className="contact-cta" href={companyContact.emails.general.href} data-contact-cta data-cursor="cta">
+            {showPageLink ? <a className="contact-cta" href={localizedPath(locale, "contact")} data-contact-cta data-cursor="cta">
               <span>{copy.cta}</span>
               <ArrowUpRight aria-hidden="true" />
-            </a>
+            </a> : null}
           </div>
 
           <div className="contact-directory" aria-label={copy.directoryLabel}>
@@ -117,12 +118,14 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
               <span dir="ltr">{companyContact.phones.secondary.label}</span>
               <ArrowUpRight aria-hidden="true" />
             </a>
-            <div className="contact-row contact-row--static" data-contact-row>
-              <span className="contact-row__label">{copy.office}</span>
-              <span>{companyContact.office[locale]}</span>
-              <span className="contact-row__marker" aria-hidden="true">DXB</span>
-              <a className="contact-location" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(companyContact.office.en)}`} target="_blank" rel="noopener noreferrer">{locale === "ar" ? "عرض الموقع في خرائط Google" : "View location on Google Maps"}</a>
-            </div>
+            {companyContact.offices.map(office => (
+              <div className="contact-row contact-row--static" key={office.id} data-contact-row>
+                <span className="contact-row__label">{office.label[locale]}</span>
+                <span>{office.address[locale]}</span>
+                <span className="contact-row__marker" aria-hidden="true">{office.marker}</span>
+                <a className="contact-location" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.mapQuery)}`} target="_blank" rel="noopener noreferrer">{locale === "ar" ? "عرض المنطقة في خرائط Google" : "View area on Google Maps"}</a>
+              </div>
+            ))}
             <a className="contact-row" href={companyContact.website.href} data-contact-row data-cursor="link">
               <span className="contact-row__label">{copy.website}</span>
               <span dir="ltr">{companyContact.website.label}</span>

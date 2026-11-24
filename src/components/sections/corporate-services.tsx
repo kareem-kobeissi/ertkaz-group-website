@@ -5,6 +5,7 @@ import { ArrowUpLeft, ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
 
 import { Container } from "@/components/layout/container";
+import { EditorialLink } from "@/components/ui/editorial-link";
 import { SiteLink as Link } from "@/components/ui/site-link";
 import { profileContent, type ServiceGroupKey } from "@/content/profile-content";
 import { siteCopy } from "@/content/site-copy";
@@ -43,18 +44,18 @@ export function CorporateServices({ locale, fullPage = false }: { locale: Locale
         </Container>
       </div>
       <Container>
-        {groups.map(({ key, image }, index) => {
+        {groups.map(({ key, image }) => {
           const group = copy.servicesPage.groups[key];
           return (
             <article id={`service-group-${key}`} className={styles.serviceChapter} key={key} data-corporate-service>
               <div className={styles.chapterImage} data-chapter-reveal><Image src={image} alt="" fill unoptimized sizes="(max-width: 767px) 100vw, 50vw" /></div>
               <div className={styles.chapterCopy} data-chapter-reveal>
-                <p className="corporate-kicker">0{index + 1} / {siteCopy[locale].navigation.services}</p>
+                <p className="corporate-kicker">{siteCopy[locale].navigation.services}</p>
                 <h3>{group.label}</h3>
                 <p>{group.description}</p>
-                <ul className={styles.serviceLinks}>
+                {fullPage ? <ul className={styles.serviceLinks}>
                   {copy.services.filter(service => service.group === key).map(service => <li key={service.slug}><Link href={`${localizedPath(locale, "services")}/${service.slug}`} data-cursor="link"><span>{service.title}</span><Arrow aria-hidden="true" /></Link></li>)}
-                </ul>
+                </ul> : <div className={styles.chapterAction}><EditorialLink locale={locale} href={`${localizedPath(locale, "services")}#service-group-${key}`} label={locale === "ar" ? "اكتشف المزيد" : "Discover more"} /></div>}
               </div>
             </article>
           );

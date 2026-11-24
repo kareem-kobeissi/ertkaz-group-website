@@ -16,7 +16,6 @@ type ProfileContent = {
     explorePage: string;
     exploreAbout: string;
     exploreServices: string;
-    exploreProjects: string;
     exploreMarkets: string;
     exploreContact: string;
     sourceReference: string;
@@ -47,8 +46,6 @@ type ProfileContent = {
     leadershipLabel: string;
     leadershipName: string;
     leadershipRole: string;
-    leadershipCredentialsLabel: string;
-    leadershipCredentials: string;
     leadershipContactLabel: string;
   };
   servicesPage: {
@@ -100,7 +97,6 @@ export const profileContent: Record<Locale, ProfileContent> = {
       explorePage: "Explore the full chapter",
       exploreAbout: "Explore About us",
       exploreServices: "View all services",
-      exploreProjects: "Discuss a project",
       exploreMarkets: "Explore our markets",
       exploreContact: "View contact details",
       sourceReference: "Service overview",
@@ -114,8 +110,9 @@ export const profileContent: Record<Locale, ProfileContent> = {
       introductionLabel: "Who we are",
       introductionTitle: "Practical thinking for consequential business decisions.",
       introduction: [
-        "ERTKAZ GROUP provides business growth and management consulting, developing practical strategies tailored to each organization’s requirements.",
-        "Its approach emphasizes close collaboration, a clear understanding of business challenges and support through relevant stages of development and expansion.",
+        "ERTKAZ GROUP is a business growth and management consultancy focused on practical strategies tailored to each organization’s requirements.",
+        "Our advisory focus includes sustainable growth, business value, market differentiation, business setup and market entry.",
+        "We combine a clear understanding of business challenges with customized solutions and a practical focus on implementation, development and expansion.",
       ],
       introductionPrinciples: [
         { label: "Understand", description: "Read the organization, its requirements and its business challenges." },
@@ -125,6 +122,7 @@ export const profileContent: Record<Locale, ProfileContent> = {
       missionLabel: "Mission",
       missionTitle: "Help people and organizations thrive in a changing world.",
       mission: [
+        "Help our clients, our people and the communities where they live and work thrive.",
         "Guide clients through decisions and help them recognize meaningful opportunities.",
         "Connect perspectives, create possibilities and build relationships through a personal approach.",
         "Support clients through relevant stages of development and expansion.",
@@ -132,7 +130,7 @@ export const profileContent: Record<Locale, ProfileContent> = {
       visionLabel: "Vision",
       visionTitle: "Thoughtful solutions shaped around real requirements.",
       vision: [
-        "Analyze client requirements before developing a considered, effective and compliant response.",
+        "Analyze client requirements before developing a considered and effective response.",
         "Stay focused on the defined scope of each client requirement.",
         "Honor commitments while building value for client teams and their customers.",
       ],
@@ -151,15 +149,13 @@ export const profileContent: Record<Locale, ProfileContent> = {
         "Retail & Distribution",
         "Insurance",
         "Financial Services",
-        "Construction Materials",
-        "Industrial Contracting & Manufacturing",
+        "Contracting & Construction Materials",
+        "Industrial Manufacturing",
         "Nonprofit",
       ],
       leadershipLabel: "Leadership",
       leadershipName: "Dr. Mohammed M. Sheaitani",
       leadershipRole: "Founder / CEO",
-      leadershipCredentialsLabel: "Credentials listed in the company profile",
-      leadershipCredentials: "PhD, MBA, BC, SA, MC, CA, BSC",
       leadershipContactLabel: "Executive contact",
     },
     servicesPage: {
@@ -333,6 +329,7 @@ export const profileContent: Record<Locale, ProfileContent> = {
         summary: "Support for defining the principles, rules and guidelines behind human-resources processes.",
         details: [
           "The service supports formulation of company HR policies and the principles, rules and guidelines on which HR processes are defined.",
+          "Policy design takes account of the company’s objectives, values and culture.",
         ],
       },
     ],
@@ -342,7 +339,6 @@ export const profileContent: Record<Locale, ProfileContent> = {
       explorePage: "استكشف الفصل الكامل",
       exploreAbout: "استكشف صفحة من نحن",
       exploreServices: "استعرض جميع الخدمات",
-      exploreProjects: "ناقش مشروعاً",
       exploreMarkets: "استكشف أسواقنا",
       exploreContact: "عرض بيانات التواصل",
       sourceReference: "نظرة عامة على الخدمة",
@@ -356,8 +352,9 @@ export const profileContent: Record<Locale, ProfileContent> = {
       introductionLabel: "من نحن",
       introductionTitle: "تفكير عملي للقرارات المؤثرة في الأعمال.",
       introduction: [
-        "تقدم مجموعة ERTKAZ استشارات نمو الأعمال والإدارة، وتطور استراتيجيات عملية مصممة وفق متطلبات كل مؤسسة.",
-        "يرتكز نهجها على التعاون الوثيق والفهم الواضح لتحديات الأعمال ودعم المراحل المناسبة من التطور والتوسع.",
+        "تقدم مجموعة ERTKAZ استشارات نمو الأعمال والإدارة، مع التركيز على استراتيجيات عملية مصممة وفق متطلبات كل مؤسسة.",
+        "يشمل تركيزنا الاستشاري النمو المستدام وقيمة الأعمال والتميز في السوق وتأسيس الأعمال ودخول الأسواق.",
+        "نجمع بين الفهم الواضح لتحديات الأعمال والحلول المخصصة والتركيز العملي على التنفيذ والتطور والتوسع.",
       ],
       introductionPrinciples: [
         { label: "نفهم", description: "نقرأ المؤسسة ومتطلباتها وتحديات أعمالها بوضوح." },
@@ -367,6 +364,7 @@ export const profileContent: Record<Locale, ProfileContent> = {
       missionLabel: "الرسالة",
       missionTitle: "مساعدة الأفراد والمؤسسات على الازدهار في عالم متغيّر.",
       mission: [
+        "مساعدة عملائنا وفريقنا والمجتمعات التي يعيشون ويعملون فيها على الازدهار.",
         "إرشاد العملاء في قراراتهم ومساعدتهم على الاستفادة من الفرص ذات القيمة.",
         "ربط الأفكار وصناعة الإمكانات وبناء العلاقات من خلال نهج شخصي.",
         "دعم العملاء في المراحل المناسبة من التطور والتوسع.",
@@ -374,7 +372,7 @@ export const profileContent: Record<Locale, ProfileContent> = {
       visionLabel: "الرؤية",
       visionTitle: "حلول مدروسة تنطلق من المتطلبات الفعلية.",
       vision: [
-        "تحليل متطلبات العملاء قبل تطوير استجابة مدروسة وفعالة ومتوافقة.",
+        "تحليل متطلبات العملاء قبل تطوير استجابة مدروسة وفعالة.",
         "الحفاظ على التركيز ضمن نطاق متطلبات كل عميل.",
         "الوفاء بالالتزامات وبناء قيمة لفرق العملاء وعملائهم.",
       ],
@@ -393,15 +391,13 @@ export const profileContent: Record<Locale, ProfileContent> = {
         "البيع بالتجزئة والتوزيع",
         "التأمين",
         "الخدمات المالية",
-        "مواد البناء",
-        "المقاولات الصناعية والتصنيع",
+        "المقاولات ومواد البناء",
+        "التصنيع الصناعي",
         "القطاع غير الربحي",
       ],
       leadershipLabel: "القيادة",
       leadershipName: "Dr. Mohammed M. Sheaitani",
       leadershipRole: "المؤسس / الرئيس التنفيذي",
-      leadershipCredentialsLabel: "المؤهلات الواردة في ملف الشركة",
-      leadershipCredentials: "PhD, MBA, BC, SA, MC, CA, BSC",
       leadershipContactLabel: "التواصل التنفيذي",
     },
     servicesPage: {
@@ -575,6 +571,7 @@ export const profileContent: Record<Locale, ProfileContent> = {
         summary: "دعم تحديد المبادئ والقواعد والإرشادات التي تستند إليها عمليات الموارد البشرية.",
         details: [
           "تدعم الخدمة صياغة سياسات الموارد البشرية والمبادئ والقواعد والإرشادات التي تُبنى عليها عمليات الموارد البشرية.",
+          "يراعي تصميم السياسات أهداف الشركة وقيمها وثقافتها.",
         ],
       },
     ],

@@ -57,14 +57,13 @@ export function ProfileServicesPage({ locale }: { locale: Locale }) {
         </div>
 
         <div className="profile-services-index__groups">
-          {groupOrder.map((groupKey, groupIndex) => {
+          {groupOrder.map((groupKey) => {
             const group = copy.servicesPage.groups[groupKey];
             const services = copy.services.filter((service) => service.group === groupKey);
 
             return (
               <section className="service-index-group" key={groupKey} data-service-group aria-labelledby={`service-group-${groupKey}`}>
                 <div className="service-index-group__heading" data-service-index-reveal>
-                  <span>0{groupIndex + 1}</span>
                   <div>
                     <h3 id={`service-group-${groupKey}`}>{group.label}</h3>
                     <p>{group.description}</p>
@@ -79,7 +78,6 @@ export function ProfileServicesPage({ locale }: { locale: Locale }) {
                       data-service-index-reveal
                       data-cursor="link"
                     >
-                      <span className="service-index-row__number">{service.id}</span>
                       <div className="service-index-row__copy">
                         <h4>{service.title}</h4>
                         <p>{service.summary}</p>

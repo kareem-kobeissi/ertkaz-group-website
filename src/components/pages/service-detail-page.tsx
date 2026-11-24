@@ -67,7 +67,6 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
       <section className="service-detail__hero" aria-labelledby="service-detail-title">
         <Container className="service-detail__hero-layout" data-page-title-layout>
           <div className="service-detail__meta" data-service-detail-meta>
-            <span>{service.id} / 13</span>
             <span>{group.label}</span>
           </div>
 
@@ -92,7 +91,7 @@ export function ServiceDetailPage({ locale, service }: { locale: Locale; service
             {service.details.map((paragraph) => <p key={paragraph} data-service-detail-body>{paragraph}</p>)}
           </div>
           <div className="service-detail__image" data-service-detail-body>
-            <ServiceStudy group={service.group} ordinal={service.id} />
+            <ServiceStudy group={service.group} ordinal={service.id} label={group.label} />
           </div>
         </Container>
       </section>

@@ -8,7 +8,8 @@ import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provi
 import { localeConfig, type Locale } from "@/lib/i18n/config";
 
 import "@fontsource-variable/source-serif-4";
-import "@fontsource-variable/noto-naskh-arabic";
+import "@fontsource-variable/source-serif-4/wght-italic.css";
+import "@fontsource-variable/source-sans-3";
 import "@/app/institutional.css";
 import "@/app/corporate-refinement.css";
 

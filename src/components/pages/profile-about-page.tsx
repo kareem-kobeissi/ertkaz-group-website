@@ -101,7 +101,6 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
         <Container className="profile-introduction__layout">
           <div className="profile-introduction__masthead" data-profile-reveal>
             <p className="profile-kicker">{copy.introductionLabel}</p>
-            <span aria-hidden="true" dir="ltr">01 — 03</span>
           </div>
 
           <h2 id="profile-introduction-title" className="profile-introduction__title" data-profile-title>
@@ -136,9 +135,8 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
           </div>
 
           <div id="philosophy" className="profile-introduction__principles" aria-label={copy.introductionLabel}>
-            {copy.introductionPrinciples.map((principle, index) => (
+            {copy.introductionPrinciples.map((principle) => (
               <article className="profile-introduction__principle" key={principle.label} data-profile-reveal>
-                <span>{String(index + 1).padStart(2, "0")}</span>
                 <div>
                   <h3>{principle.label}</h3>
                   <p>{principle.description}</p>
@@ -158,17 +156,17 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
           <h2 id="profile-purpose-title" className="sr-only">{copy.missionLabel} / {copy.visionLabel}</h2>
           <div className="profile-purpose__columns">
             <article className="profile-purpose__chapter">
-              <div className="profile-purpose__meta" data-profile-reveal><span>01</span><span>{copy.missionLabel}</span></div>
+              <div className="profile-purpose__meta" data-profile-reveal><span>{copy.missionLabel}</span></div>
               <h3 data-profile-title>{copy.missionTitle}</h3>
               <ol data-profile-reveal>
-                {copy.mission.map((item, index) => <li key={item}><span>0{index + 1}</span><p>{item}</p></li>)}
+                {copy.mission.map((item) => <li key={item}><p>{item}</p></li>)}
               </ol>
             </article>
             <article className="profile-purpose__chapter profile-purpose__chapter--offset">
-              <div className="profile-purpose__meta" data-profile-reveal><span>02</span><span>{copy.visionLabel}</span></div>
+              <div className="profile-purpose__meta" data-profile-reveal><span>{copy.visionLabel}</span></div>
               <h3 data-profile-title>{copy.visionTitle}</h3>
               <ol data-profile-reveal>
-                {copy.vision.map((item, index) => <li key={item}><span>0{index + 1}</span><p>{item}</p></li>)}
+                {copy.vision.map((item) => <li key={item}><p>{item}</p></li>)}
               </ol>
             </article>
           </div>
@@ -180,9 +178,8 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
           <p className="profile-kicker" data-profile-reveal>{copy.valuesLabel}</p>
           <h2 id="profile-values-title" className="profile-values-page__title" data-profile-title>{copy.valuesTitle}</h2>
           <div className="profile-values-page__list">
-            {copy.values.map((value, index) => (
+            {copy.values.map((value) => (
               <div className="profile-values-page__item" key={value} data-profile-reveal>
-                <span>0{index + 1}</span>
                 <p>{value}</p>
               </div>
             ))}
@@ -200,9 +197,8 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
             <p data-profile-reveal>{copy.sectorsIntro}</p>
           </div>
           <div className="profile-sectors__list">
-            {copy.sectors.map((sector, index) => (
+            {copy.sectors.map((sector) => (
               <div className="profile-sectors__row" key={sector} data-sector-row>
-                <span>{String(index + 1).padStart(2, "0")}</span>
                 <p>{sector}</p>
               </div>
             ))}
@@ -213,7 +209,6 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
       <section id="leadership" className="profile-leadership" data-profile-section aria-labelledby="profile-leadership-title">
         <Container className="profile-leadership__layout">
           <div className="profile-leadership__meta" data-profile-reveal>
-            <span>05</span>
             <span>{copy.leadershipLabel}</span>
           </div>
           <p className="profile-leadership__role" data-profile-reveal>{copy.leadershipRole}</p>
@@ -221,10 +216,6 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
             {copy.leadershipName}
           </h2>
           <div className="profile-leadership__details" data-profile-reveal>
-            <div className="profile-leadership__detail">
-              <span>{copy.leadershipCredentialsLabel}</span>
-              <strong dir="ltr">{copy.leadershipCredentials}</strong>
-            </div>
             <div className="profile-leadership__detail">
               <span>{copy.leadershipContactLabel}</span>
               <a href={companyContact.emails.executive.href} dir="ltr" data-cursor="link">

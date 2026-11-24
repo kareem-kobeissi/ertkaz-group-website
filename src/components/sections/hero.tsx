@@ -159,7 +159,7 @@ export function Hero({ locale, page }: { locale: Locale; page?: PhotographicPage
 
         <div className={styles.layout}>
           <div className={`${styles.content}${page ? "" : ` ${styles.homeCopy}`}`} dir={locale === "ar" ? "rtl" : "ltr"} data-hero-content>
-            <p className={styles.eyebrow} data-hero-reveal>{pageCopy ? `${pageCopy.index} / ${pageCopy.eyebrow}` : copy.eyebrow}</p>
+            <p className={styles.eyebrow} data-hero-reveal>{pageCopy ? pageCopy.eyebrow : copy.eyebrow}</p>
 
             <PageTitle id={titleId} ref={titleRef} className={styles.title}>
               {pageCopy && page === "services" ? pageCopy.title : pageCopy ? (
