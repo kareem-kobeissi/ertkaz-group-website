@@ -50,7 +50,7 @@ export function CorporateServices({ locale, fullPage = false }: { locale: Locale
             <article id={`service-group-${key}`} className={styles.serviceChapter} key={key} data-corporate-service>
               <div className={styles.chapterImage} data-chapter-reveal><Image src={image} alt="" fill unoptimized sizes="(max-width: 767px) 100vw, 50vw" /></div>
               <div className={styles.chapterCopy} data-chapter-reveal>
-                <p className="corporate-kicker">{siteCopy[locale].navigation.services}</p>
+                <p className="corporate-kicker" data-mobile-caption>{siteCopy[locale].navigation.services}</p>
                 <h3>{group.label}</h3>
                 <p>{group.description}</p>
                 {fullPage ? <ul className={styles.serviceLinks}>

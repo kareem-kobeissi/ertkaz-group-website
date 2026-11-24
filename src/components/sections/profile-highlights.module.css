@@ -1,6 +1,6 @@
 .section:global(.profile-highlights) {
   margin-top: 0;
-  padding-block: clamp(2.75rem, 4.5vw, 4.5rem);
+  padding-block: var(--space-chapter);
 }
 
 .meta {
@@ -41,7 +41,7 @@
   gap: 0.8rem;
   margin: 0 0 0.8rem;
   color: var(--brand-cyan);
-  font-size: 0.7rem;
+  font-size: 0.875rem;
   font-weight: 550;
   line-height: 1.6;
   letter-spacing: 0.06em;
@@ -115,7 +115,7 @@
 
 @media (max-width: 767px) {
   .section:global(.profile-highlights) {
-    padding-block: 2.5rem;
+    padding-block: var(--space-chapter);
   }
 
   .editorial {
@@ -149,4 +149,6 @@
   .footer {
     margin-top: 1.5rem;
   }
+
+  .footer > p { display: none; }
 }

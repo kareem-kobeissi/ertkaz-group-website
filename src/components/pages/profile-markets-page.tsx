@@ -91,7 +91,7 @@ export function ProfileMarketsPage({ locale }: { locale: Locale }) {
 
         <figure className="markets-profile__visual" data-markets-profile-meta>
           <Image src="/images/ertkaz-markets-hero-1600.webp" alt="" fill unoptimized sizes="(max-width: 767px) 100vw, 50vw" />
-          <figcaption>{copy.label}</figcaption>
+          <figcaption data-mobile-caption>{copy.label}</figcaption>
         </figure>
         <p className="markets-profile__clarification" data-markets-profile-note>{copy.clarification}</p>
       </Container>

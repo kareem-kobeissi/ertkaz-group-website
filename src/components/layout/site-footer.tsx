@@ -45,7 +45,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           >
             <ErtkazLogo className="footer-wordmark__image" />
           </Link>
-          <p>{copy.footer.description}</p>
+          <p data-mobile-caption>{copy.footer.description}</p>
         </div>
 
         <div className="footer-column footer-column--navigation" data-footer-reveal>

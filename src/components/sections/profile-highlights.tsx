@@ -74,7 +74,7 @@ export function ProfileHighlights({ locale }: { locale: Locale }) {
         </div>
 
         <div className={styles.footer} data-principle-reveal>
-          <p>{copy.homeHighlights.note}</p>
+          <p data-mobile-caption>{copy.homeHighlights.note}</p>
           <EditorialLink locale={locale} href={`${localizedPath(locale, "about")}#purpose`} label={copy.interface.exploreAbout} className="editorial-link--light" />
         </div>
       </Container>

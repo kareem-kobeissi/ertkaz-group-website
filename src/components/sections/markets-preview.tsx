@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import Image from "next/image";
 
 import { Container } from "@/components/layout/container";
@@ -61,11 +61,16 @@ export function MarketsPreview({ locale }: { locale: Locale }) {
         </div>
 
         <h2 id="markets-preview-title" ref={titleRef} className="markets-preview__title">
-          {copy.homeMarkets.title}
+          {copy.homeMarkets.title.split(" · ").map((region, index, regions) => (
+            <Fragment key={region}>
+              <span className="markets-preview__region">{region}</span>
+              {index < regions.length - 1 ? " · " : null}
+            </Fragment>
+          ))}
         </h2>
 
         <div className="markets-preview__footer" data-markets-preview-detail>
-          <p>{copy.homeMarkets.note}</p>
+          <p data-mobile-caption>{copy.homeMarkets.note}</p>
           <EditorialLink locale={locale} href={localizedPath(locale, "markets")} label={copy.interface.exploreMarkets} />
         </div>
       </Container>

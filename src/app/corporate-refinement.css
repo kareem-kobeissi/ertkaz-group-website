@@ -2,7 +2,7 @@
 :root.institutional { --page-heading-size: clamp(2rem,3vw,2.625rem); --page-heading-leading: 1.2; --page-heading-tracking: -0.025em; }
 html.institutional body :is(.profile-introduction__title,.profile-sectors__heading h2,.markets-profile__title,.markets-preview__title) { font-size: clamp(2.1rem,3vw,2.8rem); line-height: 1.2; }
 html.institutional body :is(.profile-introduction::before,.profile-introduction::after,.profile-introduction__title::after) { display: none; }
-html.institutional body .section-meta { font-family: var(--font-body); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.025em; }
+html.institutional body .section-meta { font-family: var(--font-body); font-size: 0.8125rem; font-weight: 450; letter-spacing: 0.025em; }
 html.institutional body .wordmark { width: 160px; }
 html.institutional body header.site-header:is(.is-menu-open,.is-scrolled) .wordmark { background-image: none; }
 html.institutional body header.site-header:is(.is-menu-open,.is-scrolled) .wordmark__image { opacity: 1; filter: none; }
@@ -27,7 +27,7 @@ html.institutional body .nav-service-group__overview { color: var(--brand-blue);
 .service-study--finance { background: var(--brand-blue); }
 .service-study--strategy { background: #e4edf1; color: var(--brand-blue); }
 .service-study--technology { background: var(--brand-navy); }
-.service-study__edition,.service-study__caption { position: relative; z-index: 1; font-family: var(--font-geist-sans),sans-serif; font-size: 0.6rem; line-height: 1.5; letter-spacing: 0.12em; }
+.service-study__edition,.service-study__caption { position: relative; z-index: 1; max-width: 80%; font-family: var(--font-body); font-size: 0.75rem; line-height: 1.6; letter-spacing: 0.04em; }
 .service-study svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1; }
 .service-study__grid { opacity: 0.09; }
 .service-study__accent { stroke: var(--brand-cyan); stroke-width: 2; }
@@ -38,19 +38,19 @@ html.institutional body .markets-profile__row { grid-template-columns: minmax(0,
 html.institutional body .markets-profile__row h3 { font-size: clamp(1.5rem,2vw,2rem); line-height: 1.4; }
 html.institutional body .markets-profile__title { max-width: 100%; }
 html.institutional body .markets-profile__row h3 { grid-column: 1; grid-row: 1; }
-html.institutional body .markets-profile__row > p { display: block; grid-column: 1; grid-row: 2; font-size: 0.75rem; letter-spacing: 0.02em; }
+html.institutional body .markets-profile__row > p { display: block; grid-column: 1; grid-row: 2; font-size: 0.875rem; letter-spacing: 0.02em; }
 html.institutional body .markets-profile__row b { grid-column: 2; grid-row: 1/3; }
 .markets-profile__visual { position: relative; grid-column: 2; grid-row: 3; min-height: 420px; margin: 0; overflow: hidden; }
 .markets-profile__visual img { object-fit: cover; object-position: 58% 50%; }
-.markets-profile__visual figcaption { position: absolute; inset: auto 1.5rem 1.5rem; color: white; font-size: 0.65rem; letter-spacing: 0.08em; text-shadow: 0 1px 6px #061f36; }
+.markets-profile__visual figcaption { position: absolute; inset: auto 1.5rem 1.5rem; color: white; font-size: 0.8125rem; letter-spacing: 0.02em; text-shadow: 0 1px 6px #061f36; }
 /* Direct, server-side SMTP enquiries with explicit delivery feedback. */
-html.institutional body .contact-section--with-form > .container-site { grid-template-columns: 0.8fr 1.4fr; gap: 1.5rem 5rem; }
+html.institutional body .contact-section--with-form > .container-site { grid-template-columns: minmax(0,0.9fr) minmax(0,1.1fr); gap: 1.5rem clamp(2rem,5vw,4.5rem); }
 html.institutional body .contact-section--with-form .contact-heading { grid-column: 1; grid-row: 2; }
 html.institutional body .contact-section--with-form .contact-title { font-size: clamp(2rem,2.7vw,2.6rem); }
 html.institutional body .contact-section--with-form .contact-directory { grid-column: 1; grid-row: 3; }
 html.institutional body .contact-section--with-form .contact-row > span:not(.contact-row__label):not(.contact-row__marker) { font-size: 0.9375rem; }
 html.institutional body .contact-row--static { overflow: visible; }
-html.institutional body .contact-location { grid-column: 1/-1; font-size: 0.75rem; line-height: 1.6; letter-spacing: 0; color: var(--brand-blue); text-underline-offset: 4px; }
+html.institutional body .contact-location { grid-column: 1/-1; justify-self: start; display: inline-flex; align-items: center; min-height: 32px; font-size: 0.875rem; line-height: 1.6; letter-spacing: 0; color: var(--brand-blue); text-underline-offset: 4px; }
 .enquiry-form { position: relative; grid-column: 2; grid-row: 2/4; min-width: 0; scroll-margin-top: 120px; }
 .enquiry-form h3 { margin: 0 0 1.5rem; font-size: 1.8rem; line-height: 1.35; }
 .enquiry-form__fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
@@ -78,13 +78,32 @@ html.institutional body .footer-invitation { padding-bottom: 1rem; gap: 1rem; }
 html.institutional body .footer-invitation > p { font-size: clamp(1.2rem,1.8vw,1.6rem); }
 html.institutional body .footer-invitation > a { border: 0; padding: 0.5rem 0; min-height: 44px; }
 html.institutional body .footer-founder { grid-template-columns: 1fr 3fr auto; padding-bottom: 1.25rem; gap: 1.25rem; }
-html.institutional body .footer-founder__name { max-width: 100%; font-size: 1.25rem; line-height: 1.5; letter-spacing: 0; }
+html.institutional body .footer-founder__name { max-width: 100%; font-size: clamp(1.25rem,1.8vw,1.6rem); line-height: 1.5; letter-spacing: 0; }
 html.institutional body .footer-founder__identity { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
-html.institutional body .footer-founder__role { margin: 0; font-size: 0.6rem; }
+html.institutional body .footer-founder__role { margin: 0; font-size: 0.8125rem; }
 html.institutional body .site-footer__layout { gap: 1.25rem 2rem; }
-html.institutional body :is(.footer-navigation a,.footer-contact a,.footer-office address,.footer-office > a) { font-size: 0.8125rem; }
+html.institutional body :is(.footer-navigation a,.footer-contact a,.footer-office address,.footer-office > a) { font-size: 0.9375rem; }
+html.institutional body .footer-column__label { color: var(--brand-ice); font-size: 0.8125rem; font-weight: 500; }
+html.institutional body .footer-founder__meta { color: var(--brand-ice); font-size: 0.8125rem; }
+html.institutional body .footer-office__entry > p { font-size: 0.875rem; }
+html.institutional body .footer-navigation a { display: flex; align-items: center; min-height: 32px; }
+html.institutional body .footer-contact a { display: flex; align-items: center; min-height: 36px; }
+/* Shared editorial rhythm: retain the hierarchy without accumulating empty chapters. */
+html.institutional body :is(.profile-introduction__layout,.markets-profile__layout,.service-detail__content-layout) { column-gap: clamp(2rem,5vw,4.5rem); }
+html.institutional body :is(.profile-introduction__title,.profile-values-page__title,.profile-sectors__heading h2,.markets-profile__title,.markets-preview__title,.contact-title) { text-wrap: balance; }
+html.institutional body .profile-introduction__story { padding-bottom: 0; }
+html.institutional body .profile-introduction__copy .profile-introduction__lead + p { padding-inline-start: 1.25rem; }
+html.institutional body .markets-profile__clarification { font-size: 0.9375rem; line-height: 1.75; }
+html.institutional body .markets-preview__region { display: inline-block; }
+html.institutional body .contact-cta { font-size: 0.875rem; min-height: 46px; }
+html.institutional body .service-detail__back { min-height: 44px; font-size: 0.875rem; }
+html.institutional body .service-detail__pagination span { font-size: 0.8125rem; }
+html.institutional body .service-detail__pagination strong { letter-spacing: -0.015em; }
+html.institutional body .service-detail__pagination a { transition: color 200ms ease; }
+html.institutional body .service-detail__pagination a:hover { color: var(--brand-blue); }
 @media(min-width:960px) {
   html.institutional body .site-header--skyline.is-menu-open:not(.is-scrolled) { background: transparent; }
+  html.institutional body .site-header--skyline.is-menu-open:not(.is-scrolled) .nav-drawer__close { color: var(--brand-white); }
 }
 @media(max-width:959px) {
   :root.institutional, :root.institutional:lang(ar) { --nav-drawer-width: 100vw; --header-height: calc(98px + env(safe-area-inset-top)); }
@@ -109,7 +128,8 @@ html.institutional body :is(.footer-navigation a,.footer-contact a,.footer-offic
 }
 @media(max-width:767px) {
   :root.institutional, :root.institutional:lang(ar) { --page-heading-size: 2rem; }
-  html.institutional body .site-header[data-home-header]:not(.is-menu-open) { color: var(--brand-navy-deep); background: var(--brand-white); }
+  :root.institutional, :root.institutional:lang(ar) { --space-chapter: 2.25rem; --space-chapter-small: 1.75rem; }
+  html.institutional body .site-header[data-home-header]:not(.is-menu-open) { --nav-control-hover: var(--brand-blue); color: var(--brand-navy-deep); background: var(--brand-white); }
   html.institutional body .site-header.site-header--skyline[data-home-header]:not(.is-menu-open) .wordmark { background-image: none; }
   html.institutional body .site-header.site-header--skyline[data-home-header]:not(.is-menu-open) .wordmark__image { opacity: 1; }
   html.institutional body .wordmark { width: 142px; }
@@ -122,11 +142,29 @@ html.institutional body :is(.footer-navigation a,.footer-contact a,.footer-offic
   .enquiry-form { grid-column: 1; grid-row: 4; padding-top: 1.5rem; border-top: 1px solid var(--line); }
   .enquiry-form__fields { grid-template-columns: 1fr; }
   html.institutional body .footer-founder { grid-template-columns: 1fr auto; gap: 0.75rem; }
-  html.institutional body .footer-founder__name { font-size: 1.1rem; }
+  html.institutional body .footer-founder__name { font-size: 1.25rem; }
   html.institutional body .footer-invitation { flex-direction: row; align-items: center; }
   html.institutional body .footer-invitation > p { max-width: 18ch; font-size: 1.2rem; }
+  html.institutional body [data-mobile-caption] { display: none; }
+  html.institutional body .profile-introduction__principles { gap: 0; margin-top: 0; }
+  html.institutional body .profile-introduction__principle { padding-block: 1rem 1.25rem; }
+  html.institutional body .profile-introduction__copy { max-width: none; }
+  html.institutional body .profile-introduction__copy p { font-size: 1rem; line-height: 1.8; }
+  html.institutional body .profile-leadership__details { gap: 1rem; }
+  html.institutional body .markets-preview__footer p { margin-bottom: 1rem; }
+  html.institutional body :is(.service-study__edition,.service-study__caption) { display: none; }
+  html.institutional body .site-footer__layout { gap: 1.25rem 1rem; padding-block: 1.75rem; }
+  html.institutional body .footer-invitation { align-items: start; }
+  html.institutional body .footer-invitation > a { font-size: 0.875rem; gap: 0.75rem; }
+  html.institutional body .footer-navigation a { min-height: 40px; }
+  html.institutional body .footer-column--contact { grid-column: 1/-1; grid-row: 4; padding-top: 1rem; border-top: 1px solid rgb(217 238 247 / 20%); }
+  html.institutional body .footer-contact { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0.25rem 1rem; }
+  html.institutional body .footer-contact a { min-height: 44px; font-size: 0.875rem; }
+  html.institutional body .footer-office { grid-column: 1/-1; grid-row: 5; padding-top: 1rem; border-top: 1px solid rgb(217 238 247 / 20%); }
+  html.institutional body .footer-bottom { grid-row: 6; padding-top: 1rem; }
+  html.institutional body .footer-office address { font-size: 0.9375rem; }
 }
-@media(prefers-reduced-motion:reduce) { .nav-service-group summary svg { transition: none; } }
+@media(prefers-reduced-motion:reduce) { .nav-service-group summary svg, html.institutional body :is(.nav-menu-button,.nav-menu-button svg,.nav-drawer__close,.service-detail__pagination a) { transition: none; } html.institutional body .nav-menu-button:hover svg { transform: none; } }
 @media(max-width:359px) {
   html.institutional body .wordmark { width: 126px; }
   html.institutional body :is(.nav-menu-button,.nav-drawer__close) { min-width: 106px; padding-inline: 10px; gap: 8px; }

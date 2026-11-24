@@ -20,7 +20,7 @@ export const clients: readonly Client[] = [
     id: "alfahim", name: "ALFAHIM Group", website: "https://alfahim.com/",
     logo: "/images/clients/alfahim.png",
     source: "https://alfahim.com/wp-content/uploads/2023/06/Logo.png",
-    width: 168, height: 60, displayWidth: 168, dark: true,
+    width: 168, height: 60, displayWidth: 195, dark: true,
   },
   {
     id: "al-sulaiti", name: "Al Sulaiti Holding", website: "https://alsulaitiholding.com/who-we-are/",
@@ -50,13 +50,13 @@ export const clients: readonly Client[] = [
     id: "trust-vision", name: "Trust Vision Investment", website: "https://trustvision.ae/",
     logo: "/images/clients/trust-vision.webp",
     source: "https://trustvision.ae/wp-content/uploads/2024/07/TVI-PNG-FILE-BLACK-768x390.webp",
-    width: 768, height: 390, displayWidth: 215,
+    width: 768, height: 390, displayWidth: 175,
   },
   {
     id: "gfh", name: "GFH", website: "https://gfh.com/",
     logo: "/images/clients/gfh.svg",
     source: "https://gfh.com/wp-content/uploads/2026/07/GFH-Logo-Dark.svg",
-    width: 411, height: 133, displayWidth: 205,
+    width: 411, height: 133, displayWidth: 185,
   },
   {
     id: "karasiplus", name: "Karasiplus", website: "https://x.com/karasiplus",

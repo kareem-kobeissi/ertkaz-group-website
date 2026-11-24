@@ -6,8 +6,6 @@ import { useRef } from "react";
 import { Container } from "@/components/layout/container";
 import { EnquiryForm } from "@/components/sections/enquiry-form";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { EditorialLink } from "@/components/ui/editorial-link";
-import { profileContent } from "@/content/profile-content";
 import { siteCopy } from "@/content/site-copy";
 import { companyContact } from "@/data/company-contact";
 import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
@@ -91,7 +89,7 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
               <span>{copy.titleLines[1]}</span>
             </h2>
 
-            {showPageLink ? <a className="contact-cta" href={localizedPath(locale, "contact")} data-contact-cta data-cursor="cta">
+            {showPageLink ? <a className="contact-cta" href={`${localizedPath(locale, "contact")}#enquiry-form`} data-contact-cta data-cursor="cta">
               <span>{copy.cta}</span>
               <ArrowUpRight aria-hidden="true" />
             </a> : null}
@@ -135,14 +133,6 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
 
           {!showPageLink ? <EnquiryForm locale={locale} /> : null}
 
-          {showPageLink ? (
-            <EditorialLink
-              locale={locale}
-              href={localizedPath(locale, "contact")}
-              label={profileContent[locale].interface.exploreContact}
-              className="editorial-link--light contact-page-link"
-            />
-          ) : null}
         </Container>
       </section>
 
