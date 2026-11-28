@@ -33,25 +33,25 @@ html.institutional body .nav-service-group__overview { color: var(--brand-blue);
 .service-study__accent { stroke: var(--brand-cyan); stroke-width: 2; }
 .service-study__core { fill: var(--brand-cyan); stroke: none; }
 /* Markets: a geographic directory paired with an editorial image, not another generic list. */
-html.institutional body .markets-profile__list { grid-column: 1; grid-row: 3; margin-top: 0; }
+html.institutional body .markets-profile__list { grid-column: 1; grid-row: 2; margin-top: 0; }
 html.institutional body .markets-profile__row { grid-template-columns: minmax(0,1fr) 2.5rem; gap: 0.5rem; padding-block: 1.35rem; }
 html.institutional body .markets-profile__row h3 { font-size: clamp(1.5rem,2vw,2rem); line-height: 1.4; }
 html.institutional body .markets-profile__title { max-width: 100%; }
 html.institutional body .markets-profile__row h3 { grid-column: 1; grid-row: 1; }
 html.institutional body .markets-profile__row > p { display: block; grid-column: 1; grid-row: 2; font-size: 0.875rem; letter-spacing: 0.02em; }
 html.institutional body .markets-profile__row b { grid-column: 2; grid-row: 1/3; }
-.markets-profile__visual { position: relative; grid-column: 2; grid-row: 3; min-height: 420px; margin: 0; overflow: hidden; }
+.markets-profile__visual { position: relative; grid-column: 2; grid-row: 2; min-height: 420px; margin: 0; overflow: hidden; }
 .markets-profile__visual img { object-fit: cover; object-position: 58% 50%; }
-.markets-profile__visual figcaption { position: absolute; inset: auto 1.5rem 1.5rem; color: white; font-size: 0.8125rem; letter-spacing: 0.02em; text-shadow: 0 1px 6px #061f36; }
+.markets-profile__visual > figcaption { position: absolute; inset: auto 1.5rem 1.5rem; color: white; font-size: 0.8125rem; letter-spacing: 0.02em; text-shadow: 0 1px 6px #061f36; }
 /* Direct, server-side SMTP enquiries with explicit delivery feedback. */
 html.institutional body .contact-section--with-form > .container-site { grid-template-columns: minmax(0,0.9fr) minmax(0,1.1fr); gap: 1.5rem clamp(2rem,5vw,4.5rem); }
-html.institutional body .contact-section--with-form .contact-heading { grid-column: 1; grid-row: 2; }
+html.institutional body .contact-section--with-form .contact-heading { grid-column: 1; grid-row: 1; }
 html.institutional body .contact-section--with-form .contact-title { font-size: clamp(2rem,2.7vw,2.6rem); }
-html.institutional body .contact-section--with-form .contact-directory { grid-column: 1; grid-row: 3; }
+html.institutional body .contact-section--with-form .contact-directory { grid-column: 1; grid-row: 2; }
 html.institutional body .contact-section--with-form .contact-row > span:not(.contact-row__label):not(.contact-row__marker) { font-size: 0.9375rem; }
 html.institutional body .contact-row--static { overflow: visible; }
 html.institutional body .contact-location { grid-column: 1/-1; justify-self: start; display: inline-flex; align-items: center; min-height: 32px; font-size: 0.875rem; line-height: 1.6; letter-spacing: 0; color: var(--brand-blue); text-underline-offset: 4px; }
-.enquiry-form { position: relative; grid-column: 2; grid-row: 2/4; min-width: 0; scroll-margin-top: 120px; }
+.enquiry-form { position: relative; grid-column: 2; grid-row: 1/3; min-width: 0; scroll-margin-top: 120px; }
 .enquiry-form h3 { margin: 0 0 1.5rem; font-size: 1.8rem; line-height: 1.35; }
 .enquiry-form__fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 .enquiry-form label { display: grid; gap: 0.5rem; min-width: 0; color: var(--brand-navy-deep); font-size: 0.875rem; line-height: 1.6; }
@@ -92,7 +92,7 @@ html.institutional body .footer-contact a { display: flex; align-items: center; 
 html.institutional body :is(.profile-introduction__layout,.markets-profile__layout,.service-detail__content-layout) { column-gap: clamp(2rem,5vw,4.5rem); }
 html.institutional body :is(.profile-introduction__title,.profile-values-page__title,.profile-sectors__heading h2,.markets-profile__title,.markets-preview__title,.contact-title) { text-wrap: balance; }
 html.institutional body .profile-introduction__story { padding-bottom: 0; }
-html.institutional body .profile-introduction__copy .profile-introduction__lead + p { padding-inline-start: 1.25rem; }
+html.institutional body .profile-introduction__copy .profile-introduction__lead + p { padding-inline-start: 0; }
 html.institutional body .markets-profile__clarification { font-size: 0.9375rem; line-height: 1.75; }
 html.institutional body .markets-preview__region { display: inline-block; }
 html.institutional body .contact-cta { font-size: 0.875rem; min-height: 46px; }
@@ -129,17 +129,14 @@ html.institutional body .service-detail__pagination a:hover { color: var(--brand
 @media(max-width:767px) {
   :root.institutional, :root.institutional:lang(ar) { --page-heading-size: 2rem; }
   :root.institutional, :root.institutional:lang(ar) { --space-chapter: 2.25rem; --space-chapter-small: 1.75rem; }
-  html.institutional body .site-header[data-home-header]:not(.is-menu-open) { --nav-control-hover: var(--brand-blue); color: var(--brand-navy-deep); background: var(--brand-white); }
-  html.institutional body .site-header.site-header--skyline[data-home-header]:not(.is-menu-open) .wordmark { background-image: none; }
-  html.institutional body .site-header.site-header--skyline[data-home-header]:not(.is-menu-open) .wordmark__image { opacity: 1; }
   html.institutional body .wordmark { width: 142px; }
   .nav-service-group summary { min-height: 44px; }
   html.institutional body .markets-profile__list { grid-column: 1; grid-row: 3; }
   .markets-profile__visual { grid-column: 1; grid-row: 4; min-height: 300px; }
   html.institutional body .markets-profile__clarification { grid-row: 5; }
   html.institutional body .contact-section--with-form > .container-site { grid-template-columns: 1fr; gap: 1.5rem; }
-  html.institutional body .contact-section--with-form .contact-directory { grid-column: 1; grid-row: 3; }
-  .enquiry-form { grid-column: 1; grid-row: 4; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  html.institutional body .contact-section--with-form .contact-directory { grid-column: 1; grid-row: 2; }
+  .enquiry-form { grid-column: 1; grid-row: 3; padding-top: 1.5rem; border-top: 1px solid var(--line); }
   .enquiry-form__fields { grid-template-columns: 1fr; }
   html.institutional body .footer-founder { grid-template-columns: 1fr auto; gap: 0.75rem; }
   html.institutional body .footer-founder__name { font-size: 1.25rem; }
@@ -164,8 +161,104 @@ html.institutional body .service-detail__pagination a:hover { color: var(--brand
   html.institutional body .footer-bottom { grid-row: 6; padding-top: 1rem; }
   html.institutional body .footer-office address { font-size: 0.9375rem; }
 }
+
+/* A single action replaces the decorative footer slogan; no reserved empty grid rows. */
+html.institutional body .site-footer--refined .site-footer__layout { row-gap: 2rem; padding-block: 2.5rem 1.5rem; }
+html.institutional body .site-footer--refined :is(.footer-brand,.footer-column--navigation,.footer-column--contact,.footer-office,.footer-bottom) { grid-row: auto; }
+html.institutional body .site-footer--refined .footer-invitation { margin: 0; padding-bottom: 1.5rem; }
+html.institutional body .site-footer--refined .footer-invitation > a { display: flex; width: 100%; justify-content: space-between; min-width: 0; padding: 0; font-family: var(--font-display); font-size: clamp(1.8rem,3vw,2.625rem); line-height: 1.4; letter-spacing: -.02em; }
+html.institutional body .site-footer--refined .footer-invitation > a svg { width: 30px; height: 30px; flex-shrink: 0; color: var(--brand-cyan); transition: transform 350ms var(--ease-out-expo); }
+html.institutional body .site-footer--refined .footer-invitation > a:hover svg { transform: translate(3px,-3px); }
+html.institutional:lang(ar) body .site-footer--refined .footer-invitation > a { line-height: 1.8; letter-spacing: 0; }
+html.institutional:lang(ar) body .site-footer--refined .footer-invitation > a:hover svg { transform: translate(-3px,-3px); }
+html.institutional body .site-footer--refined .footer-bottom { border-top: 1px solid rgb(217 238 247 / 20%); }
+html.institutional body .site-footer--refined .footer-brand { display: flex; flex-direction: column; align-items: start; gap: 1rem; }
+html.institutional body .site-footer--refined .footer-site-address { color: var(--brand-ice); font-size: .875rem; line-height: 1.6; text-decoration: none; }
+html.institutional body .site-footer--refined .footer-site-address:hover { color: var(--brand-cyan); }
+@media(max-width:767px) {
+  html.institutional body .site-footer--refined .site-footer__layout { padding-block: 2rem 1.5rem; row-gap: 1.5rem; }
+  html.institutional body .site-footer--refined .footer-invitation > a { font-size: 1.8rem; }
+  html.institutional body .site-footer--refined .footer-brand { grid-column: 1/-1; flex-direction: row; align-items: center; justify-content: space-between; gap: 1rem; }
+  html.institutional body .site-footer--refined .footer-wordmark { width: 142px; flex-shrink: 0; }
+  html.institutional body .site-footer--refined .footer-column--navigation { grid-column: 1/-1; padding-top: 1.25rem; border-top: 1px solid rgb(217 238 247 / 20%); }
+  html.institutional body .site-footer--refined .footer-navigation { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 1.5rem; }
+  html.institutional body .site-footer--refined .footer-office { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .5rem 1.25rem; }
+  html.institutional body .site-footer--refined .footer-office__entry { margin-top: 0; }
+  html.institutional body .site-footer--refined .footer-office > :is(.footer-column__label,a) { grid-column: 1/-1; }
+}
+@media(prefers-reduced-motion:reduce) { html.institutional body .site-footer--refined .footer-invitation > a svg { transition: none; transform: none; } }
+
+/* Image-led chapters share their geometry; captions must not fall outside legacy image frames. */
+html.institutional body :is(.profile-about-image,.markets-profile__visual,.markets-preview__image,.service-detail__image) > figure {
+  width: 100%; height: 100%; min-height: 0; aspect-ratio: auto;
+}
+html.institutional body .service-detail__context { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .75rem 2rem; padding-block: 1rem; }
+html.institutional body .service-detail__context p { margin: 0; color: var(--brand-blue); font-size: .9375rem; }
+html.institutional body .service-detail__context .service-detail__back { margin: 0; }
+html.institutional body :is(.service-detail__content,.image-chapter) { scroll-margin-top: 120px; }
 @media(prefers-reduced-motion:reduce) { .nav-service-group summary svg, html.institutional body :is(.nav-menu-button,.nav-menu-button svg,.nav-drawer__close,.service-detail__pagination a) { transition: none; } html.institutional body .nav-menu-button:hover svg { transform: none; } }
 @media(max-width:359px) {
   html.institutional body .wordmark { width: 126px; }
   html.institutional body :is(.nav-menu-button,.nav-drawer__close) { min-width: 106px; padding-inline: 10px; gap: 8px; }
+}
+
+/* Sector heading: cancel the legacy 12-column placement that squeezed the title beside its paragraph. */
+html.institutional body .profile-values-page,
+html.institutional body .profile-sectors,
+html.institutional body .profile-leadership { overflow: visible; padding-block: var(--space-chapter); }
+html.institutional body .profile-sectors__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: end;
+  gap: 1.25rem 3rem;
+}
+html.institutional body .profile-sectors__heading > div,
+html.institutional body .profile-sectors__heading > p {
+  grid-column: auto;
+  grid-row: auto;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+}
+html.institutional body .profile-sectors__heading h2 {
+  max-width: none;
+  margin: 0;
+  overflow: visible;
+  font-size: clamp(2.1rem, 3.2vw, 2.9rem);
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  overflow-wrap: normal;
+}
+html.institutional:lang(ar) body .profile-sectors__heading h2 {
+  line-height: 1.8;
+  letter-spacing: 0;
+  text-wrap: pretty;
+}
+
+/* Leadership name and email sit on navy. Legacy rules painted them navy, and SplitText no longer masks them. */
+html.institutional body .profile-leadership { overflow: visible; }
+html.institutional body .profile-leadership__name,
+html.institutional body .profile-leadership__detail > :is(strong, a) {
+  color: var(--brand-white);
+  opacity: 1;
+  visibility: visible;
+}
+html.institutional body .profile-leadership__role { color: var(--brand-ice); }
+html.institutional body .profile-leadership__detail > a {
+  text-decoration-line: underline;
+  text-underline-offset: 0.18em;
+}
+html.institutional body .profile-leadership__name { line-height: 1.25; overflow: visible; }
+
+@media (max-width: 767px) {
+  html.institutional body .profile-sectors__heading { grid-template-columns: minmax(0, 1fr); gap: 0.85rem; }
+  html.institutional body .profile-sectors__heading h2 {
+    font-size: clamp(1.9rem, 8.2vw, 2.45rem);
+    line-height: 1.32;
+  }
+  html.institutional:lang(ar) body .profile-sectors__heading h2 {
+    font-size: clamp(1.7rem, 7.4vw, 2.2rem);
+    line-height: 1.85;
+  }
 }

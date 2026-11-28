@@ -88,8 +88,8 @@ html.institutional body .editorial-link > svg { width: 1rem; height: 1rem; borde
 html.institutional body :is(.profile-introduction,.profile-values-page,.profile-sectors,.profile-leadership) { margin: 0; padding-block: var(--space-chapter); background: var(--brand-white); color: var(--brand-navy-deep); border-radius: 0; }
 html.institutional body .profile-introduction__layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 4rem; }
 html.institutional body .profile-introduction__masthead { grid-column: 1 / -1; margin: 0; }
-html.institutional body .profile-introduction__title { grid-column: 1; grid-row: 2; max-width: 18ch; margin: 0; padding: 0; font-size: clamp(2.4rem, 3.5vw, 3.5rem); line-height: 1.15; letter-spacing: -0.025em; }
-html.institutional body .profile-introduction__story { display: block; grid-column: 2; grid-row: 2; margin: 0; }
+html.institutional body .profile-introduction__title { grid-column: 1; grid-row: 1; max-width: 18ch; margin: 0; padding: 0; font-size: clamp(2.4rem, 3.5vw, 3.5rem); line-height: 1.15; letter-spacing: -0.025em; }
+html.institutional body .profile-introduction__story { display: block; grid-column: 2; grid-row: 1; margin: 0; }
 html.institutional body .profile-introduction__art { display: none; }
 html.institutional body .profile-about-image { position: relative; height: clamp(220px,32vw,460px); overflow: hidden; }
 html.institutional body .profile-about-image img { object-fit: cover; object-position: 50% 58%; }
@@ -150,8 +150,8 @@ html.institutional body .route-intro__footer { max-width: 56ch; }
 html.institutional body .route-intro__footer > p { font-size: 1rem; line-height: 1.8; }
 html.institutional body .markets-profile { background: var(--brand-white); color: var(--brand-navy-deep); margin: 0; border-radius: 0; padding-block: var(--space-chapter); }
 html.institutional body .markets-profile__layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 4rem; }
-html.institutional body .markets-profile__title { grid-column: 1; grid-row: 2; max-width: 18ch; margin: 0; font-size: clamp(2.4rem,3.5vw,3.5rem); line-height: 1.15; letter-spacing: -0.025em; }
-html.institutional body .markets-profile__introduction { grid-column: 2; grid-row: 2; margin: 0; color: var(--ink-muted); font-size: 1rem; line-height: 1.8; }
+html.institutional body .markets-profile__title { grid-column: 1; grid-row: 1; max-width: 18ch; margin: 0; font-size: clamp(2.4rem,3.5vw,3.5rem); line-height: 1.15; letter-spacing: -0.025em; }
+html.institutional body .markets-profile__introduction { grid-column: 2; grid-row: 1; margin: 0; color: var(--ink-muted); font-size: 1rem; line-height: 1.8; }
 html.institutional body .markets-profile__art { display: none; }
 html.institutional body .markets-profile__list { grid-column: 1/-1; grid-row: 3; margin-top: 1rem; }
 html.institutional body .markets-profile__row { grid-template-columns: 2.5rem minmax(0,1fr) 6rem 3rem; padding-block: 1.25rem; border-color: var(--line); }
@@ -163,10 +163,10 @@ html.institutional body .markets-preview { margin: 0; padding-block: var(--space
 html.institutional body .markets-preview__layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 4rem; align-items: center; }
 html.institutional body .markets-preview .section-meta { grid-column: 1/-1; }
 html.institutional body .markets-preview__art { display: none; }
-html.institutional body .markets-preview__image { position: relative; grid-column: 1; grid-row: 2/4; aspect-ratio: 4/3; overflow: hidden; }
+html.institutional body .markets-preview__image { position: relative; grid-column: 1; grid-row: 1/3; aspect-ratio: 4/3; overflow: hidden; }
 html.institutional body .markets-preview__image img { object-fit: cover; object-position: 60% 50%; }
-html.institutional body .markets-preview__title { grid-column: 2; grid-row: 2; align-self: end; margin: 0; max-width: 20ch; font-size: clamp(2rem,3vw,2.625rem); line-height: 1.2; letter-spacing: -0.025em; }
-html.institutional body .markets-preview__footer { grid-column: 2; grid-row: 3; display: block; align-self: start; }
+html.institutional body .markets-preview__title { grid-column: 2; grid-row: 1; align-self: end; margin: 0; max-width: 20ch; font-size: clamp(2rem,3vw,2.625rem); line-height: 1.2; letter-spacing: -0.025em; }
+html.institutional body .markets-preview__footer { grid-column: 2; grid-row: 2; display: block; align-self: start; }
 html.institutional body .markets-preview__footer p { margin: 0 0 1.5rem; font-size: 1rem; line-height: 1.8; }
 html.institutional body .profile-highlights { border-radius: 0; background: var(--brand-navy); }
 html.institutional body .profile-highlights h2 { font-size: clamp(2rem,3vw,2.625rem); line-height: 1.2; letter-spacing: -0.02em; }
@@ -176,7 +176,7 @@ html.institutional body .closing-chapter { margin: 0; border-radius: 0; backgrou
 html.institutional body .contact-section { min-height: 0; padding-block: var(--space-chapter); background: var(--brand-white); color: var(--brand-navy-deep); }
 html.institutional body .contact-section > .container-site { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 1.5rem 4rem; }
 html.institutional body .contact-section .section-meta { grid-column: 1/-1; color: var(--brand-blue); border-color: var(--line); }
-html.institutional body .contact-heading { grid-column: 1; grid-row: 2; display: block; padding: 0; margin: 0; }
+html.institutional body .contact-heading { grid-column: 1; grid-row: 1; display: block; padding: 0; margin: 0; }
 html.institutional body .contact-title { margin: 0; max-width: 100%; font-size: clamp(2.5rem,3.7vw,3.75rem); line-height: 1.12; letter-spacing: -0.025em; }
 html.institutional body .contact-title span { margin: 0; color: var(--brand-blue); }
 html.institutional body .contact-cta { display: inline-flex; width: auto; height: auto; aspect-ratio: auto; min-height: 44px; gap: 2rem; border: 1px solid var(--line); border-radius: 0; padding: 0.7rem 1rem; margin-top: 1.75rem; background: transparent; color: var(--brand-navy-deep); font-size: 0.8rem; font-weight: 400; letter-spacing: 0; transform: none; transition: color 250ms,background-color 250ms,border-color 250ms; }
@@ -184,7 +184,7 @@ html.institutional body .contact-cta:hover, html.institutional body .contact-cta
 html.institutional body .contact-cta > span { position: static; transform: none; font-size: inherit; }
 html.institutional body .contact-cta > svg:not([data-contact-ring]) { position: static; width: 1rem; height: 1rem; margin: 0; transform: none; }
 html.institutional body .contact-cta [data-contact-ring] { display: none; }
-html.institutional body .contact-directory { grid-column: 2; grid-row: 2; margin: 0; }
+html.institutional body .contact-directory { grid-column: 2; grid-row: 1; margin: 0; }
 html.institutional body .contact-row { display: grid; min-height: 0; grid-template-columns: minmax(0,1fr) auto; gap: 0.5rem 1rem; border-color: var(--line); padding: 1rem 0; color: var(--brand-navy-deep); }
 html.institutional body .contact-row:hover, html.institutional body .contact-row:focus-visible { padding-inline: 0; color: var(--brand-blue); }
 html.institutional body .contact-row:hover .contact-row__label { color: var(--ink-muted); }
@@ -236,8 +236,8 @@ html.institutional body :is(.profile-introduction__title,.profile-values-page__t
   html.institutional body .custom-cursor, html.institutional body .custom-cursor-dot { display: none; }
   html.institutional body .nav-drawer__scroll { padding-inline: 1.5rem; }
   html.institutional body .profile-introduction__layout { grid-template-columns: 1fr; gap: 1.5rem; }
-  html.institutional body .profile-introduction__title { grid-column: 1; grid-row: 2; max-width: 100%; }
-  html.institutional body .profile-introduction__story { grid-column: 1; grid-row: 3; }
+  html.institutional body .profile-introduction__title { grid-column: 1; grid-row: 1; max-width: 100%; }
+  html.institutional body .profile-introduction__story { grid-column: 1; grid-row: 2; }
   html.institutional body .profile-introduction__principles { grid-template-columns: 1fr; }
   html.institutional body .profile-purpose__columns { grid-template-columns: 1fr; gap: 2.75rem; }
   html.institutional body .profile-values-page__list { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
@@ -256,9 +256,9 @@ html.institutional body :is(.profile-introduction__title,.profile-values-page__t
   html.institutional body .markets-profile__row > p { display: none; }
   html.institutional body .markets-profile__row h3 { font-size: 1.8rem; }
   html.institutional body .markets-preview__layout { grid-template-columns: 1fr; gap: 1.5rem; }
-  html.institutional body .markets-preview__image { grid-column: 1; grid-row: 2; }
-  html.institutional body .markets-preview__title { grid-column: 1; grid-row: 3; }
-  html.institutional body .markets-preview__footer { grid-column: 1; grid-row: 4; }
+  html.institutional body .markets-preview__image { grid-column: 1; grid-row: 1; }
+  html.institutional body .markets-preview__title { grid-column: 1; grid-row: 2; }
+  html.institutional body .markets-preview__footer { grid-column: 1; grid-row: 3; }
   html.institutional body .contact-section > .container-site { grid-template-columns: 1fr; gap: 1.5rem; }
   html.institutional body .contact-heading, html.institutional body .contact-directory, html.institutional body .contact-page-link { grid-column: 1; grid-row: auto; }
   html.institutional body .contact-title { font-size: 2.8rem; }

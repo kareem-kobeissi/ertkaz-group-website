@@ -34,6 +34,7 @@ type SiteCopy = {
       services: string;
       servicesOverview: string;
       clients: string;
+      partners: string;
       markets: string;
       contact: string;
     };
@@ -87,7 +88,7 @@ type SiteCopy = {
     homeLabel: string;
     navigationLabel: string;
   };
-  scaffold: Record<Exclude<SitePage, "home" | "clients">, {
+  scaffold: Record<Exclude<SitePage, "home" | "clients" | "partners">, {
     eyebrow: string;
     title: string;
     description: string;
@@ -100,6 +101,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       home: "Home",
       about: "About",
       clients: "Our Clients",
+      partners: "Our Partners",
       services: "Services",
       markets: "Markets",
       contact: "Contact",
@@ -126,6 +128,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         services: "Our Services",
         servicesOverview: "Services overview",
         clients: "Our Clients",
+        partners: "Our Partners",
         markets: "Markets",
         contact: "Contact Us",
       },
@@ -137,6 +140,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       },
       about: { title: "About — ERTKAZ GROUP", description: "About ERTKAZ GROUP." },
       clients: { title: "Our Clients — ERTKAZ GROUP", description: "Explore a selection of ERTKAZ GROUP's clients and their official websites." },
+      partners: { title: "Our Partners — ERTKAZ GROUP", description: "Organizations referenced by ERTKAZ GROUP, with links to their own websites." },
       services: { title: "Services — ERTKAZ GROUP", description: "Explore thirteen ERTKAZ GROUP advisory services." },
       markets: { title: "Markets — ERTKAZ GROUP", description: "Explore ERTKAZ GROUP's regional perspective." },
       contact: { title: "Contact — ERTKAZ GROUP", description: "Contact ERTKAZ GROUP." },
@@ -164,7 +168,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         { text: "development and expansion" },
         { text: "with thoughtful guidance.", modifier: "accent" },
       ],
-      notes: ["Thoughtful analysis", "Personal approach", "Honored commitments"],
+      notes: ["", "", ""],
       summary: "We analyze requirements, define scope and develop considered responses that support meaningful decisions and opportunities.",
     },
     services: {
@@ -215,6 +219,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       home: "الرئيسية",
       about: "من نحن",
       clients: "عملاؤنا",
+      partners: "شركاؤنا",
       services: "خدماتنا",
       markets: "أسواقنا",
       contact: "تواصل معنا",
@@ -241,6 +246,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         services: "خدماتنا",
         servicesOverview: "نظرة عامة على الخدمات",
         clients: "عملاؤنا",
+        partners: "شركاؤنا",
         markets: "الأسواق",
         contact: "تواصل معنا",
       },
@@ -249,6 +255,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       home: { title: "ERTKAZ GROUP — استراتيجية اليوم. أثر الغد.", description: "مجموعة ERTKAZ للاستشارات الإدارية والاستراتيجية." },
       about: { title: "من نحن — ERTKAZ GROUP", description: "تعرف إلى مجموعة ERTKAZ." },
       clients: { title: "عملاؤنا — ERTKAZ GROUP", description: "تعرّف إلى نخبة من عملاء مجموعة ERTKAZ واستكشف مواقعهم الرسمية." },
+      partners: { title: "شركاؤنا — ERTKAZ GROUP", description: "منظمات أشارت إليها مجموعة ERTKAZ، مع روابط إلى مواقعها الرسمية." },
       services: { title: "خدماتنا — ERTKAZ GROUP", description: "استكشف ثلاث عشرة خدمة استشارية لمجموعة ERTKAZ." },
       markets: { title: "أسواقنا — ERTKAZ GROUP", description: "استكشف منظور مجموعة ERTKAZ الإقليمي." },
       contact: { title: "تواصل معنا — ERTKAZ GROUP", description: "تواصل مع مجموعة ERTKAZ." },
@@ -276,7 +283,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
         { text: "ومراحل التطوير والتوسع" },
         { text: "بتوجيه مدروس.", modifier: "accent" },
       ],
-      notes: ["تحليل مدروس", "نهج شخصي", "الوفاء بالالتزامات"],
+      notes: ["", "", ""],
       summary: "نحلل المتطلبات ونحدد النطاق ونطور استجابات مدروسة تدعم القرارات والفرص المهمة.",
     },
     services: {

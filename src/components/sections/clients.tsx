@@ -36,9 +36,7 @@ export function Clients({ locale }: { locale: Locale }) {
             scrollTrigger: { trigger: section, start: "top 78%", once: true },
             defaults: { ease: "expo.out" },
           });
-          timeline
-            .from(split.lines, { yPercent: 105, duration: 1, stagger: 0.08 })
-            .from("[data-clients-copy]", { y: 14, autoAlpha: 0, duration: 0.75, stagger: 0.05 }, 0.12);
+          timeline.from(split.lines, { yPercent: 105, duration: 1, stagger: 0.08 });
           const logos = gsap.from("[data-client-entry]", {
             y: 22, autoAlpha: 0, duration: 0.8, stagger: 0.065, ease: "expo.out",
             scrollTrigger: { trigger: "[data-clients-list]", start: "top 88%", once: true },
@@ -59,13 +57,8 @@ export function Clients({ locale }: { locale: Locale }) {
   return (
     <section id="client-directory" ref={sectionRef} className={styles.section} aria-labelledby="clients-title">
       <Container>
-        <div className="section-meta" data-clients-copy>
-          <span>{copy.directory}</span>
-          <span>ERTKAZ GROUP</span>
-        </div>
         <div className={styles.heading}>
           <h2 id="clients-title" ref={titleRef} className={styles.title}>{copy.directory}</h2>
-          <p data-clients-copy>{copy.directoryDescription}</p>
         </div>
         <ul className={styles.list} data-clients-list aria-label={copy.title}>
           {clients.map((client) => (
@@ -78,9 +71,8 @@ export function Clients({ locale }: { locale: Locale }) {
                 aria-label={`${copy.visit} ${client.name} (${copy.newTab})`}
                 data-cursor="link"
                 data-client={client.id}
-                style={{ "--client-logo-width": `${client.displayWidth}px` } as CSSProperties}
+                style={{ "--client-logo-width": `${Math.min(client.displayWidth, client.width || client.displayWidth)}px` } as CSSProperties}
               >
-                <span className={styles.destination}>{client.profile ? copy.profileLabel : copy.websiteLabel}</span>
                 <span className={styles.visual}>
                   {client.logo ? (
                     <Image src={client.logo} alt={client.name} width={client.width} height={client.height} className={styles.logo} unoptimized />

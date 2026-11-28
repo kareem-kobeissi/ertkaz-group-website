@@ -39,7 +39,6 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
         });
         const cta = chapter.querySelector("[data-contact-cta]");
         reveal
-          .from("[data-contact-meta]", { y: 18, autoAlpha: 0, duration: 0.75 })
           .from(split.lines, { yPercent: 114, duration: 1.4, stagger: 0.12 }, 0.08)
           .from("[data-contact-row]", { y: 30, autoAlpha: 0, duration: 0.9, stagger: 0.08 }, 0.55)
           .from("[data-footer-reveal]", { y: 20, autoAlpha: 0, duration: 0.8, stagger: 0.06 }, 0.76)
@@ -77,11 +76,6 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
     <div ref={chapterRef} className="closing-chapter">
       <section id="contact" className={`contact-section${showPageLink ? "" : " contact-section--with-form"}`} aria-labelledby="contact-title">
         <Container>
-          <div className="section-meta section-meta--light" data-contact-meta>
-            <span>{copy.meta[0]}</span>
-            <span>{copy.meta[1]}</span>
-          </div>
-
           <div className="contact-heading">
             <h2 id="contact-title" ref={titleRef} className="contact-title">
               {copy.titleLines[0]}
@@ -101,11 +95,6 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
               <span dir="ltr">{companyContact.emails.general.label}</span>
               <ArrowUpRight aria-hidden="true" />
             </a>
-            <a className="contact-row" href={companyContact.emails.executive.href} data-contact-row data-cursor="link">
-              <span className="contact-row__label">{copy.executiveEmail}</span>
-              <span dir="ltr">{companyContact.emails.executive.label}</span>
-              <ArrowUpRight aria-hidden="true" />
-            </a>
             <a className="contact-row" href={companyContact.phones.primary.href} data-contact-row data-cursor="link">
               <span className="contact-row__label">{copy.primaryPhone}</span>
               <span dir="ltr">{companyContact.phones.primary.label}</span>
@@ -116,19 +105,19 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
               <span dir="ltr">{companyContact.phones.secondary.label}</span>
               <ArrowUpRight aria-hidden="true" />
             </a>
-            {companyContact.offices.map(office => (
+            {!showPageLink ? companyContact.offices.map(office => (
               <div className="contact-row contact-row--static" key={office.id} data-contact-row>
                 <span className="contact-row__label">{office.label[locale]}</span>
                 <span>{office.address[locale]}</span>
                 <span className="contact-row__marker" aria-hidden="true">{office.marker}</span>
                 <a className="contact-location" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.mapQuery)}`} target="_blank" rel="noopener noreferrer">{locale === "ar" ? "عرض المنطقة في خرائط Google" : "View area on Google Maps"}</a>
               </div>
-            ))}
-            <a className="contact-row" href={companyContact.website.href} data-contact-row data-cursor="link">
+            )) : null}
+            {!showPageLink ? <a className="contact-row" href={companyContact.website.href} data-contact-row data-cursor="link">
               <span className="contact-row__label">{copy.website}</span>
               <span dir="ltr">{companyContact.website.label}</span>
               <ArrowUpRight aria-hidden="true" />
-            </a>
+            </a> : null}
           </div>
 
           {!showPageLink ? <EnquiryForm locale={locale} /> : null}
@@ -136,7 +125,7 @@ export function Contact({ locale, showPageLink = false }: { locale: Locale; show
         </Container>
       </section>
 
-      <SiteFooter locale={locale} />
+      <SiteFooter locale={locale} showInvitation={false} />
     </div>
   );
 }

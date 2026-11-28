@@ -7,7 +7,6 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { ErtkazLogo } from "@/components/brand/ertkaz-logo";
 import { profileContent, type ServiceGroupKey } from "@/content/profile-content";
-import { companyContact } from "@/data/company-contact";
 import { siteCopy } from "@/content/site-copy";
 import { gsap } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
@@ -47,7 +46,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const [hash, setHash] = useState("");
   const [activePath, setActivePath] = useState(pathname);
   const [groupOverride, setGroupOverride] = useState<{ path: string; open: Record<string, boolean> } | null>(null);
-  const hasPhotographicHero = /^\/(en|ar)(\/(about|clients|markets|contact))?\/?$/.test(pathname);
+  const hasPhotographicHero = /^\/(en|ar)(?:\/(about|clients|markets|contact|partners|services)(?:\/[^/]+)?)?\/?$/.test(pathname);
   const copy = siteCopy[locale];
   const sections = copy.header.sections;
   const profile = profileContent[locale];
@@ -66,7 +65,6 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         { label: sections.companyOverview, href: `${aboutPath}#who-we-are`, sectionId: "who-we-are" },
         { label: sections.purpose, href: `${aboutPath}#purpose`, sectionId: "purpose" },
         { label: sections.philosophy, href: `${aboutPath}#philosophy`, sectionId: "philosophy" },
-        { label: sections.leadership, href: `${aboutPath}#leadership`, sectionId: "leadership" },
       ],
     },
     {
@@ -87,6 +85,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       ],
     },
     { id: "clients", kind: "link", label: sections.clients, href: localizedPath(locale, "clients") },
+    { id: "partners", kind: "link", label: sections.partners, href: localizedPath(locale, "partners") },
     { id: "markets", kind: "link", label: sections.markets, href: localizedPath(locale, "markets") },
     { id: "contact", kind: "link", label: sections.contact, href: localizedPath(locale, "contact") },
   ];
@@ -427,7 +426,6 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <span>{locale === "en" ? "AR" : "EN"}</span>
           </Link>
           <p>{copy.header.footer}</p>
-          <a className="nav-drawer__contact" href={companyContact.emails.general.href} dir="ltr">{companyContact.emails.general.label}</a>
         </div>
       </div>
     </header>

@@ -46,11 +46,6 @@ export function ProfileHighlights({ locale }: { locale: Locale }) {
   return (
     <section id="principles" ref={sectionRef} className={`profile-highlights theme-dark ${styles.section}`} aria-labelledby="profile-highlights-title">
       <Container>
-        <div className={`section-meta section-meta--light ${styles.meta}`} data-principle-reveal>
-          <span>{copy.homeHighlights.label}</span>
-          <span>ERTKAZ GROUP</span>
-        </div>
-
         <div className={styles.editorial}>
           <h2 id="profile-highlights-title" ref={titleRef} className={styles.title}>{copy.homeHighlights.title}</h2>
           <div className={styles.purpose}>
@@ -74,7 +69,6 @@ export function ProfileHighlights({ locale }: { locale: Locale }) {
         </div>
 
         <div className={styles.footer} data-principle-reveal>
-          <p data-mobile-caption>{copy.homeHighlights.note}</p>
           <EditorialLink locale={locale} href={`${localizedPath(locale, "about")}#purpose`} label={copy.interface.exploreAbout} className="editorial-link--light" />
         </div>
       </Container>

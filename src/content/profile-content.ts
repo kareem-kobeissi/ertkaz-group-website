@@ -186,7 +186,7 @@ export const profileContent: Record<Locale, ProfileContent> = {
       label: "Mission / Vision / Values",
       title: "Focused on thoughtful decisions, enduring relationships and practical value.",
       values: ["Integrity", "Excellence", "Commitment", "Results-driven"],
-      note: "Principles that guide thoughtful, practical work.",
+      note: "",
     },
     homeMarkets: {
       label: "Regional markets",
@@ -428,7 +428,7 @@ export const profileContent: Record<Locale, ProfileContent> = {
       label: "الرسالة / الرؤية / القيم",
       title: "تركيز على القرارات المدروسة والعلاقات المستدامة والقيمة العملية.",
       values: ["النزاهة", "التميّز", "الالتزام", "التركيز على النتائج"],
-      note: "مبادئ توجه عملاً مدروساً وعملياً.",
+      note: "",
     },
     homeMarkets: {
       label: "الأسواق الإقليمية",

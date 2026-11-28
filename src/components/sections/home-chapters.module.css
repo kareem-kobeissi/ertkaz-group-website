@@ -1,0 +1,82 @@
+.sectors, .network { background: var(--brand-white); color: var(--brand-navy-deep); }
+.sectors { padding-block: var(--space-chapter); }
+.sectorHead, .networkGrid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 2rem 4rem; align-items: end; }
+.sectorHead h2, .network h2, .leadership h2 {
+  max-width: none;
+  margin: 0.6rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.sectorList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 3rem; margin: 2rem 0 0; padding: 0; list-style: none; }
+.sectorList li { border-top: 1px solid var(--line); padding-block: 0.9rem; font-size: 1.05rem; line-height: 1.5; }
+
+.network { padding-bottom: var(--space-chapter); }
+.networkGrid { align-items: stretch; gap: 2rem 3rem; }
+.network h2 { margin-top: 0; }
+.partners { display: flex; flex-direction: column; padding: clamp(1.5rem,3vw,2.5rem); background: var(--brand-navy-deep); color: var(--brand-white); }
+.partners h2 { color: inherit; }
+.partners .partnerList { flex: 1; margin-top: 1.5rem; }
+.partners .partnerList a { padding-block: 1.15rem; border-color: rgb(217 238 247 / 25%); }
+.partners :global(.editorial-link) { color: white; }
+.partners .partnerList svg { color: var(--brand-cyan); }
+.networkGrid > div > figure { aspect-ratio: 16/10; min-height: 0; }
+.clientPreview a.darkClient { background: var(--brand-navy-deep); color: var(--brand-white); }
+.clientPreview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin: 1.5rem 0; padding: 0; list-style: none; background: var(--line); }
+.clientPreview a {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.75rem;
+  min-height: 8.5rem;
+  padding: 1rem;
+  background: var(--brand-white);
+  color: inherit;
+  text-align: center;
+  text-decoration: none;
+}
+.clientPreview img { width: auto; max-width: 78%; height: auto; max-height: 3.25rem; object-fit: contain; }
+.clientName { font-size: 0.8125rem; line-height: 1.4; }
+.clientPreview a:hover, .clientPreview a:focus-visible, .partnerList a:hover, .partnerList a:focus-visible { color: var(--brand-blue); }
+.clientPreview a:focus-visible, .partnerList a:focus-visible, .leadership a:focus-visible { outline: 2px solid var(--brand-cyan); outline-offset: 3px; }
+
+.partnerList { margin: 1.25rem 0; padding: 0; list-style: none; }
+.partnerList a {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--line);
+  color: inherit;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  text-decoration: none;
+}
+.partnerList li:last-child a { border-bottom: 1px solid var(--line); }
+.partnerList svg, .leadershipCopy > a svg { width: 1rem; height: 1rem; flex-shrink: 0; }
+
+.leadership { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); background: var(--brand-navy-deep); color: var(--brand-white); }
+.leadershipMedia { position: relative; min-height: 22rem; }
+.leadershipMedia img { object-fit: cover; }
+.leadershipCopy { display: flex; flex-direction: column; justify-content: center; gap: 0.75rem; padding: clamp(2rem, 5vw, 4rem); }
+.role { margin: 0; color: var(--brand-ice); }
+.leadership h2 { color: var(--brand-white); }
+.leadership a { color: var(--brand-white); }
+.leadershipCopy > a:first-of-type { width: fit-content; text-underline-offset: 0.18em; }
+.leadershipCopy > a:last-child { display: inline-flex; align-items: center; gap: 0.6rem; width: fit-content; margin-top: 0.5rem; text-decoration: none; }
+
+.sectors:lang(ar) h2, .network:lang(ar) h2, .leadership:lang(ar) h2 { letter-spacing: 0; line-height: 1.6; }
+.sectors:lang(ar) .sectorList li, .network:lang(ar) .partnerList a { line-height: 1.8; }
+
+@media (max-width: 767px) {
+  .sectorHead, .networkGrid, .leadership { grid-template-columns: minmax(0, 1fr); }
+  .sectorList { grid-template-columns: 1fr; }
+  .clientPreview { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .sectorHead h2, .network h2 { font-size: clamp(1.85rem, 8vw, 2.35rem); }
+  .leadershipMedia { min-height: 14rem; }
+  .clientPreview a { min-height: 8rem; }
+  .partners { padding: 1.5rem; }
+}

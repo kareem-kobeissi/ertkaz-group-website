@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
+import { MetricImage } from "@/components/ui/metric-image";
+import { directoryMetrics, editorialImages } from "@/data/editorial-visuals";
 
 import { Container } from "@/components/layout/container";
 import { profileContent } from "@/content/profile-content";
@@ -32,8 +33,7 @@ export function ProfileMarketsPage({ locale }: { locale: Locale }) {
           .from("[data-markets-profile-meta]", { y: 18, autoAlpha: 0, duration: 0.75 })
           .from(split.lines, { yPercent: 112, duration: 1.25, stagger: 0.09 }, 0.08)
           .from("[data-markets-profile-art]", { scale: 0.76, rotate: -12, autoAlpha: 0, duration: 1.15 }, 0.2)
-          .from("[data-market-row]", { y: 34, autoAlpha: 0, duration: 0.9, stagger: 0.065 }, 0.38)
-          .from("[data-markets-profile-note]", { y: 20, autoAlpha: 0, duration: 0.8 }, 0.55);
+          .from("[data-market-row]", { y: 34, autoAlpha: 0, duration: 0.9, stagger: 0.065 }, 0.38);
 
         const parallax = gsap.to("[data-markets-profile-art]", {
           rotate: 9,
@@ -61,8 +61,7 @@ export function ProfileMarketsPage({ locale }: { locale: Locale }) {
   return (
     <section id="markets-overview" ref={sectionRef} className="markets-profile" aria-labelledby="markets-profile-title">
       <Container className="markets-profile__layout">
-        <p className="profile-kicker profile-kicker--light" data-markets-profile-meta>{copy.label}</p>
-        <h2 id="markets-profile-title" ref={titleRef} className="markets-profile__title">{copy.title}</h2>
+        <h2 id="markets-profile-title" ref={titleRef} className="markets-profile__title">{locale === "ar" ? "الأسواق والمناطق" : "Markets & regions"}</h2>
         <p className="markets-profile__introduction" data-markets-profile-meta>{copy.introduction}</p>
 
         <div className="markets-profile__art" data-markets-profile-art aria-hidden="true">
@@ -89,11 +88,9 @@ export function ProfileMarketsPage({ locale }: { locale: Locale }) {
           ))}
         </div>
 
-        <figure className="markets-profile__visual" data-markets-profile-meta>
-          <Image src="/images/ertkaz-markets-hero-1600.webp" alt="" fill unoptimized sizes="(max-width: 767px) 100vw, 50vw" />
-          <figcaption data-mobile-caption>{copy.label}</figcaption>
-        </figure>
-        <p className="markets-profile__clarification" data-markets-profile-note>{copy.clarification}</p>
+        <div className="markets-profile__visual" data-markets-profile-meta>
+          <MetricImage image={editorialImages.trade} metric={directoryMetrics(locale).services} />
+        </div>
       </Container>
     </section>
   );

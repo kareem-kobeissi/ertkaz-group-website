@@ -1,40 +1,31 @@
-import { ArrowUp, ArrowUpRight } from "lucide-react";
+import { ArrowUp, ArrowUpLeft, ArrowUpRight } from "lucide-react";
 import { SiteLink as Link } from "@/components/ui/site-link";
 
 import { ErtkazLogo } from "@/components/brand/ertkaz-logo";
 import { Container } from "@/components/layout/container";
-import { FounderProfile } from "@/components/layout/founder-profile";
 import { siteCopy } from "@/content/site-copy";
 import { companyContact } from "@/data/company-contact";
 import { localizedPath, navigationPages, type Locale } from "@/lib/i18n/config";
 
 type SiteFooterProps = {
   locale: Locale;
+  showInvitation?: boolean;
 };
 
-export function SiteFooter({ locale }: SiteFooterProps) {
+export function SiteFooter({ locale, showInvitation = true }: SiteFooterProps) {
   const copy = siteCopy[locale];
   const currentYear = new Date().getFullYear();
+  const Arrow = locale === "ar" ? ArrowUpLeft : ArrowUpRight;
 
   return (
-    <footer className="site-footer">
+    <footer className="site-footer site-footer--refined">
       <Container className="site-footer__layout">
-        <div className="footer-invitation" data-footer-reveal>
-          <p>{copy.footer.invitation}</p>
+        {showInvitation ? <div className="footer-invitation" data-footer-reveal>
           <Link href={`${localizedPath(locale, "contact")}#enquiry-form`} data-scroll-section="enquiry-form" data-cursor="cta">
             <span>{copy.footer.invitationLink}</span>
-            <ArrowUpRight aria-hidden="true" />
+            <Arrow aria-hidden="true" />
           </Link>
-          <div className="footer-invitation__art" aria-hidden="true">
-            <svg viewBox="0 0 160 160" role="presentation">
-              <path d="M80 8 142 44v72l-62 36-62-36V44Z" />
-              <path d="m80 38 36 21v42l-36 21-36-21V59Z" />
-              <path d="m80 64 14 8v16l-14 8-14-8V72Z" />
-            </svg>
-          </div>
-        </div>
-
-        <FounderProfile locale={locale} />
+        </div> : null}
 
         <div className="footer-brand" data-footer-reveal>
           <Link
@@ -45,7 +36,6 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           >
             <ErtkazLogo className="footer-wordmark__image" />
           </Link>
-          <p data-mobile-caption>{copy.footer.description}</p>
         </div>
 
         <div className="footer-column footer-column--navigation" data-footer-reveal>
@@ -63,7 +53,6 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           <p className="footer-column__label">{copy.footer.contact}</p>
           <div className="footer-contact" dir="ltr">
             <a href={companyContact.emails.general.href} data-cursor="link">{companyContact.emails.general.label}</a>
-            <a href={companyContact.emails.executive.href} data-cursor="link">{companyContact.emails.executive.label}</a>
             <a href={companyContact.phones.primary.href} data-cursor="link">{companyContact.phones.primary.label}</a>
             <a href={companyContact.phones.secondary.href} data-cursor="link">{companyContact.phones.secondary.label}</a>
           </div>
@@ -77,7 +66,6 @@ export function SiteFooter({ locale }: SiteFooterProps) {
               <address>{office.address[locale]}</address>
             </div>
           ))}
-          <a href={companyContact.website.href} data-cursor="link" dir="ltr">{companyContact.website.label}</a>
         </div>
 
         <div className="footer-bottom" data-footer-reveal>

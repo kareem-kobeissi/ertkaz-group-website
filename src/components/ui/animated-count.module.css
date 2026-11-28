@@ -1,0 +1,6 @@
+.metric{display:grid;gap:.4rem;min-width:0;color:inherit}
+.number{display:block;min-width:2ch;font-family:"Source Serif 4 Variable",Georgia,serif;font-size:clamp(3.5rem,6vw,5rem);font-weight:400;line-height:1.02;letter-spacing:-.035em;font-variant-numeric:lining-nums tabular-nums}
+.label{display:block;max-width:28ch;font-family:var(--font-body);font-size:1rem;font-weight:450;line-height:1.6;letter-spacing:0;text-wrap:pretty}
+.metric:lang(ar) .label{line-height:1.9}
+.metric:lang(ar) .number{text-align:right}
+@media(max-width:767px){.number{font-size:3.5rem}.label{font-size:.9375rem}}

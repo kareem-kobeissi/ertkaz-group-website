@@ -1,7 +1,8 @@
 "use client";
 
 import { Fragment, useRef } from "react";
-import Image from "next/image";
+import { MetricImage } from "@/components/ui/metric-image";
+import { directoryMetrics, editorialImages } from "@/data/editorial-visuals";
 
 import { Container } from "@/components/layout/container";
 import { EditorialLink } from "@/components/ui/editorial-link";
@@ -30,7 +31,6 @@ export function MarketsPreview({ locale }: { locale: Locale }) {
           defaults: { ease: "expo.out" },
         });
         timeline
-          .from("[data-markets-preview-meta]", { y: 18, autoAlpha: 0, duration: 0.75 })
           .from(split.lines, { yPercent: 112, duration: 1.25, stagger: 0.08 }, 0.08)
           .from("[data-markets-preview-art]", { y: 20, autoAlpha: 0, duration: 0.9 }, 0.22)
           .from("[data-markets-preview-detail]", { y: 20, autoAlpha: 0, duration: 0.85, stagger: 0.07 }, 0.42);
@@ -52,12 +52,8 @@ export function MarketsPreview({ locale }: { locale: Locale }) {
   return (
     <section ref={sectionRef} className="markets-preview" aria-labelledby="markets-preview-title">
       <Container className="markets-preview__layout">
-        <div className="section-meta" data-markets-preview-meta>
-          <span>{copy.homeMarkets.label}</span>
-        </div>
-
         <div className="markets-preview__image" data-markets-preview-art>
-          <Image src="/images/ertkaz-markets-hero-1600.webp" alt="" fill unoptimized sizes="(max-width: 767px) 100vw, 50vw" />
+          <MetricImage image={editorialImages.trade} metric={directoryMetrics(locale).markets} />
         </div>
 
         <h2 id="markets-preview-title" ref={titleRef} className="markets-preview__title">
@@ -70,7 +66,6 @@ export function MarketsPreview({ locale }: { locale: Locale }) {
         </h2>
 
         <div className="markets-preview__footer" data-markets-preview-detail>
-          <p data-mobile-caption>{copy.homeMarkets.note}</p>
           <EditorialLink locale={locale} href={localizedPath(locale, "markets")} label={copy.interface.exploreMarkets} />
         </div>
       </Container>

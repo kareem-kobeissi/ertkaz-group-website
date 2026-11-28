@@ -1,11 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
+import { MetricImage } from "@/components/ui/metric-image";
+import { directoryMetrics, editorialImages } from "@/data/editorial-visuals";
 
 import { Container } from "@/components/layout/container";
 import { profileContent } from "@/content/profile-content";
-import { companyContact } from "@/data/company-contact";
 import { gsap, prepareSplitLineMasks, SplitText } from "@/lib/animations/gsap";
 import { useGsapContext } from "@/lib/animations/use-gsap-context";
 import type { Locale } from "@/lib/i18n/config";
@@ -38,9 +38,8 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
             scrollTrigger: { trigger: section, start: "top 72%", once: true },
             defaults: { ease: "expo.out" },
           });
-          timeline
-            .from(lines, { yPercent: 112, duration: 1.2, stagger: 0.08 })
-            .from(revealTargets, { y: 24, autoAlpha: 0, duration: 0.85, stagger: 0.07 }, 0.18);
+          if (lines.length) timeline.from(lines, { yPercent: 112, duration: 1.2, stagger: 0.08 });
+          if (revealTargets.length) timeline.from(revealTargets, { y: 24, autoAlpha: 0, duration: 0.85, stagger: 0.07 }, 0.18);
 
           if (introductionRings.length) {
             timeline.fromTo(
@@ -99,12 +98,8 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
     <div ref={rootRef} className="profile-about-page">
       <section id="who-we-are" className="profile-introduction" data-profile-section aria-labelledby="profile-introduction-title">
         <Container className="profile-introduction__layout">
-          <div className="profile-introduction__masthead" data-profile-reveal>
-            <p className="profile-kicker">{copy.introductionLabel}</p>
-          </div>
-
           <h2 id="profile-introduction-title" className="profile-introduction__title" data-profile-title>
-            {copy.introductionTitle}
+            {copy.introductionLabel}
           </h2>
 
           <div className="profile-introduction__story">
@@ -147,8 +142,8 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
         </Container>
       </section>
 
-      <div className="profile-about-image" aria-hidden="true">
-        <Image src="/images/ertkaz-services-hero-1600.webp" alt="" fill unoptimized sizes="100vw" />
+      <div className="profile-about-image">
+        <MetricImage image={editorialImages.architecture} metric={directoryMetrics(locale).offices} />
       </div>
 
       <section id="purpose" className="profile-purpose theme-dark" data-profile-section aria-labelledby="profile-purpose-title">
@@ -156,15 +151,13 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
           <h2 id="profile-purpose-title" className="sr-only">{copy.missionLabel} / {copy.visionLabel}</h2>
           <div className="profile-purpose__columns">
             <article className="profile-purpose__chapter">
-              <div className="profile-purpose__meta" data-profile-reveal><span>{copy.missionLabel}</span></div>
-              <h3 data-profile-title>{copy.missionTitle}</h3>
+              <h3 data-profile-title>{copy.missionLabel}</h3>
               <ol data-profile-reveal>
                 {copy.mission.map((item) => <li key={item}><p>{item}</p></li>)}
               </ol>
             </article>
             <article className="profile-purpose__chapter profile-purpose__chapter--offset">
-              <div className="profile-purpose__meta" data-profile-reveal><span>{copy.visionLabel}</span></div>
-              <h3 data-profile-title>{copy.visionTitle}</h3>
+              <h3 data-profile-title>{copy.visionLabel}</h3>
               <ol data-profile-reveal>
                 {copy.vision.map((item) => <li key={item}><p>{item}</p></li>)}
               </ol>
@@ -175,8 +168,7 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
 
       <section className="profile-values-page" data-profile-section aria-labelledby="profile-values-title">
         <Container>
-          <p className="profile-kicker" data-profile-reveal>{copy.valuesLabel}</p>
-          <h2 id="profile-values-title" className="profile-values-page__title" data-profile-title>{copy.valuesTitle}</h2>
+          <h2 id="profile-values-title" className="profile-values-page__title" data-profile-title>{copy.valuesLabel}</h2>
           <div className="profile-values-page__list">
             {copy.values.map((value) => (
               <div className="profile-values-page__item" key={value} data-profile-reveal>
@@ -187,14 +179,12 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
         </Container>
       </section>
 
-      <section className="profile-sectors" data-profile-section aria-labelledby="profile-sectors-title">
+      <section id="sectors" className="profile-sectors" data-profile-section aria-labelledby="profile-sectors-title">
         <Container>
           <div className="profile-sectors__heading">
             <div>
-              <p className="profile-kicker" data-profile-reveal>{copy.sectorsLabel}</p>
-              <h2 id="profile-sectors-title" data-profile-title>{copy.sectorsTitle}</h2>
+              <h2 id="profile-sectors-title" data-profile-reveal>{locale === "ar" ? "القطاعات" : "Sectors"}</h2>
             </div>
-            <p data-profile-reveal>{copy.sectorsIntro}</p>
           </div>
           <div className="profile-sectors__list">
             {copy.sectors.map((sector) => (
@@ -206,32 +196,6 @@ export function ProfileAboutPage({ locale }: { locale: Locale }) {
         </Container>
       </section>
 
-      <section id="leadership" className="profile-leadership" data-profile-section aria-labelledby="profile-leadership-title">
-        <Container className="profile-leadership__layout">
-          <div className="profile-leadership__meta" data-profile-reveal>
-            <span>{copy.leadershipLabel}</span>
-          </div>
-          <p className="profile-leadership__role" data-profile-reveal>{copy.leadershipRole}</p>
-          <h2 id="profile-leadership-title" className="profile-leadership__name" data-profile-title dir="ltr">
-            {copy.leadershipName}
-          </h2>
-          <div className="profile-leadership__details" data-profile-reveal>
-            <div className="profile-leadership__detail">
-              <span>{copy.leadershipContactLabel}</span>
-              <a href={companyContact.emails.executive.href} dir="ltr" data-cursor="link">
-                {companyContact.emails.executive.label}
-              </a>
-            </div>
-          </div>
-          <div className="profile-leadership__art" aria-hidden="true" data-profile-reveal>
-            <svg viewBox="0 0 300 340" role="presentation">
-              <path d="m150 12 132 76v164l-132 76-132-76V88Z" />
-              <path d="m150 73 79 46v102l-79 46-79-46V119Z" />
-              <path d="m150 136 27 16v36l-27 16-27-16v-36Z" />
-            </svg>
-          </div>
-        </Container>
-      </section>
     </div>
   );
 }
